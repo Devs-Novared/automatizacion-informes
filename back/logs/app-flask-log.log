@@ -1,0 +1,9 @@
+[17-12-2024 11:34:11] WARNING   * Debugger is active!
+[17-12-2024 11:34:11] INFO      * Debugger PIN: 622-425-833
+[17-12-2024 11:34:12] INFO     127.0.0.1 - - [17/Dec/2024 11:34:12] "OPTIONS /download-pdf HTTP/1.1" 200 -
+[17-12-2024 11:34:12] INFO     Datos recibidos: {'cliente': 'galicia', 'mes': 'diciembre', 'tecnologia': '', 'contrato': '', 'selectedMonth': 'Marzo', 'nombre_archivo': 'reporte.pdf'}
+[17-12-2024 11:34:12] INFO     cliente: galicia, Mes: Marzo
+[17-12-2024 11:34:13] INFO     Se obtuvo el token de la solicitud correctamente
+[17-12-2024 11:34:13] INFO     611F21B79D27BBDFE138B80F4660684E
+[17-12-2024 11:34:13] INFO     b'<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body><SearchRecordsByReportResponse xmlns="http://archer-tech.com/webservices/"><SearchRecordsByReportResult /></SearchRecordsByReportResponse></soap:Body></soap:Envelope>'
+[17-12-2024 11:34:13] INFO     127.0.0.1 - - [17/Dec/2024 11:34:13] "[35m[1mPOST /download-pdf HTTP/1.1[0m" 500 -

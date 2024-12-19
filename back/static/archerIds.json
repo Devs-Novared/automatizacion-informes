@@ -1,28 +1,6 @@
 {
-    "idInforme": "F7390135-DD89-47FF-95B2-2E087A00897D", 
-    "ticket": {
-        "cargaDeHorasTabla": "25706",
-        "tareasTicketTabla": "25704"
-    },
-    "cargaDeHoras": {
-        "fechaHora": "25709",
-        "hora": "25708",
-        "hora50": "26008",
-        "hora100": "26007",
-        "diaSemana": "26005",
-        "usuarioCargador": "25711",
-        "usuarioCargador2": "28456",
-        "nroTicket": "26058",
-        "nroTicketHora": "25707",
-        "levelId": "2277",
-        "shadow": "28021"
-    },
-    "tareasTicket":{
-        "cargaDeHorasTabla": "25702",
-        "tarea": {
-            "nombreDeTarea": "25698",
-            "horasDeTarea": "25702",
-            "tareaUsuarioCargador": "25711"
-        }
-    }
+    "idInformeContrato": "0D59ECCB-EB83-4F12-9CED-A4288D2E667D",
+    "idInformeHorasCargadas": "E0099235-31F3-4BD5-ADCE-5F234317D686"
+    
 }
+

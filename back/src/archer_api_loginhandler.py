@@ -25,8 +25,6 @@ def archer_login() -> Union[str, None]:
     Returns:
         Union[str, None]: String con el token o None en caso que no se haya podido obtener el mismo
     """
-    if not test_connection(URL):
-       raise ConnectionError('No se pudo establecer conexion con la API de archer, revisa la url o la conexion a la misma')
 
     instance_name = REQUESTS_DATA[0]
     username = REQUESTS_DATA[1]
@@ -40,10 +38,11 @@ def archer_login() -> Union[str, None]:
         "InstanceName": instance_name,
         "Username": username,
         "UserDomain":"",
-        "Password": password
+        "Password": 'Novared#12345'
     }
     try:
         response = req.post(f"{URL}/api/core/security/login", data=json.dumps(credentials), headers=headers, verify=False)
+
     except (OSError,KeyError,ConnectionError) as e:
         logger.error(f'Hubo un error al iniciar sesión, comprueba el nombre de usuario y la contraseña')
         logger.error(f'Detalle del error {e}')

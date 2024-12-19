@@ -1,21 +1,73 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
+
+  //useEffect(async () => { 
+    //const respuesta = await fetch("http://127.0.0.1:5000/getContratos", {  // Asegúrate de que la URL esté correcta
+      //method: "GET",
+      //headers: {
+        //"Content-Type": "application/json",
+      //}})
+
+      //lista sin repetir
+    //setListaContrato (respuesta.contrato)
+    //})
+
+  
+
+  const [listaContrato, setListaContrato] = useState([])
+  
+  const [listaCliente, setListaCliente] = useState([])
+
+  const [listaTecnologia, setListaTecnologia] = useState([])
+
   // State for basic form data
   const [formData, setFormData] = useState({
-    empresa: "",
-    mes: new Date().toLocaleString("default", { month: "long" }),
+    cliente: "",
     tecnologia: "",
     contrato: "",
+    selectedMonth: "",
   });
 
-  // State for additional filters
-  const [filters, setFilters] = useState({
-    selectedMonth: "",
-    status: "",
-    category: "",
-  });
+  useEffect(() => {
+    const respuesta = async () => {
+      try {
+        const respuesta = await fetch("http://127.0.0.1:5000/getContratos", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (respuesta.ok) {
+          const datos = await respuesta.json();
+
+          // Suponiendo que los datos tienen esta estructura:
+          // [{ contrato: 'A', cliente: 'Cliente1', tecnologia: 'Tecnologia1' }, ...]
+
+          // Procesar listas sin duplicados
+          const contratosUnicos = [...new Set(datos.map((item) => item.contrato))];
+          const clientesUnicos = [...new Set(datos.map((item) => item.cliente))];
+          const tecnologiasUnicas = [...new Set(datos.map((item) => item.tecnologia))];
+
+          // Actualizar estados
+          setListaContrato(contratosUnicos);
+          setListaCliente(clientesUnicos);
+          setListaTecnologia(tecnologiasUnicas);
+        } else {
+          console.error("Error al obtener datos:", respuesta.statusText);
+        }
+      } catch (error) {
+        console.error("Error en la solicitud:", error);
+      }
+    };
+
+    respuesta();
+  }, []);
+
+  
+
 
   // State for the file name
   const [nombre_archivo, setNombre_archivo] = useState("reporte.pdf");
@@ -29,7 +81,6 @@ function App() {
   // Handle changes in the additional filters
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
-    setFilters({ ...filters, [name]: value });
   };
 
   // Handle changes in the file name
@@ -46,7 +97,6 @@ function App() {
     e.preventDefault();
     const combinedFilters = {
       ...formData,
-      ...filters,
       nombre_archivo,
     };
     console.log("Datos y Filtros combinados:", combinedFilters);
@@ -97,34 +147,58 @@ function App() {
         <div>
           <label>
             Cliente:
-            <input
-              type="text"
+            <select
               name="cliente"
               value={formData.cliente}
-              onChange={handleChange}
-            />
+              onChange={handleFilterChange}
+            >
+              <option value="" disabled>
+                Selecciona el Cliente
+              </option>
+              {listaCliente.map((listaCliente, index) => (
+                <option key={index} value={listaCliente}>
+                  {listaCliente}
+                </option>
+              ))}
+            </select>
           </label>
         </div>
         <div>
           <label>
-            Tecnología:
-            <input
-              type="text"
+            Tecnologia:
+            <select
               name="tecnologia"
               value={formData.tecnologia}
-              onChange={handleChange}
-            />
+              onChange={handleFilterChange}
+            >
+              <option value="" disabled>
+                Selecciona una Tecnologia
+              </option>
+              {listaTecnologia.map((listaTecnologia, index) => (
+                <option key={index} value={listaTecnologia}>
+                  {listaTecnologia}
+                </option>
+              ))}
+            </select>
           </label>
         </div>
         <div>
           <label>
             Contrato:
-            <input
-              type="text"
+            <select
               name="contrato"
               value={formData.contrato}
-              onChange={handleChange}
-            />
+              onChange={handleFilterChange}
+            >
+              <option value="" disabled>
+                Selecciona el Contrato
+              </option>
+              {listaContrato.map((listaContrato, index) => (
+                <option key={index} value={listaContrato}>
+                  {listaContrato}
+                </option>
+              ))}
+            </select>
           </label>
         </div>
 
@@ -133,7 +207,7 @@ function App() {
             Mes:
             <select
               name="selectedMonth"
-              value={filters.selectedMonth}
+              value={formData.selectedMonth}
               onChange={handleFilterChange}
             >
               <option value="" disabled>

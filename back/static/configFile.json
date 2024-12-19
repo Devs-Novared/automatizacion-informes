@@ -1,9 +1,9 @@
 {
     "API" : {
-        "url" : "http://arsvarcher",
+        "url" : "https://arsvarcher",
         "instance_name" : "PROD",
         "username" : "u_servicio_api",
-        "password" : "Novared#1234"
+        "password" : "Novared#12345"
     },
     "APP_FLASK" : {
         "port" : "5000",
