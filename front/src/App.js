@@ -1,28 +1,14 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 import "./App.css";
+
 
 function App() {
 
-  //useEffect(async () => { 
-    //const respuesta = await fetch("http://127.0.0.1:5000/getContratos", {  // Asegúrate de que la URL esté correcta
-      //method: "GET",
-      //headers: {
-        //"Content-Type": "application/json",
-      //}})
-
-      //lista sin repetir
-    //setListaContrato (respuesta.contrato)
-    //})
-
-  
-
   const [listaContrato, setListaContrato] = useState([])
-  
   const [listaCliente, setListaCliente] = useState([])
-
   const [listaTecnologia, setListaTecnologia] = useState([])
 
-  // State for basic form data
   const [formData, setFormData] = useState({
     cliente: "",
     tecnologia: "",
@@ -31,39 +17,31 @@ function App() {
   });
 
   useEffect(() => {
-    const respuesta = async () => {
+    const fetchContratos = async () => {
       try {
-        const respuesta = await fetch("http://127.0.0.1:5000/getContratos", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await axios.get(
+          "http://127.0.0.1:5000/getContratos"
+        );
 
-        if (respuesta.ok) {
-          const datos = await respuesta.json();
+        if (response.status === 200) {
+          const contratos = response['data']['Result'];
 
-          // Suponiendo que los datos tienen esta estructura:
-          // [{ contrato: 'A', cliente: 'Cliente1', tecnologia: 'Tecnologia1' }, ...]
+          const contratosUnicos = [...new Set(contratos.map((item) => item.nroContrato))];
+          const clientesUnicos = [...new Set(contratos.map((item) => item.cliente))];
+          const tecnologiasUnicas = [...new Set(contratos.map((item) => item.tecnologia))];
 
-          // Procesar listas sin duplicados
-          const contratosUnicos = [...new Set(datos.map((item) => item.contrato))];
-          const clientesUnicos = [...new Set(datos.map((item) => item.cliente))];
-          const tecnologiasUnicas = [...new Set(datos.map((item) => item.tecnologia))];
-
-          // Actualizar estados
           setListaContrato(contratosUnicos);
           setListaCliente(clientesUnicos);
           setListaTecnologia(tecnologiasUnicas);
         } else {
-          console.error("Error al obtener datos:", respuesta.statusText);
+          console.error("Error al obtener datos:", response.statusText);
         }
       } catch (error) {
         console.error("Error en la solicitud:", error);
       }
     };
 
-    respuesta();
+    fetchContratos();
   }, []);
 
   // State for the file name
@@ -75,10 +53,14 @@ function App() {
     setFormData({ ...formData, [name]: value });
   };
 
-  // Handle changes in the additional filters
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
+  
 
   // Handle changes in the file name
   const handleFileNameChange = (e) => {
@@ -219,7 +201,6 @@ function App() {
           </label>
         </div>
 
-        {/* File name */}
         <div>
           <label>
             Nombre del archivo:

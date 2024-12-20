@@ -1,9 +1,6 @@
 from flask import Flask,request, jsonify, send_file, Response
 from flask_cors import CORS
 import requests
-import matplotlib.pyplot as plt
-import io
-from fpdf import FPDF
 from xml.etree import ElementTree as ET
 import logging
 from src.archer_api_handler import archer_login
@@ -25,13 +22,11 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 CORS(app, origins=["http://localhost:3000"]) 
 
-# Endpoint para manejar la solicitud de descarga del PDF
+
 @app.route('/download-pdf', methods=['POST'])
 def download_pdf():
     # Recibir los datos del formulario desde el frontend
     data = request.get_json()
-
-    app.logger.info(f"Datos recibidos: {data}")
 
     cliente = data.get('cliente')
     if not cliente:
@@ -42,8 +37,6 @@ def download_pdf():
     if not mes:
         return jsonify ({"error": "El mes es obligatorio (selectedMonth o mes)"}), 400
 
-    app.logger.info(f"cliente: {cliente}, Mes: {mes}")
-
     tecnologia = data.get('tecnologia')
     contrato = data.get('contrato')
     nombre_archivo = data.get('nombre_archivo')
@@ -52,7 +45,6 @@ def download_pdf():
     token = archer_login()  # El token que usas para la autenticación en la API
     id_report = "E0099235-31F3-4BD5-ADCE-5F234317D686"  # El ID o GUID del reporte
 
-    logger.info(token)
     # Parámetros adicionales de la solicitud
     aux_page = 1  # Página por defecto, esto lo puedes ajustar según tus necesidades
 
@@ -73,12 +65,9 @@ def download_pdf():
                     </soap:Body>
                 </soap:Envelope>"""
                 
-    
     try:
-
         response = requests.post(f"{URL}/ws/search.asmx", verify=False, headers=headers, data=body)
         print(response)
-        logger.info(response.content)
     except (ConnectionError) as e:
         logger.error(f'Ocurrio un error a la hora de hacer la busqueda del reporte de archer. Pagina actual: {aux_page}')
         logger.error(f'Detalle del error: {e}')
@@ -92,7 +81,6 @@ def download_pdf():
             tree = ET.fromstring(response.content)
             tags_from = tree.find('.//{http://archer-tech.com/webservices/}SearchRecordsByReportResult').text
             tags_from = tags_from.replace('<?xml version="1.0" encoding="utf-16"?>', '<?xml version="1.0" encoding="utf-8"?>').encode('utf-8', errors='ignore')
-            logger.info(tags_from)
             tree = ET.fromstring(tags_from)
             records = tree.findall('Record')
             if not records or records is None:
@@ -110,26 +98,22 @@ def download_pdf():
     else:
         logger.error('Ocurrio un error. No se obtuvo un response valido de la API de archer. Revisar y validar los datos del response')
         return None
-    
-
-
-API_URL = "http://archer-tech.com/webservices/"  # Cambia esta URL por la de la API externa
 
 @app.route('/getContratos', methods=['GET'])
 def get_contratos():
     try:
-        getAllContratos()
+        contratos = getAllContratos()
+        logger.info(contratos)
         return Response(
             response=json.dumps({
                 "Status": 'Success',
-                "Result": None
-            }), status=400, mimetype="application/json")
+                "Result": contratos
+            }), status=200, mimetype="application/json")
     except Exception as e:
-        return jsonify({"error": f"Error en el servidor: {str(e)}"}), 500
-
-
+        return Response(
+            response=json.dumps({
+                "Status": 'ERROR'
+            }), status=400, mimetype="application/json")
     
-    
-
 if __name__ == '__main__':
     app.run(debug=True)

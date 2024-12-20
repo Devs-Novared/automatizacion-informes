@@ -51,7 +51,6 @@ def get_contratos_page(token: str, contratos: list = [], page: int = 1):
         try:
             tree = ET.fromstring(response.content)
             tags_from = tree.find('.//{http://archer-tech.com/webservices/}SearchRecordsByReportResult').text
-            logger.info(tags_from)
             tags_from = tags_from.replace('<?xml version="1.0" encoding="utf-16"?>', '<?xml version="1.0" encoding="utf-8"?>').encode('utf-8', errors='ignore')
             tree = ET.fromstring(tags_from)
             records = tree.findall('Record')
@@ -59,7 +58,7 @@ def get_contratos_page(token: str, contratos: list = [], page: int = 1):
                 return contratos
             else:
                 for record in records:
-                    add_new_contrato(token, record, contratos)
+                    add_new_contrato(record, contratos)
                 aux_page += 1
                 get_contratos_page(token, contratos, aux_page)
         except (OSError,TypeError,ValueError) as e:
@@ -72,38 +71,28 @@ def get_contratos_page(token: str, contratos: list = [], page: int = 1):
         return None
     return contratos
     
-def add_new_contrato( token: str, record: Element, contratos: list = []):
+def add_new_contrato(record: Element, contratos: list = []):
     """Agrega un nuevo contrato al listado global para la carga. En caso que falle ese contrato NO
     se cargara en el listado de contratos"""
-    contrato = get_contrato_from_page(token, record)
+    contrato = get_contrato_from_page(record)
     try:
-        if contratos is not None: 
+        if contrato is not None: 
            contratos.append(contrato)
     except (OSError,ValueError) as e:
         logger.error('No se pudo agregar el contrato')
         logger.error(f'Detalle del error: {e}')
         logger.error(f'Detalle del traceback: {tr.format_exc()}')
     
-def get_contrato_from_page(token: str, record: Element) -> Union[dict, None]:
-    # Obtener los datos
+def get_contrato_from_page(record: Element) -> Union[dict, None]:
+
     nroContrato = record.find('./Field[@id="15151"]').text.strip()
-    print(nroContrato)
     cliente = record.find('./Field[@id="15132"]/Reference').text.strip()
-    print(cliente)
     fechaInicio = record.find('./Field[@id="15140"]').text.strip()
-    print(fechaInicio)
     fechaFin = record.find('./Field[@id="15141"]').text.strip()
-    print(fechaInicio)
     tecnologia = record.find('./Field[@id="26996"]/ListValues/ListValue').text.strip()
-    print(tecnologia)
     estadoContrato = record.find('./Field[@id="16921"]/ListValues/ListValue').text.strip()
-    print(estadoContrato)
     modulo = record.get("moduleId")
-    print(modulo)
 
-
-
-# Crear el objeto Contrato
     contrato = {
         "nroContrato": nroContrato,
         "cliente": cliente,
@@ -113,7 +102,6 @@ def get_contrato_from_page(token: str, record: Element) -> Union[dict, None]:
         "estadoContrato": estadoContrato,
         "modulo": modulo
     }
-    
 
     return contrato
 
