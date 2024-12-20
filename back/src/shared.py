@@ -1,7 +1,7 @@
 from src.utils import load_JSON_data
 
-JSON_DATA = load_JSON_data(r'C:\Users\mbegani\OneDrive - NOVARED CHILE S.A\Documentos\Dev\Proyectos\script-informes\back\static\configFile.json')
-ARCHER_IDS = load_JSON_data(r'C:\Users\mbegani\OneDrive - NOVARED CHILE S.A\Documentos\Dev\Proyectos\script-informes\back\static\archerIds.json')
+JSON_DATA = load_JSON_data(r'C:\Users\mbegani\OneDrive - NOVARED CHILE S.A\Documentos\Dev\Proyectos\automatizacion-Informes\back\static\configFile.json')
+ARCHER_IDS = load_JSON_data(r'C:\Users\mbegani\OneDrive - NOVARED CHILE S.A\Documentos\Dev\Proyectos\automatizacion-Informes\back\static\archerIds.json')
 
 URL = JSON_DATA['API']['url']
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
@@ -65,9 +65,6 @@ function App() {
 
     respuesta();
   }, []);
-
-  
-
 
   // State for the file name
   const [nombre_archivo, setNombre_archivo] = useState("reporte.pdf");

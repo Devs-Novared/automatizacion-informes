@@ -1,4 +1,4 @@
-from flask import Flask,request, jsonify, send_file
+from flask import Flask,request, jsonify, send_file, Response
 from flask_cors import CORS
 import requests
 import matplotlib.pyplot as plt
@@ -6,8 +6,10 @@ import io
 from fpdf import FPDF
 from xml.etree import ElementTree as ET
 import logging
-from src.archer_api_loginhandler import archer_login
+from src.archer_api_handler import archer_login
+import json
 
+from src.contratos_handler import getAllContratos
 from src.shared import URL
 
 logging.basicConfig(
@@ -104,45 +106,30 @@ def download_pdf():
         except (OSError,TypeError,ValueError) as e:
             logger.error('Ocurrio un error en el arbol XML del informe de archer. Revisar los tickets del informe')
             logger.error(f'Detalle del error: {e}')
-            logger.error(f'Detalle del traceback: {tr.format_exc()}')
             return None
     else:
         logger.error('Ocurrio un error. No se obtuvo un response valido de la API de archer. Revisar y validar los datos del response')
         return None
     
 
-    # Procesa los datos de la API para crear el gráfico
-    x_data = [item['campo_x'] for item in data_from_api]
-    y_data = [item['campo_y'] for item in data_from_api]
 
+API_URL = "http://archer-tech.com/webservices/"  # Cambia esta URL por la de la API externa
 
-    # Guardar el gráfico en un buffer de memoria
-    img_stream = io.BytesIO()
-    plt.savefig(img_stream, format='PNG')
-    img_stream.seek(0)
-    plt.close(fig)
+@app.route('/getContratos', methods=['GET'])
+def get_contratos():
+    try:
+        getAllContratos()
+        return Response(
+            response=json.dumps({
+                "Status": 'Success',
+                "Result": None
+            }), status=400, mimetype="application/json")
+    except Exception as e:
+        return jsonify({"error": f"Error en el servidor: {str(e)}"}), 500
 
-    # Crear el PDF usando FPDF
-    pdf = FPDF()
-    pdf.add_page()
-
-    # Establecer título en el PDF
-    pdf.set_font("Arial", size=12)
-    pdf.cell(200, 10, txt=f"Informe para {cliente} - {mes}", ln=True, align='C')
-    pdf.ln(10)  # Espacio entre el título y la imagen
 
     
-    # Guardar el archivo PDF en un buffer
-    pdf_output = io.BytesIO()
-    pdf.output(pdf_output)
-    pdf_output.seek(0)
-
-    # Enviar el archivo PDF como respuesta
-    return send_file(pdf_output,
-                    as_attachment=True,
-                    download_name=nombre_archivo,
-                    mimetype='application/pdf')
-
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
