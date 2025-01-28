@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
-
+import Pdf from "./pages/Pdf";
+import Formulario from "./pages/Formulario";
 
 function App() {
-
-  const [listaContrato, setListaContrato] = useState([])
-  const [listaCliente, setListaCliente] = useState([])
-  const [listaTecnologia, setListaTecnologia] = useState([])
+  const [listaContrato, setListaContrato] = useState([]);
+  const [listaCliente, setListaCliente] = useState([]);
+  const [listaTecnologia, setListaTecnologia] = useState([]);
+  const [listaContentIdContrato, setListaContentIdContrato] = useState([]);
 
   const [formData, setFormData] = useState({
     cliente: "",
@@ -16,15 +17,19 @@ function App() {
     selectedMonth: "",
   });
 
+  const [nombre_archivo, setNombre_archivo] = useState("reporte.pdf");
+
+  const [imageHoras, setImageHoras] = useState(""); // Estado para la imagen de horas
+  const [imageTickets, setImageTickets] = useState(""); // Estado para la imagen de tickets
+  const [contratosInfo, setContratosInfo] = useState(""); 
+
   useEffect(() => {
     const fetchContratos = async () => {
       try {
-        const response = await axios.get(
-          "http://127.0.0.1:5000/getContratos"
-        );
+        const response = await axios.get("http://127.0.0.1:5000/getContratos");
 
         if (response.status === 200) {
-          const contratos = response['data']['Result'];
+          const contratos = response["data"]["Result"];
 
           const contratosUnicos = [...new Set(contratos.map((item) => item.nroContrato))];
           const clientesUnicos = [...new Set(contratos.map((item) => item.cliente))];
@@ -33,6 +38,18 @@ function App() {
           setListaContrato(contratosUnicos);
           setListaCliente(clientesUnicos);
           setListaTecnologia(tecnologiasUnicas);
+
+          const listaAuxiliar = [];
+
+          for (let data of contratos) {
+            const dupla = {
+              contrato: data.nroContrato,
+              contentId: data.contentId,
+            };
+
+            listaAuxiliar.push(dupla);
+          }
+          setListaContentIdContrato(listaAuxiliar);
         } else {
           console.error("Error al obtener datos:", response.statusText);
         }
@@ -44,15 +61,6 @@ function App() {
     fetchContratos();
   }, []);
 
-  // State for the file name
-  const [nombre_archivo, setNombre_archivo] = useState("reporte.pdf");
-
-  // Handle changes in the main form data
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
@@ -60,9 +68,7 @@ function App() {
       [name]: value,
     }));
   };
-  
 
-  // Handle changes in the file name
   const handleFileNameChange = (e) => {
     let fileName = e.target.value;
     if (!fileName.endsWith(".pdf")) {
@@ -71,37 +77,47 @@ function App() {
     setNombre_archivo(fileName);
   };
 
-  // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const combinedFilters = {
-      ...formData,
-      nombre_archivo,
-    };
-    console.log("Datos y Filtros combinados:", combinedFilters);
 
-    // Call backend to generate and download the PDF
-    fetch("http://127.0.0.1:5000/download-pdf", {  // Asegúrate de que la URL esté correcta
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(combinedFilters),
-    })
-      .then((response) => response.blob())
-      .then((blob) => {
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = nombre_archivo;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-      })
-      .catch((error) => console.error("Error al descargar el PDF:", error));
+    const clienteSeleccionado = formData.cliente;
+    const tecnologiaSeleccionada = formData.tecnologia;
+    const contratoSeleccionado = formData.contrato;
+    const mesSeleccionado = formData.selectedMonth;
+    let contentIdSeleccionado;
+
+    for (let dupla of listaContentIdContrato) {
+      if (dupla.contrato === contratoSeleccionado) {
+        contentIdSeleccionado = dupla.contentId;
+      }
+    }
+
+    const datosAEnviar = {
+      cliente: clienteSeleccionado,
+      tecnologia: tecnologiaSeleccionada,
+      contrato: contratoSeleccionado,
+      selectedMonth: mesSeleccionado,
+      contentId: contentIdSeleccionado,
+    };
+
+    try {
+      // Enviar datos al endpoint /selected-data
+      await axios.post("http://127.0.0.1:5000/selected-data", datosAEnviar);
+
+      // Solicitar las imágenes al endpoint /informe
+      const response = await axios.post("http://127.0.0.1:5000/informe", datosAEnviar);
+
+      if (response.status === 200) {
+        setContratosInfo(response.data.contratosInfo);
+        console.log(contratosInfo)
+        setImageHoras(response.data.image_horas); // Guardar imagen de horas en base64
+        setImageTickets(response.data.image_tickets); // Guardar imagen de tickets en base64
+      }
+    } catch (error) {
+      console.error("Error al generar el informe:", error);
+    }
   };
 
-  // List of months
   const months = [
     "Enero",
     "Febrero",
@@ -118,104 +134,39 @@ function App() {
   ];
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Datos para Informe</h1>
+    <>
+      <div style={{ padding: "20px" }}>
+        <h1>Datos para Informe</h1>
 
-      <form onSubmit={handleSubmit}>
-        {/* Main form fields */}
-        <div>
-          <label>
-            Cliente:
-            <select
-              name="cliente"
-              value={formData.cliente}
-              onChange={handleFilterChange}
-            >
-              <option value="" disabled>
-                Selecciona el Cliente
-              </option>
-              {listaCliente.map((listaCliente, index) => (
-                <option key={index} value={listaCliente}>
-                  {listaCliente}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-        <div>
-          <label>
-            Tecnologia:
-            <select
-              name="tecnologia"
-              value={formData.tecnologia}
-              onChange={handleFilterChange}
-            >
-              <option value="" disabled>
-                Selecciona una Tecnologia
-              </option>
-              {listaTecnologia.map((listaTecnologia, index) => (
-                <option key={index} value={listaTecnologia}>
-                  {listaTecnologia}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-        <div>
-          <label>
-            Contrato:
-            <select
-              name="contrato"
-              value={formData.contrato}
-              onChange={handleFilterChange}
-            >
-              <option value="" disabled>
-                Selecciona el Contrato
-              </option>
-              {listaContrato.map((listaContrato, index) => (
-                <option key={index} value={listaContrato}>
-                  {listaContrato}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
+        <Formulario
+          formData={formData}
+          handleFilterChange={handleFilterChange}
+          listaCliente={listaCliente}
+          listaTecnologia={listaTecnologia}
+          listaContrato={listaContrato}
+          months={months}
+          nombre_archivo={nombre_archivo}
+          handleFileNameChange={handleFileNameChange}
+        />
 
-        <div>
-          <label>
-            Mes:
-            <select
-              name="selectedMonth"
-              value={formData.selectedMonth}
-              onChange={handleFilterChange}
-            >
-              <option value="" disabled>
-                Selecciona un mes
-              </option>
-              {months.map((month, index) => (
-                <option key={index} value={month}>
-                  {month}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
+        <button type="submit" onClick={handleSubmit}>
+          Generar Informe
+        </button>
+      </div>
 
-        <div>
-          <label>
-            Nombre del archivo:
-            <input
-              type="text"
-              value={nombre_archivo}
-              onChange={handleFileNameChange}
-              required
-            />
-          </label>
-        </div>
-
-        <button type="submit">Generar Informe</button>
-      </form>
-    </div>
+      {/* Renderizar el componente Pdf con los datos del formulario y las imágenes */}
+      {formData.cliente &&
+        formData.tecnologia &&
+        formData.contrato &&
+        formData.selectedMonth && (
+          <Pdf
+            contratosInfo={contratosInfo}
+            formData={formData}
+            imageHoras={imageHoras}
+            imageTickets={imageTickets}
+          />
+        )}
+    </>
   );
 }
 

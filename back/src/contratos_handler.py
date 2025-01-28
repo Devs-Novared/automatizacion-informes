@@ -4,13 +4,38 @@ import traceback as tr
 import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import Element 
 from typing import Union
+from datetime import datetime
+from collections import defaultdict
 
 from src.shared import ARCHER_IDS, URL
-from src.archer_api_handler import archer_login, get_all_tree_sub_elements, get_tree_element
+from src.archer_api_handler import archer_login, get_all_tree_sub_elements, get_tree_element, get_data_of_content_id
+from src.graficos_handler import grafico_linea_HorasConsumidas, grafico_linea_TicketsConsumidos
 
 logger = logging.getLogger(__name__)
 
 report_table_id = ARCHER_IDS['idInformeContrato']
+
+cantidadHSSoporte_id = ARCHER_IDS['idsGraficos']['CantidadHSSoporte']
+HHSSExtras_id = ARCHER_IDS['idsGraficos']['HHSSExtras']
+cantidadHSConsultoria_id = ARCHER_IDS['idsGraficos']['CantidadHSConsultoria']
+HHSSTotales_id = ARCHER_IDS['idsGraficos']['HHSSTotales']
+detalleCargaHoras_id = ARCHER_IDS['idsGraficos']['detalleCargaHoras']
+tecnologia_id = ARCHER_IDS['idsGraficos']['Tecnologia']
+TicketsAsociados_id = ARCHER_IDS['idsGraficos']['TicketsAsociados']
+cargaHorasNormales_id = ARCHER_IDS['idsGraficos']['cargaHorasNormales']
+FechaCargaHora_id = ARCHER_IDS['idsGraficos']['FechaCargaHora']
+shadow_id = ARCHER_IDS['idsGraficos']['shadow']
+
+FechaCreacionTicket_id = ARCHER_IDS['idsGraficos']['FechaCreacionTicket']
+CreadorTicket_id = ARCHER_IDS['idsGraficos']['CreadorTicket']
+PropietarioTicket_id = ARCHER_IDS['idsGraficos']['PropietarioTicket']
+FechaCierreTicket_id = ARCHER_IDS['idsGraficos']['FechaCierreTicket']
+TipoTicket_id = ARCHER_IDS['idsGraficos']['TipoTicket']
+TecnologiaTicket_id = ARCHER_IDS['idsGraficos']['TecnologiaTicket']
+HorasConsumidasTicket_id = ARCHER_IDS['idsGraficos']['HorasConsumidasTicket']
+EstadoTicket_id = ARCHER_IDS['idsGraficos']['EstadoTicket']
+
+
 
 def getAllContratos ():
     token = archer_login()
@@ -52,6 +77,7 @@ def get_contratos_page(token: str, contratos: list = [], page: int = 1):
             tree = ET.fromstring(response.content)
             tags_from = tree.find('.//{http://archer-tech.com/webservices/}SearchRecordsByReportResult').text
             tags_from = tags_from.replace('<?xml version="1.0" encoding="utf-16"?>', '<?xml version="1.0" encoding="utf-8"?>').encode('utf-8', errors='ignore')
+            #logger.info(tags_from)
             tree = ET.fromstring(tags_from)
             records = tree.findall('Record')
             if not records or records is None:
@@ -85,13 +111,24 @@ def add_new_contrato(record: Element, contratos: list = []):
     
 def get_contrato_from_page(record: Element) -> Union[dict, None]:
 
+    #logger.info("llegue")
     nroContrato = record.find('./Field[@id="15151"]').text.strip()
     cliente = record.find('./Field[@id="15132"]/Reference').text.strip()
     fechaInicio = record.find('./Field[@id="15140"]').text.strip()
     fechaFin = record.find('./Field[@id="15141"]').text.strip()
-    tecnologia = record.find('./Field[@id="26996"]/ListValues/ListValue').text.strip()
+    tecnologia = record.find('./Field[@id="27430"]/ListValues/ListValue').text.strip()
     estadoContrato = record.find('./Field[@id="16921"]/ListValues/ListValue').text.strip()
     modulo = record.get("moduleId")
+    contentId = record.get("contentId")
+    soporteCorrectivo = None
+    try:
+        soporteCorrectivo = record.find('./Field[@id="27005"]/ListValues/ListValue').text.strip()
+    except Exception as e:
+        pass
+    #logger.info(soporteCorrectivo)
+    
+    #horasSoporte = record.find('./Field[@id="28013"]')
+    #logger.info(horasSoporte)
 
     contrato = {
         "nroContrato": nroContrato,
@@ -100,8 +137,128 @@ def get_contrato_from_page(record: Element) -> Union[dict, None]:
         "fechaFin": fechaFin,
         "tecnologia": tecnologia,
         "estadoContrato": estadoContrato,
-        "modulo": modulo
+        "modulo": modulo,
+        "contentId": contentId,
+        "soporteCorrectivo": soporteCorrectivo,
+        #"horasSoporte": horasSoporte,
     }
 
+    #logger.info(contrato)
     return contrato
 
+
+
+def crear_informe(data):
+
+    contentId = data["contentId"]
+
+    token = archer_login()
+
+    response = get_data_of_content_id(contentId, token)
+
+    cantidadHSSoporte = response[cantidadHSSoporte_id]["Value"]
+    #logger.info(cantidadHSSoporte)
+    HHSSExtras = response[HHSSExtras_id]["Value"]
+    #logger.info(HHSSExtras)
+    cantidadHSConsultoria = response[cantidadHSConsultoria_id]["Value"]
+    #logger.info(cantidadHSConsultoria)
+    HHSSTotales = response[HHSSTotales_id]["Value"]
+    #logger.info(HHSSTotales)
+    tecnologia = response[tecnologia_id]["Value"]
+    #logger.info(tecnologia)
+    
+    detalleCargaHoras = response[detalleCargaHoras_id]["Value"]
+    #logger.info(detalleCargaHoras)
+    cargaHoras = []
+    valores_mensuales = defaultdict(int)
+
+    for contentIdHoras in detalleCargaHoras:
+        infoHoras = get_data_of_content_id(contentIdHoras["ContentId"], token)
+        cargaHorasNormales = infoHoras[cargaHorasNormales_id]["Value"]
+        FechaCargaHora = infoHoras[FechaCargaHora_id]["Value"]
+        shadow = infoHoras[shadow_id]["Value"]
+        if (shadow != None):
+            shadow = True
+        else:
+            shadow = False
+ 
+
+        if FechaCargaHora:
+            fecha_objeto = datetime.fromisoformat(FechaCargaHora)
+            FechaCargaHora = fecha_objeto.strftime('%d/%m/%Y')
+        
+        # Extraer el mes y el año para agrupar
+            mes_anio = fecha_objeto.strftime('%Y-%m')  # Formato: "YYYY-MM"
+            valores_mensuales[mes_anio] += cargaHorasNormales 
+        
+        #logger.info(infoHoras)
+        #logger.info(cargaHorasNormales)
+        #logger.info(FechaCargaHora)
+        #logger.info(shadow)
+        jsonHoras = {
+            "cargaHorasNormales": cargaHorasNormales,
+            "FechaCargaHora": FechaCargaHora, 
+            "shadow": shadow,
+        }
+        cargaHoras.append(jsonHoras)
+    #logger.info(cargaHoras)
+    #logger.info("Valores agrupados por mes:")
+    #for mes, suma in valores_mensuales.items():
+       #logger.info(f"{mes}: {suma}")
+
+
+    resultado_mensual = [{"mes": mes, "totalHorasMensual":totalHorasMensual} for mes, totalHorasMensual in valores_mensuales.items()]
+    #logger.info(resultado_mensual)
+
+
+    TicketsAsociados = response[TicketsAsociados_id]["Value"]
+
+    tickets_por_mes = defaultdict(int)
+
+    tickets = []
+
+    contadorTickets = 0
+
+    for contentIdTickets in TicketsAsociados:
+        infoTickets = get_data_of_content_id(contentIdTickets, token)
+        FechaCreacionTicket = infoTickets[FechaCreacionTicket_id]["Value"]
+        CreadorTicket = infoTickets[CreadorTicket_id]["Value"]
+        PropietarioTicket = infoTickets[PropietarioTicket_id]["Value"]
+        FechaCierreTicket = infoTickets[FechaCierreTicket_id]["Value"]
+        TipoTicket = infoTickets[TipoTicket_id]["Value"]
+        TecnologiaTicket = infoTickets[TecnologiaTicket_id]["Value"]
+        HorasConsumidasTicket = infoTickets[HorasConsumidasTicket_id]["Value"]
+        EstadoTicket = infoTickets[EstadoTicket_id]["Value"]
+
+        if FechaCreacionTicket:
+            fecha_objeto = datetime.fromisoformat(FechaCreacionTicket)
+            FechaCreacionTicket = fecha_objeto.strftime('%Y-%m')
+            tickets_por_mes[FechaCreacionTicket] += 1
+        
+        #logger.info(infoTickets)
+        #logger.info(FechaCreacionTicket)
+        jsonTickets = {
+            "FechaCreacionTicket": FechaCreacionTicket,
+            "TotalTicketsMensual": tickets_por_mes[FechaCreacionTicket],
+            "CreadorTicket": CreadorTicket,
+            "PropietarioTicket": PropietarioTicket,
+            "FechaCierreTicket": FechaCierreTicket,
+            "TipoTicket": TipoTicket,
+            "TecnologiaTicket": TecnologiaTicket,
+            "HorasConsumidasTicket": HorasConsumidasTicket,
+            "EstadoTicket": EstadoTicket,
+            
+        }
+        tickets.append(jsonTickets)
+        #logger.info(jsonTickets)
+    #logger.info(TicketsAsociados)
+    #for mes, total in tickets_por_mes.items():
+        #logger.info(f"Total de tickets en {mes}: {total}")
+
+    resultado_mensual_tickets = [{"mes": mes, "totalTicketsMensual": total} for mes, total in tickets_por_mes.items()]
+
+    #grafico_linea_HorasConsumidas(resultado_mensual)
+
+    #grafico_linea_TicketsConsumidos(resultado_mensual_tickets)
+
+    return resultado_mensual, resultado_mensual_tickets

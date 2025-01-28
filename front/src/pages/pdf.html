@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe Estado del Servicio</title>
+    <link rel="stylesheet" href="./styles/pdf.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Informe Estado del Servicio</h1>
+            <h2 id="mes" data-year=""></h2>
+        </header>
+
+        <section class="logos">
+            <img src="logo1.png" alt="cyberark-logo">
+            <img src="logo2.png" alt="cliente-logo">
+            <img src="./images/novared-logo.png" alt="novared-logo">
+        </section>
+
+        <section>
+            <h2 class="titulo-central">Nuestro Objetivo</h2>
+            <p class="texto-central">Ofrecer a {Cliente} un servicio de soporte correctivo y evolutivo sobre la plataforma
+                CyberArk</p>
+            <div class="parrafos">
+                <h3>Soporte Correctivo</h3>
+                <hr color= #004987>
+                <p>El servicio contempla la atención, seguimiento y resolución de incidentes o problemas generados ante fallas 
+                    en el funcionamiento de la plataforma, cuando la misma no opere conforme a las especificaciones del fabricante.</p>
+                <h3>Soporte Evolutivo</h3>
+                <hr color= #004987>
+                <p>El alcance del servicio de consultoria consiste en brindar asesoramiento o implementa funcionalidades o 
+                    configuraciones que mejoren el uso de los productos que se incluyen en el soporte brindado por Novared</p>
+            </div>
+        </section>
+
+        <section class="informacion-adicional">
+            <div>
+                <h3>Soporte Correctivo</h3>
+                <hr color= #004987>
+                <p>Texto</p>
+            </div>
+            <div>
+                <h3>Soporte Evolutivo</h3>
+                <hr color= #004987>
+                <p>Texto</p>
+            </div>
+            <div>
+                <h3>Vigencia</h3>
+                <hr color= #004987>
+                <p>Texto</p>
+            </div>
+        </section>
+
+        <div class="footer-logo">
+            <img src="" alt="logo-novared-pie">
+        </div>
+
+        <footer>
+           
+        </footer>
+    </div>
+
+
+    <script>
+        const fecha = new Date();
+        const mesElement = document.getElementById('mes');
+        const year = fecha.getFullYear();
+        mesElement.textContent = `Fecha: ${fecha.toLocaleString('es-ES', { month: 'long' })} - ${year}`;
+        document.getElementById('anio').textContent = year;
+    </script>
+
+</body>
+</html>
+
+
+/*
+
+    
+<section className="logos">
+  <img src="logo1.png" alt="cyberark-logo" />
+  <img src="logo2.png" alt="cliente-logo" />
+  <img src="./images/novared-logo.png" alt="novared-logo" />
+</section>
+

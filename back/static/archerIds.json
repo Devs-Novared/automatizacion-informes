@@ -1,5 +1,31 @@
 {
     "idInformeContrato": "0D59ECCB-EB83-4F12-9CED-A4288D2E667D",
-    "idInformeHorasCargadas": "E0099235-31F3-4BD5-ADCE-5F234317D686"
+    "idInformeHorasCargadas": "E0099235-31F3-4BD5-ADCE-5F234317D686",
+        
+    "idsGraficos":    
+        {
+            "CantidadHSSoporte": "27422",
+            "HHSSExtras" : "28373",
+            "CantidadHSConsultoria" : "27424",
+            "HHSSTotales" : "28376",
+            "detalleCargaHoras" : "28367",
+            "Tecnologia" : "27430",
+            "TicketsAsociados" : "16764",
+            "cargaHorasNormales": "25708",
+            "FechaCargaHora": "25709",
+            "shadow": "28021",
+            "FechaCreacionTicket": "16720",
+            "CreadorTicket": "26988",
+            "PropietarioTicket": "23868",
+            "FechaCierreTicket": "25861",
+            "TipoTicket": "25510",
+            "TecnologiaTicket":"25777",
+            "HorasConsumidasTicket":"24275",
+            "EstadoTicket":"23852"
+        }
+
+
+
+
 }
 

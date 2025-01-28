@@ -192,37 +192,3 @@ def get_data_of_content_id(contentId: str, token: str):
         logger.error(f'Detalle del error: {e}')
         logger.error(f'Detalle del traceback: {tr.format_exc()}')
         
-def get_data_from_content_id(contentId: str, token: str):
-    """Obtencion del valor del content id de Archer.
-
-    Args:
-        contentId (str): Id de archer a buscar su contenido
-        token (str): Token de usuario de archer de la sesion
-
-    Returns:
-        Any: Campos con la informacion de ese content id
-    """
-
-    headers = {
-        "Accept": "application/json,text/html,application/xhtml+xml,application/xml;q=0.9,/;q=0.8",
-        "Authorization": f"Archer session-id={token}",
-        "Content-Type": "application/json",
-        "X-Http-Method-Override": "GET"
-    }
-    try:
-        response = req.get(f'{URL}/api/core/content/{contentId}', headers=headers, verify=False, timeout=30)
-        return(response.json())
-    except ConnectionError as e:
-        logger.error('No se recibio respuesta de archer para el indicador solicitado')
-        logger.error(f'Detalle del error: {e}')
-        logger.error(f'Detalle del traceback: {tr.format_exc()}')
-    try:
-        if not response: 
-            logger.error(f'Se obtuvo un response None de un request data of content id')
-        if response.status_code != 500:
-            return response.json()['RequestedObject']
-    except (OSError,KeyError,json.decoder.JSONDecodeError) as e:
-        logger.error(f'Ocurrio un error al accceder al valor del content id {contentId} obtenido en el response')
-        logger.error(f'Detalle del error: {e}')
-        logger.error(f'Detalle del traceback: {tr.format_exc()}')
-
