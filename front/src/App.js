@@ -21,34 +21,30 @@ function App() {
 
   const [imageHoras, setImageHoras] = useState(""); // Estado para la imagen de horas
   const [imageTickets, setImageTickets] = useState(""); // Estado para la imagen de tickets
-  const [contratosInfo, setContratosInfo] = useState(""); 
+  const [contratosSeleccionado, setContratosSeleccionado] = useState({}); 
+
+  const [isReportReady, setIsReportReady] = useState(false); 
 
   useEffect(() => {
     const fetchContratos = async () => {
       try {
         const response = await axios.get("http://127.0.0.1:5000/getContratos");
-
+  
         if (response.status === 200) {
-          const contratos = response["data"]["Result"];
-
-          const contratosUnicos = [...new Set(contratos.map((item) => item.nroContrato))];
-          const clientesUnicos = [...new Set(contratos.map((item) => item.cliente))];
-          const tecnologiasUnicas = [...new Set(contratos.map((item) => item.tecnologia))];
-
+          const contratos = response.data.Result;
+  
+          const contratosUnicos = [...new Set(contratos.map((item) => item.nroContrato.toLowerCase()))];
+          const clientesUnicos = [...new Set(contratos.map((item) => item.cliente.toLowerCase()))];
+          const tecnologiasUnicas = [...new Set(contratos.map((item) => item.tecnologia.toLowerCase()))];
+  
           setListaContrato(contratosUnicos);
           setListaCliente(clientesUnicos);
           setListaTecnologia(tecnologiasUnicas);
-
-          const listaAuxiliar = [];
-
-          for (let data of contratos) {
-            const dupla = {
-              contrato: data.nroContrato,
-              contentId: data.contentId,
-            };
-
-            listaAuxiliar.push(dupla);
-          }
+  
+          const listaAuxiliar = contratos.map(data => ({
+            contrato: data.nroContrato.toLowerCase(),
+            contentId: data.contentId
+          }));
           setListaContentIdContrato(listaAuxiliar);
         } else {
           console.error("Error al obtener datos:", response.statusText);
@@ -57,9 +53,10 @@ function App() {
         console.error("Error en la solicitud:", error);
       }
     };
-
+  
     fetchContratos();
   }, []);
+  
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
@@ -80,38 +77,33 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const clienteSeleccionado = formData.cliente;
-    const tecnologiaSeleccionada = formData.tecnologia;
-    const contratoSeleccionado = formData.contrato;
-    const mesSeleccionado = formData.selectedMonth;
-    let contentIdSeleccionado;
+    const { cliente, tecnologia, contrato, selectedMonth } = formData;
 
-    for (let dupla of listaContentIdContrato) {
-      if (dupla.contrato === contratoSeleccionado) {
-        contentIdSeleccionado = dupla.contentId;
-      }
-    }
+    let contentIdSeleccionado = listaContentIdContrato.find(
+      (dupla) => dupla.contrato === contrato
+    )?.contentId;
 
     const datosAEnviar = {
-      cliente: clienteSeleccionado,
-      tecnologia: tecnologiaSeleccionada,
-      contrato: contratoSeleccionado,
-      selectedMonth: mesSeleccionado,
+      cliente,
+      tecnologia,
+      contrato,
+      selectedMonth,
       contentId: contentIdSeleccionado,
     };
 
     try {
-      // Enviar datos al endpoint /selected-data
       await axios.post("http://127.0.0.1:5000/selected-data", datosAEnviar);
 
-      // Solicitar las imágenes al endpoint /informe
       const response = await axios.post("http://127.0.0.1:5000/informe", datosAEnviar);
-
+      
       if (response.status === 200) {
-        setContratosInfo(response.data.contratosInfo);
-        console.log(contratosInfo)
-        setImageHoras(response.data.image_horas); // Guardar imagen de horas en base64
-        setImageTickets(response.data.image_tickets); // Guardar imagen de tickets en base64
+        //console.log(response.data, "data")
+        //console.log(contratosSeleccionado, "hola")
+        setImageHoras(response.data.image_horas);
+        setImageTickets(response.data.image_tickets);
+        const datosContratos = {...response.data.contratosSeleccionado};
+        setContratosSeleccionado(datosContratos);
+        setIsReportReady(true);
       }
     } catch (error) {
       console.error("Error al generar el informe:", error);
@@ -119,18 +111,8 @@ function App() {
   };
 
   const months = [
-    "Enero",
-    "Febrero",
-    "Marzo",
-    "Abril",
-    "Mayo",
-    "Junio",
-    "Julio",
-    "Agosto",
-    "Septiembre",
-    "Octubre",
-    "Noviembre",
-    "Diciembre",
+    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
   ];
 
   return (
@@ -149,23 +131,19 @@ function App() {
           handleFileNameChange={handleFileNameChange}
         />
 
-        <button type="submit" onClick={handleSubmit}>
+          <button type="submit" onClick={handleSubmit} style={{ margin: '30px' }}>
           Generar Informe
-        </button>
+          </button>
       </div>
 
-      {/* Renderizar el componente Pdf con los datos del formulario y las imágenes */}
-      {formData.cliente &&
-        formData.tecnologia &&
-        formData.contrato &&
-        formData.selectedMonth && (
-          <Pdf
-            contratosInfo={contratosInfo}
-            formData={formData}
-            imageHoras={imageHoras}
-            imageTickets={imageTickets}
-          />
-        )}
+      {isReportReady && contratosSeleccionado && (
+        <Pdf
+          contratosSeleccionado={contratosSeleccionado}
+          formData={formData}
+          imageHoras={imageHoras}
+          imageTickets={imageTickets}
+        />
+      )}
     </>
   );
 }

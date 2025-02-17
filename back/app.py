@@ -76,24 +76,31 @@ def generar_informe():
     try:
         # Obtener datos de la solicitud
         data = request.get_json()
-
-        # Crear el informe y obtener los resultados
-        resultado_mensual, resultado_mensual_tickets = crear_informe(data)
-
-        # Crear los gráficos
-        img_bytes_horas = grafico_linea_HorasConsumidas(resultado_mensual)
-        img_bytes_tickets = grafico_linea_TicketsConsumidos(resultado_mensual_tickets)
-
-        # Convertir las imágenes en base64
-        image_horas_base64 = base64.b64encode(img_bytes_horas.read()).decode('utf-8')
-        image_tickets_base64 = base64.b64encode(img_bytes_tickets.read()).decode('utf-8')
+        logger.info(data)
 
         contratosInfo = getAllContratos()
         #logger.info(contratosInfo)
 
+        contratosSeleccionado = next((contrato for contrato in contratosInfo if contrato['contentId'] == data.get('contentId')), None)
+
+        logger.info(contratosSeleccionado)
+
+
+        resultado_mensual, resultado_mensual_tickets = crear_informe(data)
+
+
+        img_bytes_horas = grafico_linea_HorasConsumidas(resultado_mensual)
+        img_bytes_tickets = grafico_linea_TicketsConsumidos(resultado_mensual_tickets)
+
+
+        image_horas_base64 = base64.b64encode(img_bytes_horas.read()).decode('utf-8')
+        image_tickets_base64 = base64.b64encode(img_bytes_tickets.read()).decode('utf-8')
+
+        
+
         # Retornar las imágenes en formato JSON
         return jsonify({
-            "contratosInfo": contratosInfo,
+            "contratosSeleccionado": contratosSeleccionado,
             'image_horas': image_horas_base64,
             'image_tickets': image_tickets_base64,
         }), 200

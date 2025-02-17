@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./styles/pdf.css";
 
-const Pdf = ({contratosInfo, formData, imageHoras, imageTickets,}) => {
+const Pdf = ({contratosSeleccionado, formData, imageHoras, imageTickets,}) => {
   const [fechaTexto, setFechaTexto] = useState("");
   const [year, setYear] = useState("");
+  
+
+
 
   useEffect(() => {
     const fecha = new Date();
@@ -13,8 +16,8 @@ const Pdf = ({contratosInfo, formData, imageHoras, imageTickets,}) => {
     setYear(fecha.getFullYear());
   }, []);
 
-  const { cliente, tecnologia, contrato, selectedMonth } = formData;
-  const { fechaFin, soporteCorrectivo } = contratosInfo;
+  const { cliente, tecnologia, selectedMonth } = formData;
+  const { fechaFin, soporteCorrectivo, horasSoporte } = contratosSeleccionado;
 
   return (
     <div className="container">
@@ -26,20 +29,20 @@ const Pdf = ({contratosInfo, formData, imageHoras, imageTickets,}) => {
       </header>
 
       {/* Sección de logos agregada antes del primer section */}
-      <section className="logos">
+      <section className="logos" style = {{ paddingTop: '50px'}}>
         <img src="logo1.png" alt="tecnologia-logo" />
         <img src="logo2.png" alt="cliente-logo" />
         <img src="../pages/images/novaredLogo.png" alt="novared-logo" />
       </section>
 
-      <section>
+      <section style = {{ paddingTop: '50px'}}>
         <h2 className="titulo-central">Nuestro Objetivo</h2>
         <p className="texto-central">
           Ofrecer a <strong>{cliente || "Cliente no seleccionado"}</strong> un servicio de soporte
           correctivo y evolutivo sobre la plataforma{" "}
           <strong>{tecnologia || "Tecnología no seleccionada"}</strong>.
         </p>
-        <div className="parrafos">
+        <div className="parrafos" style = {{ paddingTop: '60px'}}>
           <h3>Soporte Correctivo</h3>
           <hr style={{ color: "#004987" }} />
           <p>
@@ -58,32 +61,34 @@ const Pdf = ({contratosInfo, formData, imageHoras, imageTickets,}) => {
       </section>
 
       <section className="informacion-adicional">
-        <div>
+        <div style = {{ paddingTop: '70px'}}>
           <h3>Soporte Correctivo</h3>
           <hr style={{ color: "#004987" }} />
-          <p>{contrato || "Contrato no seleccionado"}</p>
+          <strong style={{ color: "#004987" }}>{soporteCorrectivo || "Sin Dato"}</strong>
         </div>
-        <div>
+        <div style = {{ paddingTop: '70px'}}>
           <h3>Soporte Evolutivo</h3>
           <hr style={{ color: "#004987" }} />
-          <strong>{soporteCorrectivo}</strong>
+          <strong style={{ color: "#004987" }}>
+            {horasSoporte ? `${horasSoporte} hrs mensuales` : "Sin Dato"}
+          </strong>
         </div>
-        <div>
+        <div style = {{ paddingTop: '70px'}}>
           <h3>Vigencia</h3>
           <hr style={{ color: "#004987" }} />
-          <strong>{fechaFin}</strong>
+          <strong style={{ color: "#004987" }}>{fechaFin || "Sin Dato"}</strong>
         </div>
       </section>
 
       {/* Agregar los gráficos */}
       <section>
         {imageHoras && (
-          <div>
+          <div style={{ textAlign: 'center', paddingTop: '70px' }}>
             <img src={`data:image/png;base64,${imageHoras}`} alt="Horas Consumidas" />
           </div>
         )}
         {imageTickets && (
-          <div>
+          <div style={{ textAlign: 'center', paddingTop: '30px' }}>
             <img src={`data:image/png;base64,${imageTickets}`} alt="Tickets Consumidos" />
           </div>
         )}

@@ -8,7 +8,7 @@ from datetime import datetime
 from collections import defaultdict
 
 from src.shared import ARCHER_IDS, URL
-from src.archer_api_handler import archer_login, get_all_tree_sub_elements, get_tree_element, get_data_of_content_id
+from src.archer_api_handler import archer_login, get_data_of_content_id
 from src.graficos_handler import grafico_linea_HorasConsumidas, grafico_linea_TicketsConsumidos
 
 logger = logging.getLogger(__name__)
@@ -34,6 +34,20 @@ TipoTicket_id = ARCHER_IDS['idsGraficos']['TipoTicket']
 TecnologiaTicket_id = ARCHER_IDS['idsGraficos']['TecnologiaTicket']
 HorasConsumidasTicket_id = ARCHER_IDS['idsGraficos']['HorasConsumidasTicket']
 EstadoTicket_id = ARCHER_IDS['idsGraficos']['EstadoTicket']
+
+
+def mes_a_numero(mes):
+    meses = {
+        "enero": 1, "febrero": 2, "marzo": 3, "abril": 4,
+        "mayo": 5, "junio": 6, "julio": 7, "agosto": 8,
+        "septiembre": 9, "octubre": 10, "noviembre": 11, "diciembre": 12
+    }
+    return meses.get(mes.lower(), "Mes no válido")
+
+# Ejemplo de uso
+#mes_texto = "Marzo"
+#numero_mes = mes_a_numero(mes_texto)
+
 
 
 
@@ -127,7 +141,7 @@ def get_contrato_from_page(record: Element) -> Union[dict, None]:
         pass
     #logger.info(soporteCorrectivo)
     
-    #horasSoporte = record.find('./Field[@id="28013"]')
+    horasSoporte = record.find('./Field[@id="28013"]').text
     #logger.info(horasSoporte)
 
     contrato = {
@@ -140,7 +154,7 @@ def get_contrato_from_page(record: Element) -> Union[dict, None]:
         "modulo": modulo,
         "contentId": contentId,
         "soporteCorrectivo": soporteCorrectivo,
-        #"horasSoporte": horasSoporte,
+        "horasSoporte": horasSoporte,
     }
 
     #logger.info(contrato)
@@ -151,6 +165,8 @@ def get_contrato_from_page(record: Element) -> Union[dict, None]:
 def crear_informe(data):
 
     contentId = data["contentId"]
+
+    mesSeleccionado = data["mes"]
 
     token = archer_login()
 
@@ -186,10 +202,17 @@ def crear_informe(data):
         if FechaCargaHora:
             fecha_objeto = datetime.fromisoformat(FechaCargaHora)
             FechaCargaHora = fecha_objeto.strftime('%d/%m/%Y')
-        
+
+        # Convertir mes seleccionado a número cada vez (si cambia dinámicamente)
+            numero_mes = mes_a_numero(mesSeleccionado)
+
         # Extraer el mes y el año para agrupar
             mes_anio = fecha_objeto.strftime('%Y-%m')  # Formato: "YYYY-MM"
-            valores_mensuales[mes_anio] += cargaHorasNormales 
+            mes_actual = fecha_objeto.month  # Obtener el número del mes
+
+        # Sumar solo si el mes es menor o igual al mes seleccionado
+            if mes_actual <= numero_mes:
+                valores_mensuales[mes_anio] += cargaHorasNormales
         
         #logger.info(infoHoras)
         #logger.info(cargaHorasNormales)
@@ -257,8 +280,8 @@ def crear_informe(data):
 
     resultado_mensual_tickets = [{"mes": mes, "totalTicketsMensual": total} for mes, total in tickets_por_mes.items()]
 
-    #grafico_linea_HorasConsumidas(resultado_mensual)
+    grafico_linea_HorasConsumidas(resultado_mensual)
 
-    #grafico_linea_TicketsConsumidos(resultado_mensual_tickets)
+    grafico_linea_TicketsConsumidos(resultado_mensual_tickets)
 
     return resultado_mensual, resultado_mensual_tickets
