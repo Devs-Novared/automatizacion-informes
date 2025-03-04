@@ -1,40 +1,62 @@
 import React, { useState, useEffect } from "react";
 
-const Formulario = ({ formData, handleFilterChange, listaCliente = [], listaTecnologia = [], listaContrato = [], listaContentIdContrato = [], months = [] }) => {
+const Formulario = ({ 
+  formData = { cliente: "", tecnologia: "", contrato: "", selectedMonth: "" }, 
+  handleFilterChange, 
+  listaCliente = [], 
+  listaTecnologia = [], 
+  listaContrato = [], 
+  listaContentIdContrato = [], 
+}) => {
   const [searchTerm, setSearchTerm] = useState({ cliente: "", tecnologia: "", contrato: "" });
   const [nombreArchivo, setNombreArchivo] = useState("reporte.pdf");
 
-  // **Actualizar nombre del archivo basado en selecciones**
   useEffect(() => {
     const { cliente, tecnologia, contrato, selectedMonth } = formData;
     let nuevoNombre = `${cliente || "Cliente"}_${tecnologia || "Tecnologia"}_${contrato || "Contrato"}_${selectedMonth || "Mes"}.pdf`;
     nuevoNombre = nuevoNombre.replace(/\s+/g, "_").toLowerCase();
-    setNombreArchivo(nuevoNombre);
-  }, [formData]);
+
+    if (nombreArchivo !== nuevoNombre) {
+      setNombreArchivo(nuevoNombre);
+    }
+  }, [formData, nombreArchivo]);
 
   const handleSearchChange = (e) => {
-    const { name, value } = e.target;
-    setSearchTerm((prev) => ({
-      ...prev,
-      [name]: value.toLowerCase(),
-    }));
+    setSearchTerm({ ...searchTerm, [e.target.name]: e.target.value.toLowerCase() });
   };
 
-  // **Filtrar tecnologías según el cliente seleccionado**
-  const tecnologiasFiltradas = listaTecnologia.filter(tecnologia =>
-    !formData.cliente || listaContentIdContrato.some(item => item.cliente === formData.cliente && item.tecnologia === tecnologia)
-  );
+  const clientesFiltrados = listaContentIdContrato
+    .filter(item => !formData.tecnologia || item.tecnologia === formData.tecnologia)
+    .map(item => item.cliente)
+    .filter((v, i, a) => a.indexOf(v) === i) 
+    .filter(cliente => cliente.toLowerCase().includes(searchTerm.cliente));
 
-  // **Filtrar contratos según cliente y tecnología seleccionados**
-  const contratosFiltrados = listaContrato.filter(contrato =>
-    listaContentIdContrato.some(item =>
+  const tecnologiasFiltradas = listaContentIdContrato
+    .filter(item => !formData.cliente || item.cliente === formData.cliente)
+    .map(item => item.tecnologia)
+    .filter((v, i, a) => a.indexOf(v) === i) 
+    .filter(tecnologia => tecnologia.toLowerCase().includes(searchTerm.tecnologia));
+
+  const contratosFiltrados = listaContentIdContrato
+    .filter(item => 
       (!formData.cliente || item.cliente === formData.cliente) &&
-      (!formData.tecnologia || item.tecnologia === formData.tecnologia) &&
-      item.nroContrato === contrato
+      (!formData.tecnologia || item.tecnologia === formData.tecnologia)
     )
-  );
+    .map(item => item.nroContrato)
+    .filter(contrato => contrato.toLowerCase().includes(searchTerm.contrato));
 
-  // **Actualizar cliente y tecnología automáticamente cuando se selecciona un contrato**
+  useEffect(() => {
+    if (clientesFiltrados.length === 1) {
+      handleFilterChange({ target: { name: "cliente", value: clientesFiltrados[0] } });
+    }
+  }, [clientesFiltrados]);
+
+  useEffect(() => {
+    if (contratosFiltrados.length === 1) {
+      handleFilterChange({ target: { name: "contrato", value: contratosFiltrados[0] } });
+    }
+  }, [contratosFiltrados]);
+
   const handleContratoChange = (e) => {
     const contratoSeleccionado = e.target.value;
     const datosContrato = listaContentIdContrato.find(item => item.nroContrato === contratoSeleccionado);
@@ -61,10 +83,8 @@ const Formulario = ({ formData, handleFilterChange, listaCliente = [], listaTecn
         />
         <select name="cliente" value={formData.cliente} onChange={handleFilterChange}>
           <option value="">Selecciona el Cliente</option>
-          {listaCliente
-            .filter(cliente => cliente.toLowerCase().includes(searchTerm.cliente))
-            .map((cliente, index) => (
-              <option key={index} value={cliente}>{cliente}</option>
+          {clientesFiltrados.map((cliente, index) => (
+            <option key={index} value={cliente}>{cliente}</option>
           ))}
         </select>
       </div>
@@ -81,20 +101,15 @@ const Formulario = ({ formData, handleFilterChange, listaCliente = [], listaTecn
         />
         <select name="tecnologia" value={formData.tecnologia} onChange={handleFilterChange}>
           <option value="">Selecciona una Tecnología</option>
-          {tecnologiasFiltradas.length > 0
-            ? tecnologiasFiltradas
-                .filter(tecnologia => tecnologia.toLowerCase().includes(searchTerm.tecnologia))
-                .map((tecnologia, index) => (
-                  <option key={index} value={tecnologia}>{tecnologia}</option>
-                ))
-            : <option disabled>No hay tecnologías disponibles</option>
-          }
+          {tecnologiasFiltradas.map((tecnologia, index) => (
+            <option key={index} value={tecnologia}>{tecnologia}</option>
+          ))}
         </select>
       </div>
 
       {/* Contrato */}
       <div>
-        <label>Contrato <span style={{ color: "red" }}>*</span>:</label>
+        <label>Contrato:</label>
         <input
           type="text"
           placeholder="Buscar contrato..."
@@ -102,26 +117,24 @@ const Formulario = ({ formData, handleFilterChange, listaCliente = [], listaTecn
           value={searchTerm.contrato}
           onChange={handleSearchChange}
         />
-        <select name="contrato" value={formData.contrato} onChange={handleContratoChange} required>
+        <select name="contrato" value={formData.contrato} onChange={handleContratoChange}>
           <option value="">Selecciona el Contrato</option>
-          {contratosFiltrados.length > 0
-            ? contratosFiltrados
-                .filter(contrato => contrato.toLowerCase().includes(searchTerm.contrato))
-                .map((contrato, index) => (
-                  <option key={index} value={contrato}>{contrato}</option>
-                ))
-            : <option disabled>No hay contratos disponibles</option>
-          }
+          {contratosFiltrados.map((contrato, index) => (
+            <option key={index} value={contrato}>{contrato}</option>
+          ))}
         </select>
       </div>
 
       {/* Mes */}
       <div>
-        <label>Mes <span style={{ color: "red" }}>*</span>:</label>
-        <select name="selectedMonth" value={formData.selectedMonth} onChange={handleFilterChange} required>
-          <option value="">Selecciona un mes</option>
-          {months.map((month, index) => (
-            <option key={index} value={month}>{month}</option>
+        <label>Mes:</label>
+        <select name="selectedMonth" value={formData.selectedMonth} onChange={handleFilterChange}>
+          <option value="">Selecciona el Mes</option>
+          {[
+            "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+            "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+          ].map((mes, index) => (
+            <option key={index} value={mes}>{mes}</option>
           ))}
         </select>
       </div>

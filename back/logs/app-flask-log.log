@@ -1,4 +1,17 @@
-[17-02-2025 14:49:35] WARNING   * Debugger is active!
-[17-02-2025 14:49:35] INFO      * Debugger PIN: 246-412-492
-[17-02-2025 14:54:10] INFO     Se obtuvo el token de la solicitud correctamente
-[17-02-2025 14:54:11] INFO     127.0.0.1 - - [17/Feb/2025 14:54:11] "GET /getContratos HTTP/1.1" 200 -
+[26-02-2025 14:28:10] WARNING   * Debugger is active!
+[26-02-2025 14:28:10] INFO      * Debugger PIN: 246-412-492
+[26-02-2025 14:28:13] INFO     Se obtuvo el token de la solicitud correctamente
+[26-02-2025 14:28:14] INFO     127.0.0.1 - - [26/Feb/2025 14:28:14] "GET /getContratos HTTP/1.1" 200 -
+[26-02-2025 14:28:24] INFO     127.0.0.1 - - [26/Feb/2025 14:28:24] "OPTIONS /selected-data HTTP/1.1" 200 -
+[26-02-2025 14:28:24] INFO     {'cliente': 'afip', 'tecnologia': 'firewall', 'contrato': '400689', 'selectedMonth': 'Febrero', 'contentId': '2431334'}
+[26-02-2025 14:28:24] INFO     {'cliente': 'afip', 'tecnologia': 'firewall', 'contrato': '400689', 'mes': 'Febrero', 'contentId': '2431334'}
+[26-02-2025 14:28:24] INFO     Se obtuvo el token de la solicitud correctamente
+[26-02-2025 14:29:17] INFO     127.0.0.1 - - [26/Feb/2025 14:29:17] "POST /selected-data HTTP/1.1" 200 -
+[26-02-2025 14:29:17] INFO     127.0.0.1 - - [26/Feb/2025 14:29:17] "OPTIONS /informe HTTP/1.1" 200 -
+[26-02-2025 14:29:17] INFO     {'cliente': 'afip', 'tecnologia': 'firewall', 'contrato': '400689', 'selectedMonth': 'Febrero', 'contentId': '2431334'}
+[26-02-2025 14:29:18] INFO     Se obtuvo el token de la solicitud correctamente
+[26-02-2025 14:29:19] INFO     {'nroContrato': '400689', 'cliente': 'AFIP', 'fechaInicio': '17/3/2023', 'fechaFin': '17/3/2025', 'tecnologia': 'Firewall', 'estadoContrato': 'Vigente', 'modulo': '405', 'contentId': '2431334', 'soporteCorrectivo': '7x24', 'horasSoporte': None}
+[26-02-2025 14:29:19] INFO     Se obtuvo el token de la solicitud correctamente
+[26-02-2025 14:30:18] INFO     127.0.0.1 - - [26/Feb/2025 14:30:18] "POST /informe HTTP/1.1" 200 -
+[27-02-2025 09:25:50] INFO     Se obtuvo el token de la solicitud correctamente
+[27-02-2025 09:25:53] INFO     127.0.0.1 - - [27/Feb/2025 09:25:53] "GET /getContratos HTTP/1.1" 200 -

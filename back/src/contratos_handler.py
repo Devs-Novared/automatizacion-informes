@@ -166,8 +166,6 @@ def crear_informe(data):
 
     contentId = data["contentId"]
 
-    mesSeleccionado = data["mes"]
-
     token = archer_login()
 
     response = get_data_of_content_id(contentId, token)
@@ -182,7 +180,7 @@ def crear_informe(data):
     #logger.info(HHSSTotales)
     tecnologia = response[tecnologia_id]["Value"]
     #logger.info(tecnologia)
-    
+
     detalleCargaHoras = response[detalleCargaHoras_id]["Value"]
     #logger.info(detalleCargaHoras)
     cargaHoras = []
@@ -197,23 +195,16 @@ def crear_informe(data):
             shadow = True
         else:
             shadow = False
- 
+
 
         if FechaCargaHora:
             fecha_objeto = datetime.fromisoformat(FechaCargaHora)
             FechaCargaHora = fecha_objeto.strftime('%d/%m/%Y')
 
-        # Convertir mes seleccionado a número cada vez (si cambia dinámicamente)
-            numero_mes = mes_a_numero(mesSeleccionado)
-
         # Extraer el mes y el año para agrupar
             mes_anio = fecha_objeto.strftime('%Y-%m')  # Formato: "YYYY-MM"
-            mes_actual = fecha_objeto.month  # Obtener el número del mes
+            valores_mensuales[mes_anio] += cargaHorasNormales 
 
-        # Sumar solo si el mes es menor o igual al mes seleccionado
-            if mes_actual <= numero_mes:
-                valores_mensuales[mes_anio] += cargaHorasNormales
-        
         #logger.info(infoHoras)
         #logger.info(cargaHorasNormales)
         #logger.info(FechaCargaHora)
@@ -257,7 +248,7 @@ def crear_informe(data):
             fecha_objeto = datetime.fromisoformat(FechaCreacionTicket)
             FechaCreacionTicket = fecha_objeto.strftime('%Y-%m')
             tickets_por_mes[FechaCreacionTicket] += 1
-        
+
         #logger.info(infoTickets)
         #logger.info(FechaCreacionTicket)
         jsonTickets = {
@@ -270,7 +261,7 @@ def crear_informe(data):
             "TecnologiaTicket": TecnologiaTicket,
             "HorasConsumidasTicket": HorasConsumidasTicket,
             "EstadoTicket": EstadoTicket,
-            
+
         }
         tickets.append(jsonTickets)
         #logger.info(jsonTickets)
@@ -280,8 +271,8 @@ def crear_informe(data):
 
     resultado_mensual_tickets = [{"mes": mes, "totalTicketsMensual": total} for mes, total in tickets_por_mes.items()]
 
-    grafico_linea_HorasConsumidas(resultado_mensual)
+    #grafico_linea_HorasConsumidas(resultado_mensual)
 
-    grafico_linea_TicketsConsumidos(resultado_mensual_tickets)
+    #grafico_linea_TicketsConsumidos(resultado_mensual_tickets)
 
     return resultado_mensual, resultado_mensual_tickets

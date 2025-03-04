@@ -19,10 +19,9 @@ function App() {
 
   const [nombre_archivo, setNombre_archivo] = useState("reporte.pdf");
 
-  const [imageHoras, setImageHoras] = useState(""); // Estado para la imagen de horas
-  const [imageTickets, setImageTickets] = useState(""); // Estado para la imagen de tickets
+  const [imageHoras, setImageHoras] = useState(""); 
+  const [imageTickets, setImageTickets] = useState(""); 
   const [contratosSeleccionado, setContratosSeleccionado] = useState({}); 
-
   const [isReportReady, setIsReportReady] = useState(false); 
 
   useEffect(() => {
@@ -33,19 +32,17 @@ function App() {
         if (response.status === 200) {
           const contratos = response.data.Result;
   
-          const contratosUnicos = [...new Set(contratos.map((item) => item.nroContrato.toLowerCase()))];
-          const clientesUnicos = [...new Set(contratos.map((item) => item.cliente.toLowerCase()))];
-          const tecnologiasUnicas = [...new Set(contratos.map((item) => item.tecnologia.toLowerCase()))];
-  
-          setListaContrato(contratosUnicos);
-          setListaCliente(clientesUnicos);
-          setListaTecnologia(tecnologiasUnicas);
-  
-          const listaAuxiliar = contratos.map(data => ({
-            contrato: data.nroContrato.toLowerCase(),
+          setListaCliente([...new Set(contratos.map((item) => item.cliente.toLowerCase()))]);
+          setListaTecnologia([...new Set(contratos.map((item) => item.tecnologia.toLowerCase()))]);
+          setListaContrato([...new Set(contratos.map((item) => item.nroContrato.toLowerCase()))]);
+
+          // Mantener relación entre cliente, tecnología y contrato
+          setListaContentIdContrato(contratos.map(data => ({
+            cliente: data.cliente.toLowerCase(),
+            tecnologia: data.tecnologia.toLowerCase(),
+            nroContrato: data.nroContrato.toLowerCase(),
             contentId: data.contentId
-          }));
-          setListaContentIdContrato(listaAuxiliar);
+          })));
         } else {
           console.error("Error al obtener datos:", response.statusText);
         }
@@ -57,7 +54,6 @@ function App() {
     fetchContratos();
   }, []);
   
-
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
@@ -66,21 +62,12 @@ function App() {
     }));
   };
 
-  const handleFileNameChange = (e) => {
-    let fileName = e.target.value;
-    if (!fileName.endsWith(".pdf")) {
-      fileName += ".pdf";
-    }
-    setNombre_archivo(fileName);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const { cliente, tecnologia, contrato, selectedMonth } = formData;
-
+    
     let contentIdSeleccionado = listaContentIdContrato.find(
-      (dupla) => dupla.contrato === contrato
+      (dupla) => dupla.nroContrato === contrato
     )?.contentId;
 
     const datosAEnviar = {
@@ -97,23 +84,15 @@ function App() {
       const response = await axios.post("http://127.0.0.1:5000/informe", datosAEnviar);
       
       if (response.status === 200) {
-        //console.log(response.data, "data")
-        //console.log(contratosSeleccionado, "hola")
         setImageHoras(response.data.image_horas);
         setImageTickets(response.data.image_tickets);
-        const datosContratos = {...response.data.contratosSeleccionado};
-        setContratosSeleccionado(datosContratos);
+        setContratosSeleccionado(response.data.contratosSeleccionado);
         setIsReportReady(true);
       }
     } catch (error) {
       console.error("Error al generar el informe:", error);
     }
   };
-
-  const months = [
-    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-  ];
 
   return (
     <>
@@ -126,14 +105,12 @@ function App() {
           listaCliente={listaCliente}
           listaTecnologia={listaTecnologia}
           listaContrato={listaContrato}
-          months={months}
-          nombre_archivo={nombre_archivo}
-          handleFileNameChange={handleFileNameChange}
+          listaContentIdContrato={listaContentIdContrato}
         />
 
-          <button type="submit" onClick={handleSubmit} style={{ margin: '30px' }}>
+        <button type="submit" onClick={handleSubmit} style={{ margin: '30px' }}>
           Generar Informe
-          </button>
+        </button>
       </div>
 
       {isReportReady && contratosSeleccionado && (

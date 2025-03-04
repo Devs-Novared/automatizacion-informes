@@ -83,38 +83,3 @@ def grafico_linea_TicketsConsumidos(resultado_mensual_tickets,
 
     return img_bytes
 
-
-##def generar_tabla_tickets():
-    """
-    Función para generar una tabla interactiva a partir de los datos de los tickets y devolver la imagen como un objeto BytesIO.
-    
-    :param tickets: Lista de diccionarios con los datos de los tickets.
-    :return: Imagen en formato PNG en memoria como un objeto BytesIO.
-    """
-    # Crear una lista de las columnas y los valores de la tabla
-    columnas = ["FechaCreacionTicket", "TotalTicketsMensual", "CreadorTicket", 
-                "PropietarioTicket", "FechaCierreTicket", "TipoTicket", 
-                "TecnologiaTicket", "HorasConsumidasTicket", "EstadoTicket"]
-    valores = [list(ticket.values()) for ticket in tickets]
-    
-    # Crear la tabla con Plotly
-    fig = go.Figure(data=[go.Table(
-        header=dict(values=columnas, fill_color='#f2f2f2', align='center'),
-        cells=dict(values=zip(*valores), align='center', fill_color='white')
-    )])
-
-    # Ajustar el tamaño de la imagen
-    fig.update_layout(
-        width=800,
-        height=400,
-        title="Tabla de Tickets",
-        margin=dict(t=50, b=50, l=50, r=50)
-    )
-
-    # Crear un objeto BytesIO y guardar la imagen allí
-    img_bytes = BytesIO()
-    pio.write_image(fig, img_bytes, format='png')
-    img_bytes.seek(0)  # Volver al principio del archivo en memoria
-    
-    return img_bytes
-##

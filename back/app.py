@@ -65,7 +65,7 @@ def guardar_seleccion():
         "mes": mes,
         "contentId" : contentId, 
     }
-
+    logger.info(data)
     crear_informe(data)
     
     return jsonify(data), 200
