@@ -1,17 +1,66 @@
-[26-02-2025 14:28:10] WARNING   * Debugger is active!
-[26-02-2025 14:28:10] INFO      * Debugger PIN: 246-412-492
-[26-02-2025 14:28:13] INFO     Se obtuvo el token de la solicitud correctamente
-[26-02-2025 14:28:14] INFO     127.0.0.1 - - [26/Feb/2025 14:28:14] "GET /getContratos HTTP/1.1" 200 -
-[26-02-2025 14:28:24] INFO     127.0.0.1 - - [26/Feb/2025 14:28:24] "OPTIONS /selected-data HTTP/1.1" 200 -
-[26-02-2025 14:28:24] INFO     {'cliente': 'afip', 'tecnologia': 'firewall', 'contrato': '400689', 'selectedMonth': 'Febrero', 'contentId': '2431334'}
-[26-02-2025 14:28:24] INFO     {'cliente': 'afip', 'tecnologia': 'firewall', 'contrato': '400689', 'mes': 'Febrero', 'contentId': '2431334'}
-[26-02-2025 14:28:24] INFO     Se obtuvo el token de la solicitud correctamente
-[26-02-2025 14:29:17] INFO     127.0.0.1 - - [26/Feb/2025 14:29:17] "POST /selected-data HTTP/1.1" 200 -
-[26-02-2025 14:29:17] INFO     127.0.0.1 - - [26/Feb/2025 14:29:17] "OPTIONS /informe HTTP/1.1" 200 -
-[26-02-2025 14:29:17] INFO     {'cliente': 'afip', 'tecnologia': 'firewall', 'contrato': '400689', 'selectedMonth': 'Febrero', 'contentId': '2431334'}
-[26-02-2025 14:29:18] INFO     Se obtuvo el token de la solicitud correctamente
-[26-02-2025 14:29:19] INFO     {'nroContrato': '400689', 'cliente': 'AFIP', 'fechaInicio': '17/3/2023', 'fechaFin': '17/3/2025', 'tecnologia': 'Firewall', 'estadoContrato': 'Vigente', 'modulo': '405', 'contentId': '2431334', 'soporteCorrectivo': '7x24', 'horasSoporte': None}
-[26-02-2025 14:29:19] INFO     Se obtuvo el token de la solicitud correctamente
-[26-02-2025 14:30:18] INFO     127.0.0.1 - - [26/Feb/2025 14:30:18] "POST /informe HTTP/1.1" 200 -
-[27-02-2025 09:25:50] INFO     Se obtuvo el token de la solicitud correctamente
-[27-02-2025 09:25:53] INFO     127.0.0.1 - - [27/Feb/2025 09:25:53] "GET /getContratos HTTP/1.1" 200 -
+[06-03-2025 11:28:01] WARNING   * Debugger is active!
+[06-03-2025 11:28:01] INFO      * Debugger PIN: 246-412-492
+[06-03-2025 11:28:02] INFO     127.0.0.1 - - [06/Mar/2025 11:28:02] "OPTIONS /informe HTTP/1.1" 200 -
+[06-03-2025 11:28:02] INFO     {'cliente': 'afip', 'tecnologia': 'firewall', 'contrato': '400689', 'selectedMonth': 'Febrero', 'contentId': '2431334'}
+[06-03-2025 11:28:03] INFO     Se obtuvo el token de la solicitud correctamente
+[06-03-2025 11:28:03] INFO     {'nroContrato': '400689', 'cliente': 'AFIP', 'fechaInicio': '17/3/2023', 'fechaFin': '17/3/2025', 'tecnologia': 'Firewall', 'estadoContrato': 'Vigente', 'modulo': '405', 'contentId': '2431334', 'soporteCorrectivo': '7x24', 'horasSoporte': None}
+[06-03-2025 11:28:04] INFO     Se obtuvo el token de la solicitud correctamente
+[06-03-2025 11:28:07] INFO     Se obtuvo el token de la solicitud correctamente
+[06-03-2025 11:28:07] ERROR    Se obtuvo un response None de un request data of content id
+[06-03-2025 11:28:07] ERROR    Ocurrio un error al accceder al valor del content id 2525745 obtenido en el response
+[06-03-2025 11:28:07] ERROR    Detalle del error: Expecting value: line 1 column 1 (char 0)
+[06-03-2025 11:28:07] ERROR    Detalle del traceback: Traceback (most recent call last):
+  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\requests\models.py", line 974, in json
+    return complexjson.loads(self.text, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\mbegani\OneDrive - NOVARED CHILE S.A\Documentos\Dev\Proyectos\automatizacion-Informes\back\src\archer_api_handler.py", line 189, in get_data_of_content_id
+    return response.json()['RequestedObject']['FieldContents']
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\requests\models.py", line 978, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+[06-03-2025 11:28:07] ERROR    Error al generar el informe: 'NoneType' object is not subscriptable
+[06-03-2025 11:28:07] INFO     127.0.0.1 - - [06/Mar/2025 11:28:07] "[35m[1mPOST /informe HTTP/1.1[0m" 500 -
+[06-03-2025 11:28:08] INFO     127.0.0.1 - - [06/Mar/2025 11:28:08] "GET /getContratos HTTP/1.1" 200 -
+[06-03-2025 11:28:14] INFO     127.0.0.1 - - [06/Mar/2025 11:28:14] "OPTIONS /informe HTTP/1.1" 200 -
+[06-03-2025 11:28:14] INFO     {'cliente': 'afip', 'tecnologia': 'firewall', 'contrato': '400689', 'selectedMonth': 'Junio', 'contentId': '2431334'}
+[06-03-2025 11:28:14] INFO     Se obtuvo el token de la solicitud correctamente
+[06-03-2025 11:28:15] INFO     {'nroContrato': '400689', 'cliente': 'AFIP', 'fechaInicio': '17/3/2023', 'fechaFin': '17/3/2025', 'tecnologia': 'Firewall', 'estadoContrato': 'Vigente', 'modulo': '405', 'contentId': '2431334', 'soporteCorrectivo': '7x24', 'horasSoporte': None}
+[06-03-2025 11:28:15] INFO     Se obtuvo el token de la solicitud correctamente
+[06-03-2025 11:29:01] INFO     [{'mes': '2023-03', 'totalTicketsMensual': 1}, {'mes': '2023-04', 'totalTicketsMensual': 3}, {'mes': '2023-05', 'totalTicketsMensual': 5}, {'mes': '2023-06', 'totalTicketsMensual': 1}, {'mes': '2024-01', 'totalTicketsMensual': 3}, {'mes': '2024-02', 'totalTicketsMensual': 1}, {'mes': '2024-03', 'totalTicketsMensual': 1}, {'mes': '2024-04', 'totalTicketsMensual': 4}, {'mes': '2024-05', 'totalTicketsMensual': 1}]
+[06-03-2025 11:29:01] INFO     [{'mes': '2023-05', 'totalHorasMensual': 17.0}, {'mes': '2023-04', 'totalHorasMensual': 13.0}, {'mes': '2023-06', 'totalHorasMensual': 4.0}, {'mes': '2024-01', 'totalHorasMensual': 48.0}, {'mes': '2024-02', 'totalHorasMensual': 37.0}, {'mes': '2024-03', 'totalHorasMensual': 6.0}, {'mes': '2024-04', 'totalHorasMensual': 10.5}, {'mes': '2024-05', 'totalHorasMensual': 2.0}, {'mes': '2024-06', 'totalHorasMensual': 0.0}]
+[06-03-2025 11:29:01] INFO     [{'mes': '2023-05', 'totalHorasMensual': 17.0}, {'mes': '2023-04', 'totalHorasMensual': 13.0}, {'mes': '2023-06', 'totalHorasMensual': 4.0}, {'mes': '2024-01', 'totalHorasMensual': 48.0}, {'mes': '2024-02', 'totalHorasMensual': 37.0}, {'mes': '2024-03', 'totalHorasMensual': 6.0}, {'mes': '2024-04', 'totalHorasMensual': 10.5}, {'mes': '2024-05', 'totalHorasMensual': 2.0}, {'mes': '2024-06', 'totalHorasMensual': 0.0}]
+[06-03-2025 11:29:01] INFO     [{'mes': '2023-03', 'totalTicketsMensual': 1}, {'mes': '2023-04', 'totalTicketsMensual': 3}, {'mes': '2023-05', 'totalTicketsMensual': 5}, {'mes': '2023-06', 'totalTicketsMensual': 1}, {'mes': '2024-01', 'totalTicketsMensual': 3}, {'mes': '2024-02', 'totalTicketsMensual': 1}, {'mes': '2024-03', 'totalTicketsMensual': 1}, {'mes': '2024-04', 'totalTicketsMensual': 4}, {'mes': '2024-05', 'totalTicketsMensual': 1}]
+[06-03-2025 11:29:05] INFO     <_io.BytesIO object at 0x000001A23C728220>
+[06-03-2025 11:29:05] INFO     <_io.BytesIO object at 0x000001A23C729990>
+[06-03-2025 11:29:05] INFO     127.0.0.1 - - [06/Mar/2025 11:29:05] "POST /informe HTTP/1.1" 200 -
+[06-03-2025 11:34:13] INFO     Se obtuvo el token de la solicitud correctamente
+[06-03-2025 11:34:14] INFO     127.0.0.1 - - [06/Mar/2025 11:34:14] "GET /getContratos HTTP/1.1" 200 -
+[06-03-2025 11:36:50] INFO     Se obtuvo el token de la solicitud correctamente
+[06-03-2025 11:36:50] INFO     127.0.0.1 - - [06/Mar/2025 11:36:50] "GET /getContratos HTTP/1.1" 200 -
+[06-03-2025 11:37:06] INFO     127.0.0.1 - - [06/Mar/2025 11:37:06] "OPTIONS /informe HTTP/1.1" 200 -
+[06-03-2025 11:37:06] INFO     {'cliente': 'afip', 'tecnologia': 'firewall', 'contrato': '400689', 'selectedMonth': 'Mayo', 'contentId': '2431334'}
+[06-03-2025 11:37:06] INFO     Se obtuvo el token de la solicitud correctamente
+[06-03-2025 11:37:07] INFO     {'nroContrato': '400689', 'cliente': 'AFIP', 'fechaInicio': '17/3/2023', 'fechaFin': '17/3/2025', 'tecnologia': 'Firewall', 'estadoContrato': 'Vigente', 'modulo': '405', 'contentId': '2431334', 'soporteCorrectivo': '7x24', 'horasSoporte': None}
+[06-03-2025 11:37:07] INFO     Se obtuvo el token de la solicitud correctamente
+[06-03-2025 11:37:51] INFO     [{'mes': '2023-03', 'totalTicketsMensual': 1}, {'mes': '2023-04', 'totalTicketsMensual': 3}, {'mes': '2023-05', 'totalTicketsMensual': 5}, {'mes': '2024-01', 'totalTicketsMensual': 3}, {'mes': '2024-02', 'totalTicketsMensual': 1}, {'mes': '2024-03', 'totalTicketsMensual': 1}, {'mes': '2024-04', 'totalTicketsMensual': 4}, {'mes': '2024-05', 'totalTicketsMensual': 1}]
+[06-03-2025 11:37:51] INFO     [{'mes': '2023-05', 'totalHorasMensual': 17.0}, {'mes': '2023-04', 'totalHorasMensual': 13.0}, {'mes': '2024-01', 'totalHorasMensual': 48.0}, {'mes': '2024-02', 'totalHorasMensual': 37.0}, {'mes': '2024-03', 'totalHorasMensual': 6.0}, {'mes': '2024-04', 'totalHorasMensual': 10.5}, {'mes': '2024-05', 'totalHorasMensual': 2.0}]
+[06-03-2025 11:37:51] INFO     [{'mes': '2023-05', 'totalHorasMensual': 17.0}, {'mes': '2023-04', 'totalHorasMensual': 13.0}, {'mes': '2024-01', 'totalHorasMensual': 48.0}, {'mes': '2024-02', 'totalHorasMensual': 37.0}, {'mes': '2024-03', 'totalHorasMensual': 6.0}, {'mes': '2024-04', 'totalHorasMensual': 10.5}, {'mes': '2024-05', 'totalHorasMensual': 2.0}]
+[06-03-2025 11:37:51] INFO     [{'mes': '2023-03', 'totalTicketsMensual': 1}, {'mes': '2023-04', 'totalTicketsMensual': 3}, {'mes': '2023-05', 'totalTicketsMensual': 5}, {'mes': '2024-01', 'totalTicketsMensual': 3}, {'mes': '2024-02', 'totalTicketsMensual': 1}, {'mes': '2024-03', 'totalTicketsMensual': 1}, {'mes': '2024-04', 'totalTicketsMensual': 4}, {'mes': '2024-05', 'totalTicketsMensual': 1}]
+[06-03-2025 11:37:51] INFO     <_io.BytesIO object at 0x000001A23A9741D0>
+[06-03-2025 11:37:51] INFO     <_io.BytesIO object at 0x000001A23ACDA430>
+[06-03-2025 11:37:51] INFO     127.0.0.1 - - [06/Mar/2025 11:37:51] "POST /informe HTTP/1.1" 200 -

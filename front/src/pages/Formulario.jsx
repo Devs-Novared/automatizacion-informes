@@ -3,10 +3,7 @@ import React, { useState, useEffect } from "react";
 const Formulario = ({ 
   formData = { cliente: "", tecnologia: "", contrato: "", selectedMonth: "" }, 
   handleFilterChange, 
-  listaCliente = [], 
-  listaTecnologia = [], 
-  listaContrato = [], 
-  listaContentIdContrato = [], 
+  listaContentIdContrato = []
 }) => {
   const [searchTerm, setSearchTerm] = useState({ cliente: "", tecnologia: "", contrato: "" });
   const [nombreArchivo, setNombreArchivo] = useState("reporte.pdf");
@@ -15,11 +12,8 @@ const Formulario = ({
     const { cliente, tecnologia, contrato, selectedMonth } = formData;
     let nuevoNombre = `${cliente || "Cliente"}_${tecnologia || "Tecnologia"}_${contrato || "Contrato"}_${selectedMonth || "Mes"}.pdf`;
     nuevoNombre = nuevoNombre.replace(/\s+/g, "_").toLowerCase();
-
-    if (nombreArchivo !== nuevoNombre) {
-      setNombreArchivo(nuevoNombre);
-    }
-  }, [formData, nombreArchivo]);
+    setNombreArchivo(nuevoNombre);
+  }, [formData]);
 
   const handleSearchChange = (e) => {
     setSearchTerm({ ...searchTerm, [e.target.name]: e.target.value.toLowerCase() });
@@ -28,13 +22,13 @@ const Formulario = ({
   const clientesFiltrados = listaContentIdContrato
     .filter(item => !formData.tecnologia || item.tecnologia === formData.tecnologia)
     .map(item => item.cliente)
-    .filter((v, i, a) => a.indexOf(v) === i) 
+    .filter((v, i, a) => a.indexOf(v) === i)
     .filter(cliente => cliente.toLowerCase().includes(searchTerm.cliente));
 
   const tecnologiasFiltradas = listaContentIdContrato
     .filter(item => !formData.cliente || item.cliente === formData.cliente)
     .map(item => item.tecnologia)
-    .filter((v, i, a) => a.indexOf(v) === i) 
+    .filter((v, i, a) => a.indexOf(v) === i)
     .filter(tecnologia => tecnologia.toLowerCase().includes(searchTerm.tecnologia));
 
   const contratosFiltrados = listaContentIdContrato
@@ -45,29 +39,18 @@ const Formulario = ({
     .map(item => item.nroContrato)
     .filter(contrato => contrato.toLowerCase().includes(searchTerm.contrato));
 
+  // Selección automática cuando queda una sola opción en las listas filtradas
   useEffect(() => {
-    if (clientesFiltrados.length === 1) {
+    if (clientesFiltrados.length === 1 && formData.cliente === "") {
       handleFilterChange({ target: { name: "cliente", value: clientesFiltrados[0] } });
     }
-  }, [clientesFiltrados]);
-
-  useEffect(() => {
-    if (contratosFiltrados.length === 1) {
+    if (tecnologiasFiltradas.length === 1 && formData.tecnologia === "") {
+      handleFilterChange({ target: { name: "tecnologia", value: tecnologiasFiltradas[0] } });
+    }
+    if (contratosFiltrados.length === 1 && formData.contrato === "") {
       handleFilterChange({ target: { name: "contrato", value: contratosFiltrados[0] } });
     }
-  }, [contratosFiltrados]);
-
-  const handleContratoChange = (e) => {
-    const contratoSeleccionado = e.target.value;
-    const datosContrato = listaContentIdContrato.find(item => item.nroContrato === contratoSeleccionado);
-
-    if (datosContrato) {
-      handleFilterChange({ target: { name: "cliente", value: datosContrato.cliente } });
-      handleFilterChange({ target: { name: "tecnologia", value: datosContrato.tecnologia } });
-    }
-
-    handleFilterChange(e);
-  };
+  }, [clientesFiltrados, tecnologiasFiltradas, contratosFiltrados]);
 
   return (
     <form>
@@ -117,7 +100,7 @@ const Formulario = ({
           value={searchTerm.contrato}
           onChange={handleSearchChange}
         />
-        <select name="contrato" value={formData.contrato} onChange={handleContratoChange}>
+        <select name="contrato" value={formData.contrato} onChange={handleFilterChange}>
           <option value="">Selecciona el Contrato</option>
           {contratosFiltrados.map((contrato, index) => (
             <option key={index} value={contrato}>{contrato}</option>
@@ -130,10 +113,7 @@ const Formulario = ({
         <label>Mes:</label>
         <select name="selectedMonth" value={formData.selectedMonth} onChange={handleFilterChange}>
           <option value="">Selecciona el Mes</option>
-          {[
-            "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-            "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-          ].map((mes, index) => (
+          {["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"].map((mes, index) => (
             <option key={index} value={mes}>{mes}</option>
           ))}
         </select>

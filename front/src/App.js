@@ -17,26 +17,24 @@ function App() {
     selectedMonth: "",
   });
 
-  const [nombre_archivo, setNombre_archivo] = useState("reporte.pdf");
-
-  const [imageHoras, setImageHoras] = useState(""); 
-  const [imageTickets, setImageTickets] = useState(""); 
-  const [contratosSeleccionado, setContratosSeleccionado] = useState({}); 
-  const [isReportReady, setIsReportReady] = useState(false); 
+  const [imageHoras, setImageHoras] = useState("");
+  const [imageTickets, setImageTickets] = useState("");
+  const [contratosSeleccionado, setContratosSeleccionado] = useState({});
+  const [isReportReady, setIsReportReady] = useState(false);
+  const [error, setError] = useState(""); // Estado para manejar errores
 
   useEffect(() => {
     const fetchContratos = async () => {
       try {
         const response = await axios.get("http://127.0.0.1:5000/getContratos");
-  
+
         if (response.status === 200) {
           const contratos = response.data.Result;
-  
+
           setListaCliente([...new Set(contratos.map((item) => item.cliente.toLowerCase()))]);
           setListaTecnologia([...new Set(contratos.map((item) => item.tecnologia.toLowerCase()))]);
           setListaContrato([...new Set(contratos.map((item) => item.nroContrato.toLowerCase()))]);
 
-          // Mantener relación entre cliente, tecnología y contrato
           setListaContentIdContrato(contratos.map(data => ({
             cliente: data.cliente.toLowerCase(),
             tecnologia: data.tecnologia.toLowerCase(),
@@ -50,22 +48,34 @@ function App() {
         console.error("Error en la solicitud:", error);
       }
     };
-  
+
     fetchContratos();
   }, []);
-  
+
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
+    setError(""); // Limpia el error si el usuario cambia algo
+  };
+
+  const validarFormulario = () => {
+    const { cliente, tecnologia, contrato, selectedMonth } = formData;
+    if (!cliente || !tecnologia || !contrato || !selectedMonth) {
+      setError("Todos los campos deben estar seleccionados antes de generar el informe.");
+      return false;
+    }
+    return true;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validarFormulario()) return;
+
     const { cliente, tecnologia, contrato, selectedMonth } = formData;
-    
+
     let contentIdSeleccionado = listaContentIdContrato.find(
       (dupla) => dupla.nroContrato === contrato
     )?.contentId;
@@ -79,18 +89,18 @@ function App() {
     };
 
     try {
-      await axios.post("http://127.0.0.1:5000/selected-data", datosAEnviar);
-
       const response = await axios.post("http://127.0.0.1:5000/informe", datosAEnviar);
-      
+
       if (response.status === 200) {
         setImageHoras(response.data.image_horas);
         setImageTickets(response.data.image_tickets);
         setContratosSeleccionado(response.data.contratosSeleccionado);
         setIsReportReady(true);
+        setError(""); // Limpia cualquier error previo
       }
     } catch (error) {
       console.error("Error al generar el informe:", error);
+      setError("Hubo un error al generar el informe. Intente nuevamente.");
     }
   };
 
@@ -108,7 +118,9 @@ function App() {
           listaContentIdContrato={listaContentIdContrato}
         />
 
-        <button type="submit" onClick={handleSubmit} style={{ margin: '30px' }}>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+
+        <button type="submit" onClick={handleSubmit} style={{ margin: "30px" }}>
           Generar Informe
         </button>
       </div>

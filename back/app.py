@@ -78,19 +78,38 @@ def generar_informe():
         data = request.get_json()
         logger.info(data)
 
+        cliente = data.get('cliente')
+        tecnologia = data.get('tecnologia')
+        contrato = data.get('contrato')
+        mes = data.get('selectedMonth')
+        contentId = data.get('contentId')
+
+        if not cliente or not tecnologia or not contrato or not mes:
+            return jsonify({"error": "Faltan datos"}), 400
+
+        data = {
+            "cliente": cliente,
+            "tecnologia": tecnologia,
+            "contrato": contrato,
+            "mes": mes,
+            "contentId" : contentId, 
+        }
         contratosInfo = getAllContratos()
         #logger.info(contratosInfo)
 
         contratosSeleccionado = next((contrato for contrato in contratosInfo if contrato['contentId'] == data.get('contentId')), None)
-
         logger.info(contratosSeleccionado)
 
 
         resultado_mensual, resultado_mensual_tickets = crear_informe(data)
 
+        logger.info(resultado_mensual)
+        logger.info(resultado_mensual_tickets)
 
         img_bytes_horas = grafico_linea_HorasConsumidas(resultado_mensual)
+        logger.info(img_bytes_horas)
         img_bytes_tickets = grafico_linea_TicketsConsumidos(resultado_mensual_tickets)
+        logger.info(img_bytes_tickets)
 
 
         image_horas_base64 = base64.b64encode(img_bytes_horas.read()).decode('utf-8')
