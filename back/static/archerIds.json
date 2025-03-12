@@ -15,13 +15,17 @@
             "FechaCargaHora": "25709",
             "shadow": "28021",
             "FechaCreacionTicket": "16720",
+            "NroTicket": "16719",
             "CreadorTicket": "26988",
             "PropietarioTicket": "23868",
             "FechaCierreTicket": "25861",
             "TipoTicket": "25510",
             "TecnologiaTicket":"25777",
             "HorasConsumidasTicket":"24275",
-            "EstadoTicket":"23852"
+            "EstadoTicket":"23852",
+            "UltimaActualizacion": "16715",
+            "HorasNoAcumulables" : "28474",
+            "Asunto": "24100"
         }
 
 

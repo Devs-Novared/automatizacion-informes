@@ -101,15 +101,15 @@ def generar_informe():
         logger.info(contratosSeleccionado)
 
 
-        resultado_mensual, resultado_mensual_tickets = crear_informe(data)
+        resultado_mensual, resultado_mensual_tickets, mensual_tickets_Cerrados, mensual_Ult_Actualizacion = crear_informe(data)
 
-        logger.info(resultado_mensual)
-        logger.info(resultado_mensual_tickets)
+        #logger.info(resultado_mensual)
+        logger.info(mensual_Ult_Actualizacion)
 
         img_bytes_horas = grafico_linea_HorasConsumidas(resultado_mensual)
-        logger.info(img_bytes_horas)
+        #logger.info(img_bytes_horas)
         img_bytes_tickets = grafico_linea_TicketsConsumidos(resultado_mensual_tickets)
-        logger.info(img_bytes_tickets)
+        #logger.info(img_bytes_tickets)
 
 
         image_horas_base64 = base64.b64encode(img_bytes_horas.read()).decode('utf-8')
@@ -122,6 +122,8 @@ def generar_informe():
             "contratosSeleccionado": contratosSeleccionado,
             'image_horas': image_horas_base64,
             'image_tickets': image_tickets_base64,
+            "tickets_mensual_Cerrados" : mensual_tickets_Cerrados,
+            "tickets_ult_act":  mensual_Ult_Actualizacion,
         }), 200
     except Exception as e:
         logger.error(f"Error al generar el informe: {e}")

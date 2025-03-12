@@ -23,7 +23,7 @@ const Formulario = ({
     .filter(item => !formData.tecnologia || item.tecnologia === formData.tecnologia)
     .map(item => item.cliente)
     .filter((v, i, a) => a.indexOf(v) === i)
-    .filter(cliente => cliente.toLowerCase().includes(searchTerm.cliente));
+    .filter(cliente => cliente.toUpperCase().includes(searchTerm.cliente));
 
   const tecnologiasFiltradas = listaContentIdContrato
     .filter(item => !formData.cliente || item.cliente === formData.cliente)

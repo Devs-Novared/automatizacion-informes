@@ -109,7 +109,6 @@ def add_new_contrato(record: Element, contratos: list = []):
     
 def get_contrato_from_page(record: Element) -> Union[dict, None]:
 
-    #logger.info("llegue")
     nroContrato = record.find('./Field[@id="15151"]').text.strip()
     cliente = record.find('./Field[@id="15132"]/Reference').text.strip()
     fechaInicio = record.find('./Field[@id="15140"]').text.strip()
@@ -127,6 +126,7 @@ def get_contrato_from_page(record: Element) -> Union[dict, None]:
     
     horasSoporte = record.find('./Field[@id="28013"]').text
     #logger.info(horasSoporte)
+    
 
     contrato = {
         "nroContrato": nroContrato,
@@ -174,8 +174,15 @@ def crear_informe(data):
     response = get_data_of_content_id(data["contentId"], token)
     #logger.info(response)
 
+    #horasNoAcumulables = response[ARCHER_IDS['idsGraficos']['HorasNoAcumulables']]['Value']
+    #horasNoAcumulables = horasNoAcumulables['ValuesListIds'][0]
+    #horasNoAcumulableContent = get_data_of_content_id(horasNoAcumulables, token)
+    #logger.info(horasNoAcumulableContent)
+
+    
+
     detalleCargaHoras = response[ARCHER_IDS['idsGraficos']['detalleCargaHoras']]['Value']
-    logger.info(f"El detalle de carga de horas:", detalleCargaHoras)
+    
     #cargaHoras = []
 
     valores_mensuales = defaultdict(int)
@@ -191,18 +198,11 @@ def crear_informe(data):
         if FechaCargaHora:
             try:
                 fecha_objeto = datetime.strptime(FechaCargaHora, "%Y-%m-%dT%H:%M:%S")
-                #logger.info("Fecha objeto carga horas")
-                #logger.info(fecha_objeto)
+                
                 if fecha_objeto.month <= mes_seleccionado:
                     mes_anio = fecha_objeto.strftime('%Y-%m')
                     valores_mensuales[mes_anio] += cargaHorasNormales
-                    #jsonHoras = {
-                    #    "cargaHorasNormales": cargaHorasNormales,
-                    #    "FechaCargaHora": FechaCargaHora,
-                    #    "shadow": shadow,
-                    #}
-                    #logger.info(jsonHoras)
-                    #cargaHoras.append(jsonHoras)
+                   
             except ValueError:
                 logger.error(f"Error procesando fecha de carga de horas: {FechaCargaHora}")
             
@@ -211,8 +211,7 @@ def crear_informe(data):
 
     TicketsAsociados = response[ARCHER_IDS['idsGraficos']['TicketsAsociados']]['Value']
     tickets_por_mes = defaultdict(int)
-    tickets = []
-
+   
     for contentIdTickets in TicketsAsociados:
         infoTickets = get_data_of_content_id(contentIdTickets, token)
         FechaCreacionTicket = infoTickets[ARCHER_IDS['idsGraficos']['FechaCreacionTicket']]['Value']
@@ -225,23 +224,72 @@ def crear_informe(data):
                     mes_anio = fecha_objeto.strftime('%Y-%m')
                     tickets_por_mes[mes_anio] += 1
 
-                    #jsonTickets = {
-                    #    "FechaCreacionTicket": FechaCreacionTicket,
-                    #    "TotalTicketsMensual": tickets_por_mes[mes_anio],
-                    #    "CreadorTicket": infoTickets[ARCHER_IDS['idsGraficos']['CreadorTicket']]['Value'],
-                    #    "PropietarioTicket": infoTickets[ARCHER_IDS['idsGraficos']['PropietarioTicket']]['Value'],
-                    #    "FechaCierreTicket": infoTickets[ARCHER_IDS['idsGraficos']['FechaCierreTicket']]['Value'],
-                    #    "TipoTicket": infoTickets[ARCHER_IDS['idsGraficos']['TipoTicket']]['Value'],
-                    #    "TecnologiaTicket": infoTickets[ARCHER_IDS['idsGraficos']['TecnologiaTicket']]['Value'],
-                    #    "HorasConsumidasTicket": infoTickets[ARCHER_IDS['idsGraficos']['HorasConsumidasTicket']]['Value'],
-                    #    "EstadoTicket": infoTickets[ARCHER_IDS['idsGraficos']['EstadoTicket']]['Value'],
-                    #}
-                    #tickets.append(jsonTickets)
             except ValueError:
                 logger.error(f"Error procesando fecha de creación de ticket: {FechaCreacionTicket}")
-    #logger.info(tickets_por_mes)
-    #logger.info(tickets_por_mes.items())
     resultado_mensual_tickets = [{"mes": mes, "totalTicketsMensual": total} for mes, total in tickets_por_mes.items()]
-    logger.info(resultado_mensual_tickets)
-    logger.info(resultado_mensual)
-    return resultado_mensual, resultado_mensual_tickets
+
+
+    tickets = []
+
+    for contentIdTickets in TicketsAsociados:
+        infoTickets = get_data_of_content_id(contentIdTickets, token)
+        FechaCierreTicket = infoTickets[ARCHER_IDS['idsGraficos']['FechaCierreTicket']]['Value']
+
+        if FechaCierreTicket:
+            try:
+                fecha_objeto = datetime.strptime(FechaCierreTicket, "%Y-%m-%dT%H:%M:%S")
+    
+                if fecha_objeto.month == mes_seleccionado:
+                    
+                    jsonTickets = {
+                        "Nro de Ticket":infoTickets[ARCHER_IDS['idsGraficos']['NroTicket']]['Value'],
+                        "Fecha Cierre Ticket": FechaCierreTicket,
+                        "Creador Ticket": infoTickets[ARCHER_IDS['idsGraficos']['CreadorTicket']]['Value'],
+                        #"Propietario Ticket": infoTickets[ARCHER_IDS['idsGraficos']['PropietarioTicket']]['Value'],
+                        "Fecha Creacion Ticket": infoTickets[ARCHER_IDS['idsGraficos']['FechaCreacionTicket']]['Value'],
+                        "Tipo Ticket": infoTickets[ARCHER_IDS['idsGraficos']['TipoTicket']]['Value'],
+                        "Asunto": infoTickets[ARCHER_IDS['idsGraficos']['Asunto']]['Value'],
+                    }
+                    tickets.append(jsonTickets)
+            except ValueError as e:
+                logger.error(f"Error procesando fecha de cerrado de ticket: {e}")
+    mensual_tickets_Cerrados = tickets
+
+    #logger.info(tickets)
+    
+    ticketsUltimaActualizacion = []
+
+    for contentIdTickets in TicketsAsociados:
+        infoTickets = get_data_of_content_id(contentIdTickets, token)
+        #FechaCreacionTicket = infoTickets[ARCHER_IDS['idsGraficos']['FechaCreacionTicket']]['Value']
+        UltimaActualizacion = infoTickets[ARCHER_IDS['idsGraficos']['UltimaActualizacion']]['Value']
+        #logger.info(UltimaActualizacion)
+
+        if UltimaActualizacion:
+            try:
+                fecha_objeto = datetime.strptime(UltimaActualizacion, "%Y-%m-%dT%H:%M:%S.%f")
+    
+                if fecha_objeto.month == mes_seleccionado:
+                    
+                    jsonTicketsUlt = {
+                        "Nro de Ticket":infoTickets[ARCHER_IDS['idsGraficos']['NroTicket']]['Value'],
+                        "Fecha Ultima Actualizacion": UltimaActualizacion,
+                        "Creador Ticket": infoTickets[ARCHER_IDS['idsGraficos']['CreadorTicket']]['Value'],
+                        #"Propietario Ticket": infoTickets[ARCHER_IDS['idsGraficos']['PropietarioTicket']]['Value'],
+                        "Fecha Creacion Ticket": infoTickets[ARCHER_IDS['idsGraficos']['FechaCreacionTicket']]['Value'],
+                        "Tipo Ticket": infoTickets[ARCHER_IDS['idsGraficos']['TipoTicket']]['Value'],
+                        "Asunto": infoTickets[ARCHER_IDS['idsGraficos']['Asunto']]['Value'],
+                        
+                    }
+                    ticketsUltimaActualizacion.append(jsonTicketsUlt)
+            except ValueError as e:
+                logger.error(f"Error procesando fecha de cerrado de ticket: {e}")
+    mensual_Ult_Actualizacion = ticketsUltimaActualizacion
+
+
+    logger.info(mensual_Ult_Actualizacion)
+    
+
+
+
+    return resultado_mensual, resultado_mensual_tickets, mensual_tickets_Cerrados, mensual_Ult_Actualizacion

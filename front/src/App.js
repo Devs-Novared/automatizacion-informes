@@ -21,8 +21,11 @@ function App() {
   const [imageTickets, setImageTickets] = useState("");
   const [contratosSeleccionado, setContratosSeleccionado] = useState({});
   const [isReportReady, setIsReportReady] = useState(false);
-  const [error, setError] = useState(""); // Estado para manejar errores
-
+  const [error, setError] = useState(""); 
+  const [ticketsMensual, setTicketsMensual] = useState([]); // Estado para los tickets
+  const [ticketsUltAct, setTicketsUltAct] = useState([]);
+  console.log(ticketsMensual);
+  console.log(ticketsUltAct);
   useEffect(() => {
     const fetchContratos = async () => {
       try {
@@ -58,7 +61,7 @@ function App() {
       ...prevState,
       [name]: value,
     }));
-    setError(""); // Limpia el error si el usuario cambia algo
+    setError(""); 
   };
 
   const validarFormulario = () => {
@@ -87,7 +90,7 @@ function App() {
       selectedMonth,
       contentId: contentIdSeleccionado,
     };
-
+    console.log(ticketsUltAct);
     try {
       const response = await axios.post("http://127.0.0.1:5000/informe", datosAEnviar);
 
@@ -95,20 +98,21 @@ function App() {
         setImageHoras(response.data.image_horas);
         setImageTickets(response.data.image_tickets);
         setContratosSeleccionado(response.data.contratosSeleccionado);
+        setTicketsMensual(response.data.tickets_mensual_Cerrados || []); // Agregar tickets
+        setTicketsUltAct(response.data.mensual_Ult_Actualizacion || []);
         setIsReportReady(true);
-        setError(""); // Limpia cualquier error previo
+        setError(""); 
       }
     } catch (error) {
       console.error("Error al generar el informe:", error);
       setError("Hubo un error al generar el informe. Intente nuevamente.");
     }
   };
-
+  console.log(ticketsUltAct);
   return (
     <>
       <div style={{ padding: "20px" }}>
         <h1>Datos para Informe</h1>
-
         <Formulario
           formData={formData}
           handleFilterChange={handleFilterChange}
@@ -131,6 +135,8 @@ function App() {
           formData={formData}
           imageHoras={imageHoras}
           imageTickets={imageTickets}
+          ticketsMensual={ticketsMensual} // Pasamos los tickets al PDF
+          ticketsUltAct={ticketsUltAct}
         />
       )}
     </>

@@ -45,6 +45,18 @@ def grafico_linea_HorasConsumidas(resultado_mensual,
     # Aplicar etiquetas formateadas al eje X
     fig.update_xaxes(tickvals=meses_formateados)
 
+    # Agregar índices de valores en los puntos (sin flechas)
+    for i, valor in enumerate(totalHorasMensual):
+        fig.add_annotation(
+            x=meses_formateados[i],
+            y=valor,
+            text=str(valor),  # Mostrar valor en español
+            showarrow=False,  # Sin flechas
+            font=dict(size=10, color="black"),
+            align="center",
+            yshift=10  # Desplazamiento vertical para no sobreponerse
+        )
+
     # Exportar imagen
     img_bytes = BytesIO()
     pio.write_image(fig, img_bytes, format='png')
@@ -76,10 +88,21 @@ def grafico_linea_TicketsConsumidos(resultado_mensual_tickets,
     # Aplicar etiquetas formateadas al eje X
     fig.update_xaxes(tickvals=meses_formateados)
 
+    # Agregar índices de valores en los puntos (sin flechas)
+    for i, valor in enumerate(totalTicketsMensual):
+        fig.add_annotation(
+            x=meses_formateados[i],
+            y=valor,
+            text=str(valor),  # Mostrar valor en español
+            showarrow=False,  # Sin flechas
+            font=dict(size=10, color="black"),
+            align="center",
+            yshift=10  # Desplazamiento vertical para no sobreponerse
+        )
+
     # Exportar imagen
     img_bytes = BytesIO()
     pio.write_image(fig, img_bytes, format='png')
     img_bytes.seek(0)
 
     return img_bytes
-
