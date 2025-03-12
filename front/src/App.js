@@ -24,8 +24,7 @@ function App() {
   const [error, setError] = useState(""); 
   const [ticketsMensual, setTicketsMensual] = useState([]); // Estado para los tickets
   const [ticketsUltAct, setTicketsUltAct] = useState([]);
-  console.log(ticketsMensual);
-  console.log(ticketsUltAct);
+
   useEffect(() => {
     const fetchContratos = async () => {
       try {
@@ -90,7 +89,7 @@ function App() {
       selectedMonth,
       contentId: contentIdSeleccionado,
     };
-    console.log(ticketsUltAct);
+
     try {
       const response = await axios.post("http://127.0.0.1:5000/informe", datosAEnviar);
 
@@ -108,7 +107,7 @@ function App() {
       setError("Hubo un error al generar el informe. Intente nuevamente.");
     }
   };
-  console.log(ticketsUltAct);
+
   return (
     <>
       <div style={{ padding: "20px" }}>

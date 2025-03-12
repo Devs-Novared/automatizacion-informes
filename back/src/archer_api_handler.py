@@ -192,3 +192,70 @@ def get_data_of_content_id(contentId: str, token: str):
         logger.error(f'Detalle del error: {e}')
         logger.error(f'Detalle del traceback: {tr.format_exc()}')
         
+def get_data_of_reference_field_id(referenceFieldId: str, token: str):
+    """Obtencion del valor del content id de Archer.
+
+    Args:
+        contentId (str): Id de archer a buscar su contenido
+        token (str): Token de usuario de archer de la sesion
+
+    Returns:
+        Any: Campos con la informacion de ese content id
+    """
+
+    headers = {
+        "Accept": "application/json,text/html,application/xhtml+xml,application/xml;q=0.9,/;q=0.8",
+        "Authorization": f"Archer session-id={token}",
+        "Content-Type": "application/json",
+        "X-Http-Method-Override": "GET"
+    }
+    try:
+        response = req.post(f'{URL}/api/core/content/referencefield/referencefieldid?id={referenceFieldId}', headers=headers, verify=False, timeout=30)
+    except ConnectionError as e:
+        logger.error('No se recibio respuesta de archer para el indicador solicitado')
+        logger.error(f'Detalle del error: {e}')
+        logger.error(f'Detalle del traceback: {tr.format_exc()}')
+    try:
+        if not response: 
+            logger.error(f'Se obtuvo un response None de un request data of content id')
+        if response.status_code != 500:
+            logger.info(response.json())
+            return response.json()['RequestedObject']['FieldContents']
+    except (OSError,KeyError,json.decoder.JSONDecodeError) as e:
+        logger.error(f'Ocurrio un error al accceder al valor del field content id {referenceFieldId} obtenido en el response')
+        logger.error(f'Detalle del error: {e}')
+        logger.error(f'Detalle del traceback: {tr.format_exc()}')        
+
+def get_data_of_attachment_id(attachmentId: str, token: str):
+    """Obtencion del valor del content id de Archer.
+
+    Args:
+        contentId (str): Id de archer a buscar su contenido
+        token (str): Token de usuario de archer de la sesion
+
+    Returns:
+        Any: Campos con la informacion de ese content id
+    """
+
+    headers = {
+        "Accept": "application/json,text/html,application/xhtml+xml,application/xml;q=0.9,/;q=0.8",
+        "Authorization": f"Archer session-id={token}",
+        "Content-Type": "application/json",
+        "X-Http-Method-Override": "GET"
+    }
+    try:
+        response = req.post(f'{URL}/api/core/content/attachment/{attachmentId}', headers=headers, verify=False, timeout=30)
+    except ConnectionError as e:
+        logger.error('No se recibio respuesta de archer para el indicador solicitado')
+        logger.error(f'Detalle del error: {e}')
+        logger.error(f'Detalle del traceback: {tr.format_exc()}')
+    try:
+        if not response: 
+            logger.error(f'Se obtuvo un response None de un request data of content id')
+        if response.status_code != 500:
+            return response.json()['RequestedObject']['AttachmentBytes']
+    except (OSError,KeyError,json.decoder.JSONDecodeError) as e:
+        logger.error(f'Ocurrio un error al accceder al valor del attachment id {attachmentId} obtenido en el response')
+        logger.error(f'Detalle del error: {e}')
+        logger.error(f'Detalle del traceback: {tr.format_exc()}')        
+        

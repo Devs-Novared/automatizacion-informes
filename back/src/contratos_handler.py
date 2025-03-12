@@ -8,7 +8,7 @@ from datetime import datetime
 from collections import defaultdict
 
 from src.shared import ARCHER_IDS, URL
-from src.archer_api_handler import archer_login, get_data_of_content_id
+from src.archer_api_handler import archer_login, get_data_of_content_id, get_data_of_attachment_id
 
 logger = logging.getLogger(__name__)
 
@@ -34,6 +34,7 @@ TecnologiaTicket_id = ARCHER_IDS['idsGraficos']['TecnologiaTicket']
 HorasConsumidasTicket_id = ARCHER_IDS['idsGraficos']['HorasConsumidasTicket']
 EstadoTicket_id = ARCHER_IDS['idsGraficos']['EstadoTicket']
 
+logo_id = ARCHER_IDS['idsGraficos']['Logo']
 
 def getAllContratos ():
     token = archer_login()
@@ -122,11 +123,8 @@ def get_contrato_from_page(record: Element) -> Union[dict, None]:
         soporteCorrectivo = record.find('./Field[@id="27005"]/ListValues/ListValue').text.strip()
     except Exception as e:
         pass
-    #logger.info(soporteCorrectivo)
     
     horasSoporte = record.find('./Field[@id="28013"]').text
-    #logger.info(horasSoporte)
-    
 
     contrato = {
         "nroContrato": nroContrato,
@@ -143,7 +141,6 @@ def get_contrato_from_page(record: Element) -> Union[dict, None]:
 
     #logger.info(contrato)
     return contrato
-
 
 def extraer_mes(fecha_str):
     """Convierte una fecha en formato ISO `YYYY-MM-DDTHH:MM:SS` a su número de mes."""
@@ -177,12 +174,15 @@ def crear_informe(data):
     #horasNoAcumulables = response[ARCHER_IDS['idsGraficos']['HorasNoAcumulables']]['Value']
     #horasNoAcumulables = horasNoAcumulables['ValuesListIds'][0]
     #horasNoAcumulableContent = get_data_of_content_id(horasNoAcumulables, token)
-    #logger.info(horasNoAcumulableContent)
-
-    
+    #logger.info(horasNoAcumulableContent)    
 
     detalleCargaHoras = response[ARCHER_IDS['idsGraficos']['detalleCargaHoras']]['Value']
     
+    logoId = response[logo_id]['Value'][0]
+    logoData = get_data_of_attachment_id(logoId, token)
+    
+    logoTecnologiaId = response[tecnologia_id]['Value']['ValuesListIds'][0]
+    logoTecnologiaData = get_data_of_attachment_id(logoTecnologiaId, token)
     #cargaHoras = []
 
     valores_mensuales = defaultdict(int)
@@ -278,18 +278,14 @@ def crear_informe(data):
                         #"Propietario Ticket": infoTickets[ARCHER_IDS['idsGraficos']['PropietarioTicket']]['Value'],
                         "Fecha Creacion Ticket": infoTickets[ARCHER_IDS['idsGraficos']['FechaCreacionTicket']]['Value'],
                         "Tipo Ticket": infoTickets[ARCHER_IDS['idsGraficos']['TipoTicket']]['Value'],
-                        "Asunto": infoTickets[ARCHER_IDS['idsGraficos']['Asunto']]['Value'],
-                        
+                        "Asunto": infoTickets[ARCHER_IDS['idsGraficos']['Asunto']]['Value']
                     }
                     ticketsUltimaActualizacion.append(jsonTicketsUlt)
             except ValueError as e:
                 logger.error(f"Error procesando fecha de cerrado de ticket: {e}")
     mensual_Ult_Actualizacion = ticketsUltimaActualizacion
-
-
     logger.info(mensual_Ult_Actualizacion)
-    
+
+    return resultado_mensual, resultado_mensual_tickets, mensual_tickets_Cerrados, mensual_Ult_Actualizacion, logoData, logoTecnologiaData
 
 
-
-    return resultado_mensual, resultado_mensual_tickets, mensual_tickets_Cerrados, mensual_Ult_Actualizacion

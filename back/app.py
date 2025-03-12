@@ -46,8 +46,6 @@ def get_contratos():
 def guardar_seleccion():
     data = request.json
     
-    logger.info(data)
-
     cliente = data.get('cliente')
     tecnologia = data.get('tecnologia')
     contrato = data.get('contrato')
@@ -65,7 +63,6 @@ def guardar_seleccion():
         "mes": mes,
         "contentId" : contentId, 
     }
-    logger.info(data)
     crear_informe(data)
     
     return jsonify(data), 200
@@ -76,7 +73,6 @@ def generar_informe():
     try:
         # Obtener datos de la solicitud
         data = request.get_json()
-        logger.info(data)
 
         cliente = data.get('cliente')
         tecnologia = data.get('tecnologia')
@@ -98,13 +94,13 @@ def generar_informe():
         #logger.info(contratosInfo)
 
         contratosSeleccionado = next((contrato for contrato in contratosInfo if contrato['contentId'] == data.get('contentId')), None)
-        logger.info(contratosSeleccionado)
+        #logger.info(contratosSeleccionado)
 
 
-        resultado_mensual, resultado_mensual_tickets, mensual_tickets_Cerrados, mensual_Ult_Actualizacion = crear_informe(data)
+        resultado_mensual, resultado_mensual_tickets, mensual_tickets_Cerrados, mensual_Ult_Actualizacion, logoData, logoTecnologiaData = crear_informe(data)
 
         #logger.info(resultado_mensual)
-        logger.info(mensual_Ult_Actualizacion)
+        #logger.info(mensual_Ult_Actualizacion)
 
         img_bytes_horas = grafico_linea_HorasConsumidas(resultado_mensual)
         #logger.info(img_bytes_horas)
@@ -116,7 +112,7 @@ def generar_informe():
         image_tickets_base64 = base64.b64encode(img_bytes_tickets.read()).decode('utf-8')
 
         
-
+        logger.info("pase")
         # Retornar las imágenes en formato JSON
         return jsonify({
             "contratosSeleccionado": contratosSeleccionado,
@@ -124,6 +120,8 @@ def generar_informe():
             'image_tickets': image_tickets_base64,
             "tickets_mensual_Cerrados" : mensual_tickets_Cerrados,
             "tickets_ult_act":  mensual_Ult_Actualizacion,
+            "logoData": logoData,
+            "logoTecnologiaData": logoTecnologiaData
         }), 200
     except Exception as e:
         logger.error(f"Error al generar el informe: {e}")
