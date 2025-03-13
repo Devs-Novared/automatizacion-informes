@@ -55,7 +55,7 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageTickets, ticket
         <section className="logos">
           <img src="logo1.png" alt="tecnologia-logo" />
           <img src="logo2.png" alt="cliente-logo" />
-          <img src="../pages/images/novared-logo.png" alt="novared-logo" />
+          <img src="../pages/novaredLogo.png" alt="novared-logo" />
         </section>
       </section>
 
