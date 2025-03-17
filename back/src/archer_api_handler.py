@@ -259,3 +259,43 @@ def get_data_of_attachment_id(attachmentId: str, token: str):
         logger.error(f'Detalle del error: {e}')
         logger.error(f'Detalle del traceback: {tr.format_exc()}')        
         
+def get_related_user(userId: str, token: str):
+    """Obtencion del valor del user id de Archer.
+
+    Args:
+        userId (str): Id de archer a buscar su contenido
+        token (str): Token de usuario de archer de la sesion
+
+    Returns:
+        Any: Campos con la informacion de ese user id
+    """
+
+    headers = {
+        "Accept": "application/json,text/html,application/xhtml+xml,application/xml;q=0.9,/;q=0.8",
+        "Authorization": f"Archer session-id={token}",
+        "Content-Type": "application/json",
+        "X-Http-Method-Override": "GET"
+    }
+    try:
+        response = req.post(f'{URL}/platformapi/core/system/user/{userId}', headers=headers, verify=False, timeout=30)
+    except ConnectionError as e:
+        logger.error('No se recibio respuesta de archer para el usuario solicitado')
+        logger.error(f'Detalle del error: {e}')
+        logger.error(f'Detalle del traceback: {tr.format_exc()}')
+    try:
+        if not response: 
+            logger.error(f'Se obtuvo un response None de un request data of user id')
+        if response.status_code != 500:
+            userData = response.json()
+            logger.info(userData)
+            firstName = userData['FirstName']
+            lastName = userData['LastName']
+            userName = f"{firstName} {lastName}"
+            logger.info(userName)
+            return userName
+    except (OSError,KeyError,json.decoder.JSONDecodeError) as e:
+        logger.error(f'Ocurrio un error al accceder al valor del user id {userId} obtenido en el response')
+        logger.error(f'Detalle del error: {e}')
+        logger.error(f'Detalle del traceback: {tr.format_exc()}')        
+        
+                

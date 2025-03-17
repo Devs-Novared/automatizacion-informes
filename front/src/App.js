@@ -24,6 +24,8 @@ function App() {
   const [error, setError] = useState(""); 
   const [ticketsMensual, setTicketsMensual] = useState([]); // Estado para los tickets
   const [ticketsUltAct, setTicketsUltAct] = useState([]);
+  const [logoCliente, setLogoCliente] = useState("");
+  const [logoTecnologia, setLogoTecnologia] = useState("");
 
   useEffect(() => {
     const fetchContratos = async () => {
@@ -94,11 +96,15 @@ function App() {
       const response = await axios.post("http://127.0.0.1:5000/informe", datosAEnviar);
 
       if (response.status === 200) {
+        console.log(response.data)
         setImageHoras(response.data.image_horas);
         setImageTickets(response.data.image_tickets);
+        setLogoCliente(response.data.logoCliente)
+        setLogoTecnologia(response.data.logoTecnologia)
         setContratosSeleccionado(response.data.contratosSeleccionado);
         setTicketsMensual(response.data.tickets_mensual_Cerrados || []); // Agregar tickets
         setTicketsUltAct(response.data.mensual_Ult_Actualizacion || []);
+        
         setIsReportReady(true);
         setError(""); 
       }
@@ -136,6 +142,8 @@ function App() {
           imageTickets={imageTickets}
           ticketsMensual={ticketsMensual} // Pasamos los tickets al PDF
           ticketsUltAct={ticketsUltAct}
+          logoCliente={logoCliente}
+          logoTecnologia={logoTecnologia}
         />
       )}
     </>

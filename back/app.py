@@ -36,6 +36,7 @@ def get_contratos():
                 "Result": contratos
             }), status=200, mimetype="application/json")
     except Exception as e:
+        logger.error(e)
         return Response(
             response=json.dumps({
                 "Status": 'ERROR'
@@ -111,8 +112,6 @@ def generar_informe():
         image_horas_base64 = base64.b64encode(img_bytes_horas.read()).decode('utf-8')
         image_tickets_base64 = base64.b64encode(img_bytes_tickets.read()).decode('utf-8')
 
-        
-        logger.info("pase")
         # Retornar las imágenes en formato JSON
         return jsonify({
             "contratosSeleccionado": contratosSeleccionado,
@@ -120,8 +119,8 @@ def generar_informe():
             'image_tickets': image_tickets_base64,
             "tickets_mensual_Cerrados" : mensual_tickets_Cerrados,
             "tickets_ult_act":  mensual_Ult_Actualizacion,
-            "logoData": logoData,
-            "logoTecnologiaData": logoTecnologiaData
+            "logoCliente": logoData,
+            "logoTecnologia": logoTecnologiaData
         }), 200
     except Exception as e:
         logger.error(f"Error al generar el informe: {e}")

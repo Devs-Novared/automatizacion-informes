@@ -1,10 +1,69 @@
-[13-03-2025 11:12:50] WARNING   * Debugger is active!
-[13-03-2025 11:12:50] INFO      * Debugger PIN: 246-412-492
-[13-03-2025 11:13:04] INFO     Se obtuvo el token de la solicitud correctamente
-[13-03-2025 11:13:07] INFO     127.0.0.1 - - [13/Mar/2025 11:13:07] "GET /getContratos HTTP/1.1" 200 -
-[13-03-2025 11:13:24] INFO     127.0.0.1 - - [13/Mar/2025 11:13:24] "OPTIONS /informe HTTP/1.1" 200 -
-[13-03-2025 11:13:25] INFO     Se obtuvo el token de la solicitud correctamente
-[13-03-2025 11:13:28] INFO     Se obtuvo el token de la solicitud correctamente
-[13-03-2025 11:15:28] INFO     [{'Nro de Ticket': 'Ticket#2675606', 'Fecha Ultima Actualizacion': '2025-03-07T19:06:34.28', 'Creador Ticket': 'Ayelen Salteno ', 'Fecha Creacion Ticket': '2025-02-21T13:30:14.32', 'Tipo Ticket': 'Soporte', 'Asunto': 'CNCO | SH problema con store de azure en prod'}, {'Nro de Ticket': 'Ticket#2676385', 'Fecha Ultima Actualizacion': '2025-03-07T18:38:41.873', 'Creador Ticket': 'Ayelen Salteno ', 'Fecha Creacion Ticket': '2025-02-25T19:40:06.653', 'Tipo Ticket': 'Servicios Profesionales', 'Asunto': 'CARK - Cenco | Conector SAPJava'}, {'Nro de Ticket': 'Ticket#2677785', 'Fecha Ultima Actualizacion': '2025-03-06T14:13:20.54', 'Creador Ticket': 'Ayelen Salteno ', 'Fecha Creacion Ticket': '2025-03-05T18:15:02.343', 'Tipo Ticket': 'Soporte', 'Asunto': 'CARK - Cenco | Upgrade CPM/PSM CL01'}, {'Nro de Ticket': 'Ticket#2679326', 'Fecha Ultima Actualizacion': '2025-03-12T20:05:37.733', 'Creador Ticket': 'Ayelen Salteno ', 'Fecha Creacion Ticket': '2025-03-12T14:30:01.687', 'Tipo Ticket': 'Soporte', 'Asunto': 'CNCO | Arreglo SQLDeveloper-Oracle'}, {'Nro de Ticket': 'Ticket#2679329', 'Fecha Ultima Actualizacion': '2025-03-12T16:00:13.01', 'Creador Ticket': 'Ayelen Salteno ', 'Fecha Creacion Ticket': '2025-03-12T14:30:09.767', 'Tipo Ticket': 'Soporte', 'Asunto': 'CNCO | Arreglo MySQL viejos'}, {'Nro de Ticket': 'Ticket#2679331', 'Fecha Ultima Actualizacion': '2025-03-12T16:00:13.12', 'Creador Ticket': 'Ayelen Salteno ', 'Fecha Creacion Ticket': '2025-03-12T14:30:17.4', 'Tipo Ticket': 'Soporte', 'Asunto': 'CNCO | Arreglo Winscp Dominio PSM'}, {'Nro de Ticket': 'Ticket#2679475', 'Fecha Ultima Actualizacion': '2025-03-12T23:59:44.08', 'Creador Ticket': 'Ayelen Salteno ', 'Fecha Creacion Ticket': '2025-03-12T20:15:07.59', 'Tipo Ticket': 'Soporte', 'Asunto': 'CARK - Cenco | Upgrade CPM/PSM Tier0 Activo'}]
-[13-03-2025 11:15:36] INFO     pase
-[13-03-2025 11:15:36] INFO     127.0.0.1 - - [13/Mar/2025 11:15:36] "POST /informe HTTP/1.1" 200 -
+[17-03-2025 16:20:30] WARNING   * Debugger is active!
+[17-03-2025 16:20:30] INFO      * Debugger PIN: 369-247-726
+[17-03-2025 16:21:27] INFO     Se obtuvo el token de la solicitud correctamente
+[17-03-2025 16:21:28] INFO     127.0.0.1 - - [17/Mar/2025 16:21:28] "GET /getContratos HTTP/1.1" 200 -
+[17-03-2025 16:25:32] INFO     127.0.0.1 - - [17/Mar/2025 16:25:32] "OPTIONS /informe HTTP/1.1" 200 -
+[17-03-2025 16:25:33] INFO     Se obtuvo el token de la solicitud correctamente
+[17-03-2025 16:25:34] INFO     Se obtuvo el token de la solicitud correctamente
+[17-03-2025 16:27:38] INFO     127.0.0.1 - - [17/Mar/2025 16:27:38] "POST /informe HTTP/1.1" 200 -
+[17-03-2025 16:29:32] INFO     Se obtuvo el token de la solicitud correctamente
+[17-03-2025 16:29:33] INFO     127.0.0.1 - - [17/Mar/2025 16:29:33] "GET /getContratos HTTP/1.1" 200 -
+[17-03-2025 16:29:41] INFO     127.0.0.1 - - [17/Mar/2025 16:29:41] "OPTIONS /informe HTTP/1.1" 200 -
+[17-03-2025 16:29:41] INFO     Se obtuvo el token de la solicitud correctamente
+[17-03-2025 16:29:43] INFO     Se obtuvo el token de la solicitud correctamente
+[17-03-2025 16:30:09] INFO     127.0.0.1 - - [17/Mar/2025 16:30:09] "OPTIONS /informe HTTP/1.1" 200 -
+[17-03-2025 16:30:09] INFO     Se obtuvo el token de la solicitud correctamente
+[17-03-2025 16:30:10] ERROR    Se obtuvo un response None de un request data of content id
+[17-03-2025 16:30:10] ERROR    Ocurrio un error al accceder al valor del content id 2677147 obtenido en el response
+[17-03-2025 16:30:10] ERROR    Detalle del error: Expecting value: line 1 column 1 (char 0)
+[17-03-2025 16:30:10] ERROR    Detalle del traceback: Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 971, in json
+    return complexjson.loads(self.text, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\Desktop\Programas\automatizacion-informes\back\src\archer_api_handler.py", line 189, in get_data_of_content_id
+    return response.json()['RequestedObject']['FieldContents']
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 975, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+[17-03-2025 16:30:10] ERROR    Error al generar el informe: 'NoneType' object is not subscriptable
+[17-03-2025 16:30:10] INFO     127.0.0.1 - - [17/Mar/2025 16:30:10] "[35m[1mPOST /informe HTTP/1.1[0m" 500 -
+[17-03-2025 16:30:11] INFO     Se obtuvo el token de la solicitud correctamente
+[17-03-2025 16:30:52] ERROR    Error al generar el informe: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /api/core/content/contentid?id=2667116 (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000002C5AB9BC310>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+[17-03-2025 16:30:52] INFO     127.0.0.1 - - [17/Mar/2025 16:30:52] "[35m[1mPOST /informe HTTP/1.1[0m" 500 -
+[17-03-2025 16:30:55] INFO     127.0.0.1 - - [17/Mar/2025 16:30:55] "OPTIONS /informe HTTP/1.1" 200 -
+[17-03-2025 16:30:55] INFO     Se obtuvo el token de la solicitud correctamente
+[17-03-2025 16:30:57] INFO     Se obtuvo el token de la solicitud correctamente
+[17-03-2025 16:32:12] ERROR    Error de siempre: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /api/core/content/contentid?id=1924060 (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000002C5ABAAEB90>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+[17-03-2025 16:32:21] ERROR    Error al generar el informe: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /api/core/content/contentid?id=2670613 (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000002C5ABA1DA50>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+[17-03-2025 16:32:21] INFO     127.0.0.1 - - [17/Mar/2025 16:32:21] "[35m[1mPOST /informe HTTP/1.1[0m" 500 -
+[17-03-2025 16:32:28] INFO     Se obtuvo el token de la solicitud correctamente
+[17-03-2025 16:32:29] INFO     127.0.0.1 - - [17/Mar/2025 16:32:29] "GET /getContratos HTTP/1.1" 200 -
+[17-03-2025 16:32:37] INFO     127.0.0.1 - - [17/Mar/2025 16:32:37] "OPTIONS /informe HTTP/1.1" 200 -
+[17-03-2025 16:32:37] INFO     Se obtuvo el token de la solicitud correctamente
+[17-03-2025 16:32:39] INFO     Se obtuvo el token de la solicitud correctamente
+[17-03-2025 16:33:20] ERROR    Error al generar el informe: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /api/core/content/contentid?id=2669060 (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000002C5AB98DE10>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+[17-03-2025 16:33:20] INFO     127.0.0.1 - - [17/Mar/2025 16:33:20] "[35m[1mPOST /informe HTTP/1.1[0m" 500 -
+[17-03-2025 16:44:50] INFO     127.0.0.1 - - [17/Mar/2025 16:44:50] "OPTIONS /informe HTTP/1.1" 200 -
+[17-03-2025 16:44:50] INFO     Se obtuvo el token de la solicitud correctamente
+[17-03-2025 16:44:51] INFO     Se obtuvo el token de la solicitud correctamente
+[17-03-2025 16:45:03] ERROR    Error al generar el informe: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /api/core/content/contentid?id=2672297 (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000002C5A9E9D1D0>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+[17-03-2025 16:45:03] INFO     127.0.0.1 - - [17/Mar/2025 16:45:03] "[35m[1mPOST /informe HTTP/1.1[0m" 500 -
+[17-03-2025 17:15:05] INFO     127.0.0.1 - - [17/Mar/2025 17:15:05] "OPTIONS /informe HTTP/1.1" 200 -
+[17-03-2025 17:15:05] INFO     Se obtuvo el token de la solicitud correctamente
+[17-03-2025 17:15:06] INFO     Se obtuvo el token de la solicitud correctamente
+[17-03-2025 17:17:08] INFO     127.0.0.1 - - [17/Mar/2025 17:17:08] "POST /informe HTTP/1.1" 200 -

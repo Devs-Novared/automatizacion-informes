@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import html2pdf from "html2pdf.js";
 import "./styles/pdf.css";
 
-const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageTickets, ticketsMensual, ticketsUltAct }) => {
+const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageTickets, ticketsMensual, ticketsUltAct, logoCliente, logoTecnologia }) => {
   const [fechaTexto, setFechaTexto] = useState("");
   const [year, setYear] = useState("");
 
@@ -53,8 +53,20 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageTickets, ticket
           {selectedMonth ? `Fecha: ${selectedMonth} - ${year}` : fechaTexto}
         </h2>
         <section className="logos">
-          <img src="logo1.png" alt="tecnologia-logo" />
-          <img src="logo2.png" alt="cliente-logo" />
+          {logoTecnologia && (
+            <img
+              src={`data:image/png;base64,${logoTecnologia}`}
+              alt="tecnologia-logo"
+              style={{ height: "50px", margin: "10px" }}
+            />
+          )}
+          {logoCliente && (
+            <img
+              src={`data:image/png;base64,${logoCliente}`}
+              alt="cliente-logo"
+              style={{ height: "50px", margin: "10px" }}
+            />
+          )}
           <img src="../pages/novaredLogo.png" alt="novared-logo" />
         </section>
       </section>
