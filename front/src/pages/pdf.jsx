@@ -57,17 +57,20 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageTickets, ticket
             <img
               src={`data:image/png;base64,${logoTecnologia}`}
               alt="tecnologia-logo"
-              style={{ height: "50px", margin: "10px" }}
+              style={{ height: "100px", margin: "10px" }}
             />
           )}
           {logoCliente && (
             <img
               src={`data:image/png;base64,${logoCliente}`}
               alt="cliente-logo"
-              style={{ height: "50px", margin: "10px" }}
+              style={{ height: "50px", margin: "35px" }}
             />
           )}
-          <img src="../pages/novaredLogo.png" alt="novared-logo" />
+          <img 
+            src="novaredLogo.png"
+            alt="novared-logo"
+            style={{ height: "50px", margin: "35px" }} />
         </section>
       </section>
 

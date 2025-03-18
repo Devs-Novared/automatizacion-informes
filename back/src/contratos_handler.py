@@ -8,7 +8,7 @@ from datetime import datetime
 from collections import defaultdict
 
 from src.shared import ARCHER_IDS, URL
-from src.archer_api_handler import archer_login, get_data_of_content_id, get_data_of_attachment_id, get_data_of_reference_field_id, get_related_user
+from src.archer_api_handler import archer_login, get_data_of_content_id, get_data_of_attachment_id 
 
 logger = logging.getLogger(__name__)
 
@@ -37,6 +37,7 @@ EstadoTicket_id = ARCHER_IDS['idsGraficos']['EstadoTicket']
 logo_id = ARCHER_IDS['idsGraficos']['Logo']
 user_id = ARCHER_IDS['idsGraficos']['UserId']
 userName_id = ARCHER_IDS['idsGraficos']['Username']
+tecnologiaLogo_id = ARCHER_IDS['idsGraficos']['TecnologiaLogo']
 
 def getAllContratos ():
     token = archer_login()
@@ -183,12 +184,13 @@ def crear_informe(data):
     logoId = response[logo_id]['Value'][0]
     logoData = get_data_of_attachment_id(logoId, token)
     
-    logoTecnologiaId = response[tecnologia_id]['Value']['ValuesListIds'][0]
+    logoTecnologiaId = response[tecnologiaLogo_id]['Value'][0]
     logoTecnologiaData = get_data_of_attachment_id(logoTecnologiaId, token)
     #cargaHoras = []
 
     valores_mensuales = defaultdict(int)
     for contentIdHoras in detalleCargaHoras:
+        logger.info(contentIdHoras)
         infoHoras = get_data_of_content_id(contentIdHoras["ContentId"], token)
 
         cargaHorasNormales = infoHoras[ARCHER_IDS['idsGraficos']['cargaHorasNormales']]['Value']
@@ -213,6 +215,7 @@ def crear_informe(data):
     TicketsAsociados = response[ARCHER_IDS['idsGraficos']['TicketsAsociados']]['Value']
     tickets_por_mes = defaultdict(int)
     for contentIdTickets in TicketsAsociados:
+        logger.info(contentIdTickets)
         infoTickets = get_data_of_content_id(contentIdTickets, token)
         FechaCreacionTicket = infoTickets[ARCHER_IDS['idsGraficos']['FechaCreacionTicket']]['Value']
 

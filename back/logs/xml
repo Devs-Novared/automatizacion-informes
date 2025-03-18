@@ -1,13 +1,26 @@
-<Record contentId="2598163" levelId="198" levelGuid="85a022fc-5182-4157-a091-f72aa9fe4962" moduleId="405" parentId="0">
-  <Field id="15151" guid="b9a09842-a4f9-44bc-af26-042d4e7e5000" type="1">401070</Field>
-  <Field id="15132" guid="30cd0baa-ac4f-42d3-b447-1ac2893c1b95" type="9" />
-  <Field id="15140" guid="dca29a84-fa9d-4850-a954-597f488f60cd" type="3" xmlConvertedValue="2024-03-20T00:00:00Z">20/3/2024</Field>
-  <Field id="15141" guid="2c77c4b5-8883-484a-85da-0a17faf6caf1" type="3" xmlConvertedValue="2025-03-20T00:00:00Z">20/3/2025</Field>
-  <Field id="26996" guid="254d374c-2a48-43ce-86df-b07b450a3f59" type="4"><ListValues><ListValue id="72441" displayName="Tenable">Tenable</ListValue></ListValues></Field>
-  <Field id="27430" guid="d6d4c3d4-891a-4258-82da-cfdbd24e57bc" type="4"><ListValues><ListValue id="64996" displayName="Vulnerability Manager">Vulnerability Manager</ListValue></ListValues></Field>
-  <Field id="16921" guid="c0329b9a-9e9c-489e-8357-0558627abf71" type="4"><ListValues><ListValue id="66565" displayName="Vigente">Vigente</ListValue></ListValues></Field>
-  <Field id="28013" guid="08dad543-7b63-4e05-80b8-81af08d5eddb" type="2" />
-  <Field id="28474" guid="30dcc09c-d8ac-4cbd-bcbe-2c6860ce1202" type="2" />
-  <Field id="27005" guid="38cbaeb4-2fb3-41e8-835c-4075342a85a1" type="4"><ListValues><ListValue id="75230" displayName="7x24">7x24</ListValue></ListValues></Field>
-  <Field id="27022" guid="bb06224e-edf9-4858-8b82-4ea76c0a065d" type="4"><ListValues><ListValue id="75293" displayName="8">8</ListValue></ListValues></Field>
-</Record>
+<GetValuesListItemResponse xmlns="http://archer-tech.com/webservices/">
+
+<GetValuesListItemResult>&lt;
+SelectDefValues&gt;\r\n  &lt;
+SelectDefValue&gt;\r\n    &lt;
+
+select_id&gt;70665&lt;/select_id&gt;\r\n    &lt;
+guid&gt;8a0b46af-4534-4b3e-bf75-e7bd509a3820&lt;/guid&gt;\r\n    &lt;
+Name&gt;Boveda de contrase\xc3\xb1as&lt;/Name&gt;\r\n    &lt;
+select_value_desc&gt;&lt;/select_value_desc&gt;\r\n    &lt;
+create_date&gt;&lt;/create_date&gt;\r\n    &lt;
+create_login&gt;&lt;/create_login&gt;\r\n    &lt;
+select_value_color&gt;#000000&lt;/select_value_color&gt;\r\n    &lt;
+DefaultFlag&gt;False&lt;/DefaultFlag&gt;\r\n    &lt;
+aso_status&gt;0&lt;/aso_status&gt;\r\n    &lt;
+IsActive&gt;True&lt;/IsActive&gt;\r\n    &lt;
+OtherTextEnabled&gt;False&lt;/OtherTextEnabled&gt;\r\n    &lt;
+IsCorrect&gt;False&lt;/IsCorrect&gt;\r\n    &lt;
+sort_order&gt;10&lt;/sort_order&gt;\r\n    &lt;
+NumericValue&gt;&lt;/NumericValue&gt;\r\n  &lt;
+
+/SelectDefValue&gt;\r\n&lt;
+/SelectDefValues&gt;
+</GetValuesListItemResult>
+
+</GetValuesListItemResponse>
