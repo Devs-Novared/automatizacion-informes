@@ -126,7 +126,5 @@ def generar_informe():
         logger.error(f"Error al generar el informe: {e}")
         return jsonify({"error": "Error al generar el informe"}), 500
 
-
-
 if __name__ == '__main__':
     app.run(debug=True)

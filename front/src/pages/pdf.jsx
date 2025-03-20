@@ -169,7 +169,7 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageTickets, ticket
         )}
         
         <h2>Detalle de Última Actualización de Tickets</h2>
-        {/* Tabla de Tickets Última Actualización */ console.log(ticketsUltAct)}
+        {/* Tabla de Tickets Última Actualización */}
         {ticketsUltAct && ticketsUltAct.length > 0 ? (
           <table className="tabla-tickets">
             <thead>

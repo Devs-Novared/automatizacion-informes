@@ -14,8 +14,6 @@ from src.utils import test_connection, check_none_type, set_periodic_number
 req.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 logger = logging.getLogger(__name__)
 
-
-
 def archer_login() -> Union[str, None]:
     """Realiza el login en la API de archer
 
@@ -38,11 +36,10 @@ def archer_login() -> Union[str, None]:
         "InstanceName": instance_name,
         "Username": username,
         "UserDomain":"",
-        "Password": 'Novared#12345'
+        "Password": password
     }
     try:
         response = req.post(f"{URL}/api/core/security/login", data=json.dumps(credentials), headers=headers, verify=False)
-
     except (OSError,KeyError,ConnectionError) as e:
         logger.error(f'Hubo un error al iniciar sesión, comprueba el nombre de usuario y la contraseña')
         logger.error(f'Detalle del error {e}')
@@ -219,7 +216,6 @@ def get_data_of_reference_field_id(referenceFieldId: str, token: str):
         if not response: 
             logger.error(f'Se obtuvo un response None de un request data of content id')
         if response.status_code != 500:
-            logger.info(response.json())
             return response.json()['RequestedObject']['FieldContents']
     except (OSError,KeyError,json.decoder.JSONDecodeError) as e:
         logger.error(f'Ocurrio un error al accceder al valor del field content id {referenceFieldId} obtenido en el response')

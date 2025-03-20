@@ -94,16 +94,16 @@ function App() {
 
     try {
       const response = await axios.post("http://127.0.0.1:5000/informe", datosAEnviar);
-
+      console.log(response.data)
+      
       if (response.status === 200) {
-        console.log(response.data)
         setImageHoras(response.data.image_horas);
         setImageTickets(response.data.image_tickets);
         setLogoCliente(response.data.logoCliente)
         setLogoTecnologia(response.data.logoTecnologia)
         setContratosSeleccionado(response.data.contratosSeleccionado);
         setTicketsMensual(response.data.tickets_mensual_Cerrados || []); // Agregar tickets
-        setTicketsUltAct(response.data.mensual_Ult_Actualizacion || []);
+        setTicketsUltAct(response.data.tickets_ult_act || []);
         
         setIsReportReady(true);
         setError(""); 
