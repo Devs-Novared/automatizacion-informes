@@ -1,2 +1,4 @@
-[20-03-2025 11:45:00] WARNING   * Debugger is active!
-[20-03-2025 11:45:00] INFO      * Debugger PIN: 369-247-726
+[21-03-2025 13:06:27] WARNING   * Debugger is active!
+[21-03-2025 13:06:27] INFO      * Debugger PIN: 369-247-726
+[21-03-2025 13:06:28] INFO     Se obtuvo el token de la solicitud correctamente
+[21-03-2025 13:06:29] INFO     127.0.0.1 - - [21/Mar/2025 13:06:29] "GET /getContratos HTTP/1.1" 200 -

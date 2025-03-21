@@ -99,15 +99,17 @@ def generar_informe():
 
 
         resultado_mensual, resultado_mensual_tickets, mensual_tickets_Cerrados, mensual_Ult_Actualizacion, logoData, logoTecnologiaData = crear_informe(data)
-
-        #logger.info(resultado_mensual)
         #logger.info(mensual_Ult_Actualizacion)
-
-        img_bytes_horas = grafico_linea_HorasConsumidas(resultado_mensual)
+        
+        meta_horas = None
+        logger.info(contratosSeleccionado['horasSoporte'])
+        if(contratosSeleccionado['horasSoporte']):
+            meta_horas = int(contratosSeleccionado['horasSoporte']) / 12
+        img_bytes_horas = grafico_linea_HorasConsumidas(resultado_mensual, meta_horas = meta_horas)
         #logger.info(img_bytes_horas)
+        
         img_bytes_tickets = grafico_linea_TicketsConsumidos(resultado_mensual_tickets)
         #logger.info(img_bytes_tickets)
-
 
         image_horas_base64 = base64.b64encode(img_bytes_horas.read()).decode('utf-8')
         image_tickets_base64 = base64.b64encode(img_bytes_tickets.read()).decode('utf-8')
