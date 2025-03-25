@@ -85,11 +85,8 @@ function App() {
     )?.contentId;
 
     const datosAEnviar = {
-      cliente,
-      tecnologia,
-      contrato,
       selectedMonth,
-      contentId: contentIdSeleccionado,
+      contentId: contentIdSeleccionado
     };
 
     try {

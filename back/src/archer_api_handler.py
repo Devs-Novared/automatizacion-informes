@@ -283,18 +283,18 @@ def get_related_user(userId: str, token: str):
             logger.error(f'Se obtuvo un response None de un request data of user id')
         if response.status_code != 500:
             userData = response.json()
-            logger.info(userData)
+
             firstName = userData['FirstName']
             lastName = userData['LastName']
             userName = f"{firstName} {lastName}"
-            logger.info(userName)
+
             return userName
     except (OSError,KeyError,json.decoder.JSONDecodeError) as e:
         logger.error(f'Ocurrio un error al accceder al valor del user id {userId} obtenido en el response')
         logger.error(f'Detalle del error: {e}')
         logger.error(f'Detalle del traceback: {tr.format_exc()}')        
         
-def get_value_list_item(valueId: str, token: str):
+def get_value_list_value(valueId: str, token: str):
     """Obtencion del valor del valor de campo de lista global de Archer.
 
     Args:
@@ -307,30 +307,29 @@ def get_value_list_item(valueId: str, token: str):
                      
     headers = {
         'Content-Type': 'text/xml;charset=utf-8',
-        'SOAPAction': "http://archer-tech.com/webservices/GetValuesListItem"
+        'SOAPAction': "http://archer-tech.com/webservices/GetValuesListValue"
     }
     body = f"""<?xml version="1.0" encoding="utf-8"?>
                 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
                     <soap:Body>
-                        <GetValuesListItem xmlns="http://archer-tech.com/webservices/">
+                        <GetValuesListValue xmlns="http://archer-tech.com/webservices/">
                             <sessionToken>{token}</sessionToken>
                             <valuesListValueId>{valueId}</valuesListValueId>
-                        </GetValuesListItem>
+                        </GetValuesListValue>
                     </soap:Body>
                 </soap:Envelope>"""
                     
     try:
         response = req.post(f'{URL}/ws/field.asmx', headers=headers, data=body, verify=False)
-        logger.info(response.content)
         if not response: 
             logger.error(f'Se obtuvo un response None de un request data of user id')
         if response.status_code != 500:
+            ns = {
+                    "soap": "http://schemas.xmlsoap.org/soap/envelope/", 
+                    "ns1": "http://archer-tech.com/webservices/"
+                }
             tree = ET.fromstring(response.content)
-            
-            tags_from = tree.find('.//{http://archer-tech.com/webservices/}GetValuesListItemResult').text
-            tags_from = tags_from.replace('<?xml version="1.0" encoding="utf-16"?>', '<?xml version="1.0" encoding="utf-8"?>').encode('utf-8', errors='ignore')
-            valueData = ET.fromstring(tags_from)
-            
+            valueData = tree.find(".//ns1:GetValuesListValueResult", ns).text
             return valueData
     except (OSError,KeyError,json.decoder.JSONDecodeError) as e:
         logger.error(f'Ocurrio un error al accceder al valor del valueId {valueId} obtenido en el response')

@@ -8,7 +8,7 @@ from datetime import datetime
 from collections import defaultdict
 
 from src.shared import ARCHER_IDS, URL
-from src.archer_api_handler import archer_login, get_data_of_content_id, get_data_of_attachment_id 
+from src.archer_api_handler import archer_login, get_data_of_content_id, get_data_of_attachment_id, get_value_list_value
 
 logger = logging.getLogger(__name__)
 
@@ -38,6 +38,7 @@ logo_id = ARCHER_IDS['idsGraficos']['Logo']
 user_id = ARCHER_IDS['idsGraficos']['UserId']
 userName_id = ARCHER_IDS['idsGraficos']['Username']
 tecnologiaLogo_id = ARCHER_IDS['idsGraficos']['TecnologiaLogo']
+horasConsultoria_id = ARCHER_IDS['idsGraficos']['HorasConsultoria']
 
 def getAllContratos ():
     token = archer_login()
@@ -170,7 +171,6 @@ def crear_informe(data):
 
     token = archer_login()
     response = get_data_of_content_id(data["contentId"], token)
-    #logger.info(response)
     
     logoId = response[logo_id]['Value']
     logoData = None
@@ -181,6 +181,9 @@ def crear_informe(data):
     logoTecnologiaData = None
     if(logoTecnologiaId):
         logoTecnologiaData = get_data_of_attachment_id(logoTecnologiaId[0], token)
+    
+    horasConsultoria = response[horasConsultoria_id]['Value']['ValuesListIds'][0]
+    horasConsultoria = get_value_list_value(horasConsultoria, token)
     
     valores_mensuales = defaultdict(int)
     
@@ -220,34 +223,43 @@ def crear_informe(data):
 
         if FechaCreacionTicket:
             try:
+                if("." not in FechaCreacionTicket): FechaCreacionTicket = FechaCreacionTicket + ".00" 
                 fecha_objeto = datetime.strptime(FechaCreacionTicket, "%Y-%m-%dT%H:%M:%S.%f")
+                
                 if fecha_objeto.month <= mes_seleccionado:
                     mes_anio = fecha_objeto.strftime('%Y-%m')
                     tickets_por_mes[mes_anio] += 1
 
-            except ValueError:
+            except ValueError as e:
                 logger.error(f"Error procesando fecha de creación de ticket: {FechaCreacionTicket}")
-    
+                logger.error(e)
 
-        FechaCierreTicket = infoTickets[ARCHER_IDS['idsGraficos']['FechaCierreTicket']]['Value']
+        fechaCierreTicket = infoTickets[ARCHER_IDS['idsGraficos']['FechaCierreTicket']]['Value']
             
         propietarioTicketId = infoTickets[ARCHER_IDS['idsGraficos']['PropietarioTicket']]['Value'][0]['ContentId']
         
         userContent = get_data_of_content_id(propietarioTicketId, token)
         userName = userContent[userName_id]['Value']
             
-        if FechaCierreTicket:
+        if fechaCierreTicket:
             try:
-                fecha_objeto = datetime.strptime(FechaCierreTicket, "%Y-%m-%dT%H:%M:%S")
+                fecha_objeto = datetime.strptime(fechaCierreTicket, "%Y-%m-%dT%H:%M:%S")
     
                 if fecha_objeto.month == mes_seleccionado:
+                    fechaCreacionTicketString = infoTickets[ARCHER_IDS['idsGraficos']['FechaCreacionTicket']]['Value']
+                    if("." not in fechaCreacionTicketString): fechaCreacionTicketString = fechaCreacionTicketString + ".00" 
+                    fechaCreacionTicketString = datetime.strptime(fechaCreacionTicketString, "%Y-%m-%dT%H:%M:%S.%f")
+                    fechaCreacionTicketString = fechaCreacionTicketString.strftime('%Y-%m-%d %H:%M')
+                    
+                    fechaCierreTicketString = datetime.strptime(fechaCierreTicket, "%Y-%m-%dT%H:%M:%S")
+                    fechaCierreTicketString = fechaCierreTicketString.strftime('%Y-%m-%d %H:%M')
                     
                     jsonTickets = {
                         "Nro de Ticket":infoTickets[ARCHER_IDS['idsGraficos']['NroTicket']]['Value'],
-                        "Fecha Cierre Ticket": FechaCierreTicket,
+                        "Fecha Cierre Ticket": fechaCierreTicketString,
                         "Creador Ticket": infoTickets[ARCHER_IDS['idsGraficos']['CreadorTicket']]['Value'],
                         "Propietario Ticket": userName,
-                        "Fecha Creacion Ticket": infoTickets[ARCHER_IDS['idsGraficos']['FechaCreacionTicket']]['Value'],
+                        "Fecha Creacion Ticket": fechaCreacionTicketString,
                         "Tipo Ticket": infoTickets[ARCHER_IDS['idsGraficos']['TipoTicket']]['Value'],
                         "Asunto": infoTickets[ARCHER_IDS['idsGraficos']['Asunto']]['Value'],
                     }
@@ -261,16 +273,23 @@ def crear_informe(data):
 
         if UltimaActualizacion:
             try:
+                if("." not in UltimaActualizacion): UltimaActualizacion = UltimaActualizacion + ".00" 
                 fecha_objeto = datetime.strptime(UltimaActualizacion, "%Y-%m-%dT%H:%M:%S.%f")
-    
+                
                 if fecha_objeto.month == mes_seleccionado:
+                    fechaCreacionTicketString = infoTickets[ARCHER_IDS['idsGraficos']['FechaCreacionTicket']]['Value']
+                    if("." not in fechaCreacionTicketString): fechaCreacionTicketString = fechaCreacionTicketString + ".00" 
+                    fechaCreacionTicketString = datetime.strptime(fechaCreacionTicketString, "%Y-%m-%dT%H:%M:%S.%f")
+                    fechaCreacionTicketString = fechaCreacionTicketString.strftime('%Y-%m-%d %H:%M')
+                    
+                    ultimaActualizacionString = fecha_objeto.strftime('%Y-%m-%d %H:%M')
                     
                     jsonTicketsUlt = {
                         "Nro de Ticket":infoTickets[ARCHER_IDS['idsGraficos']['NroTicket']]['Value'],
-                        "Fecha Ultima Actualizacion": UltimaActualizacion,
+                        "Fecha Ultima Actualizacion": ultimaActualizacionString,
                         "Creador Ticket": infoTickets[ARCHER_IDS['idsGraficos']['CreadorTicket']]['Value'],
                         "Propietario Ticket": userName,
-                        "Fecha Creacion Ticket": infoTickets[ARCHER_IDS['idsGraficos']['FechaCreacionTicket']]['Value'],
+                        "Fecha Creacion Ticket": fechaCreacionTicketString,
                         "Tipo Ticket": infoTickets[ARCHER_IDS['idsGraficos']['TipoTicket']]['Value'],
                         "Asunto": infoTickets[ARCHER_IDS['idsGraficos']['Asunto']]['Value']
                     }
@@ -281,7 +300,7 @@ def crear_informe(data):
     resultado_mensual_tickets = [{"mes": mes, "totalTicketsMensual": total} for mes, total in tickets_por_mes.items()]
     mensual_tickets_Cerrados = tickets
     mensual_Ult_Actualizacion = ticketsUltimaActualizacion
-
-    return resultado_mensual, resultado_mensual_tickets, mensual_tickets_Cerrados, mensual_Ult_Actualizacion, logoData, logoTecnologiaData
+    
+    return resultado_mensual, resultado_mensual_tickets, mensual_tickets_Cerrados, mensual_Ult_Actualizacion, logoData, logoTecnologiaData, horasConsultoria
 
 

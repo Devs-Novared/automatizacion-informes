@@ -75,37 +75,28 @@ def generar_informe():
         # Obtener datos de la solicitud
         data = request.get_json()
 
-        cliente = data.get('cliente')
-        tecnologia = data.get('tecnologia')
-        contrato = data.get('contrato')
         mes = data.get('selectedMonth')
         contentId = data.get('contentId')
 
-        if not cliente or not tecnologia or not contrato or not mes:
+        if not mes or not contentId:
             return jsonify({"error": "Faltan datos"}), 400
 
         data = {
-            "cliente": cliente,
-            "tecnologia": tecnologia,
-            "contrato": contrato,
             "mes": mes,
             "contentId" : contentId, 
         }
+        
         contratosInfo = getAllContratos()
         #logger.info(contratosInfo)
 
         contratosSeleccionado = next((contrato for contrato in contratosInfo if contrato['contentId'] == data.get('contentId')), None)
         #logger.info(contratosSeleccionado)
-
-
-        resultado_mensual, resultado_mensual_tickets, mensual_tickets_Cerrados, mensual_Ult_Actualizacion, logoData, logoTecnologiaData = crear_informe(data)
-        #logger.info(mensual_Ult_Actualizacion)
         
-        meta_horas = None
-        logger.info(contratosSeleccionado['horasSoporte'])
-        if(contratosSeleccionado['horasSoporte']):
-            meta_horas = int(contratosSeleccionado['horasSoporte']) / 12
-        img_bytes_horas = grafico_linea_HorasConsumidas(resultado_mensual, meta_horas = meta_horas)
+        resultado_mensual, resultado_mensual_tickets, mensual_tickets_Cerrados, mensual_Ult_Actualizacion, logoData, logoTecnologiaData, horasConsultoria = crear_informe(data)
+
+        contratosSeleccionado['horasSoporte'] = horasConsultoria
+        
+        img_bytes_horas = grafico_linea_HorasConsumidas(resultado_mensual, meta_horas = horasConsultoria)
         #logger.info(img_bytes_horas)
         
         img_bytes_tickets = grafico_linea_TicketsConsumidos(resultado_mensual_tickets)
