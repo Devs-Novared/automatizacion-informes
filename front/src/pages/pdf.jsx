@@ -32,10 +32,11 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageTickets, ticket
       margin: 0,
       filename,
       image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true },
-      jsPDF: { unit: "mm", format: "a4", orientation: "landscape" },
-      pagebreak: { mode: ['avoid-all', 'css'] } // Usa 'css' para evitar saltos de página inesperados.
+      html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
+      jsPDF: { unit: "mm", format: [528, 373], orientation: "landscape" }, // Ajuste exacto del tamaño del PDF
+      pagebreak: { mode: ["css"] },
     };
+    
 
     html2pdf().from(element).set(options).save().then(() => {
       setTimeout(() => {

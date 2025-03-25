@@ -17,33 +17,37 @@ body {
   justify-content: flex-start;
   align-items: center;
 }
+
 /* Set A4 landscape page size with no margins */
 @page {
-  size: A4 landscape; /* Cambiar a A4 */
+  size: 528mm 373mm;
   margin: 0; /* Ajusta los márgenes si es necesario */
 }
 
 .container {
   width: 100%;
-  max-width: 270mm; /* A4 width en landscape */
-  min-height: 100%;
+  height: 373mm; /* Ajusta la altura para que sea exactamente 373mm */
+  min-height: 373mm; /* Altura total */
   box-sizing: border-box;
-  padding: 20px;
+  padding: 10mm; /* Ajuste de margen interno */
 }
 
+/* Página */
 .page {
-  page-break-before: always;
   width: 100%;
-  height: 190mm; /* A4 height en landscape */
-  padding: 15px;
+  min-height: auto; /* Permite que la altura sea dinámica */
+  padding: 0;
+  margin: 0;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  page-break-before: always; /* Inicia en una nueva página */
+  page-break-after: auto; /* Se adapta automáticamente */
+  page-break-inside: avoid; /* Evita que se corte contenido */
+  overflow: hidden; /* Evita desbordamientos */
 }
-  
-/*page-break-inside: avoid; /* Evita cortes de página dentro del contenido */
 
 /* Background image for each page */
 .page:nth-of-type(1),
@@ -114,10 +118,24 @@ header h2 {
   margin-bottom: 0.5cm;
 }
 
-/* Footer */
-.footer-logo img {
-  width: 150px;
+
+/* Logos */
+/* Logos */
+.logos {
+  display: flex;
+  justify-content: center; /* Centra los logos */
+  gap: 20px; /* Espacio entre los logos */
+  align-items: center;
+  width: 100%;
 }
+
+.logos img {
+  width: auto;  /* Asegura que la imagen mantenga su proporción */
+  max-width: 120px; /* Limita el tamaño máximo de los logos */
+  height: auto; /* Mantiene la proporción de las imágenes */
+}
+
+
 
 /* Download button (only visible on screen) */
 .download-pdf-btn {
@@ -135,23 +153,29 @@ header h2 {
 /* Table styles */
 .tabla-tickets {
   width: 100%;
-  max-width: 80%; /* Limitar el ancho de la tabla para que las imágenes tengan más espacio */
+  max-width: 90%;
   border-collapse: collapse;
   margin-top: 20px;
-  margin-left: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  page-break-inside: avoid; /* Evita que la tabla se corte en dos páginas */
+  font-size: 13px; /* Tamaño de fuente más pequeño para hacer la tabla más compacta */
 }
 
 .tabla-tickets th,
 .tabla-tickets td {
   border: 1px solid #004987;
-  padding: 8px;
+  padding: 4px 8px; /* Reducción del padding */
   text-align: center;
 }
 
 .tabla-tickets thead {
-  background-color: #004987;
+  background-color: #3f7fb8;
+  display: table-header-group;
+  font-weight: bold;
 }
 
+/* Gráficos */
 .contenedor-graficos {
   display: flex;
   justify-content: center;
@@ -159,16 +183,24 @@ header h2 {
   align-items: center;
   margin-bottom: 20px;
   width: 100%; /* Asegúrate de que el contenedor use todo el ancho disponible */
-  height: 100%; /* Asegúrate de que también ocupe toda la altura */
+  height: auto; /* Asegúrate de que también ocupe toda la altura */
 }
 
 .grafico {
   text-align: center;
   width: 100%; /* Ocupa todo el espacio disponible */
-  height: auto;
 }
 
 .grafico img {
-  width: 600px; /* Asegura que la imagen ocupe todo el contenedor */
+  width: 100%; /* Asegura que la imagen ocupe todo el contenedor */
+  max-width: 600px; /* Limita el tamaño máximo de las imágenes */
   height: auto; /* Mantiene la proporción */
+}
+
+/* Ajustes adicionales */
+.page img {
+  width: 45%; /* Limita las imágenes a un máximo del 45% del ancho */
+  height: auto;
+  display: block;
+  margin: 10px auto;
 }
