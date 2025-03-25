@@ -1,4 +1,14 @@
-[21-03-2025 13:06:27] WARNING   * Debugger is active!
-[21-03-2025 13:06:27] INFO      * Debugger PIN: 369-247-726
-[21-03-2025 13:06:28] INFO     Se obtuvo el token de la solicitud correctamente
-[21-03-2025 13:06:29] INFO     127.0.0.1 - - [21/Mar/2025 13:06:29] "GET /getContratos HTTP/1.1" 200 -
+[25-03-2025 14:48:33] WARNING   * Debugger is active!
+[25-03-2025 14:48:33] INFO      * Debugger PIN: 369-247-726
+[25-03-2025 14:50:47] INFO     Se obtuvo el token de la solicitud correctamente
+[25-03-2025 14:50:48] INFO     127.0.0.1 - - [25/Mar/2025 14:50:48] "GET /getContratos HTTP/1.1" 200 -
+[25-03-2025 14:51:06] INFO     127.0.0.1 - - [25/Mar/2025 14:51:06] "OPTIONS /informe HTTP/1.1" 200 -
+[25-03-2025 14:51:06] INFO     Se obtuvo el token de la solicitud correctamente
+[25-03-2025 14:51:07] INFO     Se obtuvo el token de la solicitud correctamente
+[25-03-2025 14:51:19] ERROR    Se obtuvo un response None de un request data of content id
+[25-03-2025 14:51:19] ERROR    Error al generar el informe: 'NoneType' object is not subscriptable
+[25-03-2025 14:51:19] INFO     127.0.0.1 - - [25/Mar/2025 14:51:19] "[35m[1mPOST /informe HTTP/1.1[0m" 500 -
+[25-03-2025 14:51:39] INFO     127.0.0.1 - - [25/Mar/2025 14:51:39] "OPTIONS /informe HTTP/1.1" 200 -
+[25-03-2025 14:51:39] INFO     Se obtuvo el token de la solicitud correctamente
+[25-03-2025 14:51:40] INFO     Se obtuvo el token de la solicitud correctamente
+[25-03-2025 14:53:02] INFO     127.0.0.1 - - [25/Mar/2025 14:53:02] "POST /informe HTTP/1.1" 200 -

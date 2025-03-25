@@ -31,54 +31,37 @@ def grafico_linea_HorasConsumidas(resultado_mensual,
     meses = [item['mes'] for item in resultado_mensual]
     totalHorasMensual = [item['totalHorasMensual'] for item in resultado_mensual]
     
-    logger.info(titulo)
-    logger.info(meta_horas)
-    
-    # Aplicamos el formato unificado
     meses_formateados = formatear_meses(meses)
     
     if(len(totalHorasMensual) == 1 and meta_horas):
         totalHorasMensual = [None] + totalHorasMensual + [None]
         meses_formateados = ["Inicio"] + meses_formateados + ["Fin"]
         
-    # Crear gráfico
-    #fig = px.line(data, x=etiqueta_x, y=etiqueta_y, title=titulo)
     fig = go.Figure()
-    
-    # Agregar los puntos como Scatter
     fig.add_trace(go.Scatter(
         x=meses_formateados,
         y=totalHorasMensual,
-        mode="lines+markers",  # Dibuja líneas y puntos
+        mode="lines+markers", 
         line=dict(color="blue", width=2),
         marker=dict(color="blue", size=8),
         name="Horas Cargadas"
     ))
-    
-    logger.info(meses_formateados)
-    logger.info(totalHorasMensual)
-    
     if (meta_horas):
         mes_inicio = meses_formateados[0]
-        mes_fin = meses_formateados[-1]
-        
+        mes_fin = meses_formateados[-1]  
         fig.add_shape(
             type="line",
             x0=mes_inicio, x1=mes_fin, 
             y0=meta_horas, y1=meta_horas,  
-            line=dict(color="red", width=2, dash="dash"),  # Línea punteada roja
+            line=dict(color="red", width=2, dash="dash"), 
             name="Meta de Horas"
         )
-
-    # Configurar ejes
     fig.update_layout(
         title=titulo,
         xaxis_title=etiqueta_x,
         yaxis_title=etiqueta_y,
         xaxis=dict(categoryorder="array", categoryarray=meses),  
     )
-
-    # Exportar imagen
     img_bytes = BytesIO()
     pio.write_image(fig, img_bytes, format='png')
     img_bytes.seek(0)
@@ -93,34 +76,23 @@ def grafico_linea_TicketsConsumidos(resultado_mensual_tickets,
     meses = [item['mes'] for item in resultado_mensual_tickets]
     totalTicketsMensual = [item['totalTicketsMensual'] for item in resultado_mensual_tickets]
     
-    # Aplicamos el formato unificado
     meses_formateados = formatear_meses(meses)
 
-    # Crear DataFrame
-    data = pd.DataFrame({
-        etiqueta_x: meses_formateados,
-        etiqueta_y: totalTicketsMensual
-    })
-    
-    # Crear gráfico
-    fig = px.line(data, x=etiqueta_x, y=etiqueta_y, title=titulo)
-
-    # Aplicar etiquetas formateadas al eje X
-    #fig.update_xaxes(tickvals=meses_formateados)
-
-    # Agregar índices de valores en los puntos (sin flechas)
-    for i, valor in enumerate(totalTicketsMensual):
-        fig.add_annotation(
-            x=meses_formateados[i],
-            y=valor,
-            text=str(valor),  # Mostrar valor en español
-            showarrow=False,  # Sin flechas
-            font=dict(size=10, color="black"),
-            align="center",
-            yshift=10  # Desplazamiento vertical para no sobreponerse
-        )
-
-    # Exportar imagen
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=meses_formateados,
+        y=totalTicketsMensual,
+        mode="lines+markers",  
+        line=dict(color="blue", width=2),
+        marker=dict(color="blue", size=8),
+        name="Horas Cargadas"
+    ))
+    fig.update_layout(
+        title=titulo,
+        xaxis_title=etiqueta_x,
+        yaxis_title=etiqueta_y,
+        xaxis=dict(categoryorder="array", categoryarray=meses),  
+    )
     img_bytes = BytesIO()
     pio.write_image(fig, img_bytes, format='png')
     img_bytes.seek(0)
