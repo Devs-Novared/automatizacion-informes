@@ -57,6 +57,12 @@ def grafico_linea_HorasConsumidas(resultado_mensual,
             yshift=10  # Desplazamiento vertical para no sobreponerse
         )
 
+    # Hacer el fondo semi-transparente
+    fig.update_layout(
+        paper_bgcolor='rgba(200, 200, 200, 0.5)',  # Fondo de toda la figura semi-transparente
+        plot_bgcolor='rgba(200, 200, 200, 0.5)'   # Fondo del área del gráfico semi-transparente
+    )
+
     # Exportar imagen
     img_bytes = BytesIO()
     pio.write_image(fig, img_bytes, format='png')
@@ -99,6 +105,12 @@ def grafico_linea_TicketsConsumidos(resultado_mensual_tickets,
             align="center",
             yshift=10  # Desplazamiento vertical para no sobreponerse
         )
+
+    # Hacer el fondo semi-transparente
+    fig.update_layout(
+        paper_bgcolor='rgba(200, 200, 200, 0.5)',  # Fondo de toda la figura semi-transparente
+        plot_bgcolor='rgba(200, 200, 200, 0.5)'   # Fondo del área del gráfico semi-transparente
+    )
 
     # Exportar imagen
     img_bytes = BytesIO()
