@@ -188,7 +188,6 @@ def crear_informe(data):
     #logger.info(detalleCargaHoras)
     
     for contentIdHoras in detalleCargaHoras:
-        logger.info(contentIdHoras)
         infoHoras = get_data_of_content_id(contentIdHoras["ContentId"], token)
 
         cargaHorasNormales = infoHoras[ARCHER_IDS['idsGraficos']['cargaHorasNormales']]['Value']
@@ -208,7 +207,6 @@ def crear_informe(data):
                 logger.error(f"Error procesando fecha de carga de horas: {FechaCargaHora}")
             
     resultado_mensual = [{"mes": mes, "totalHorasMensual": totalHorasMensual} for mes, totalHorasMensual in valores_mensuales.items()]
-    #logger.info(resultado_mensual)
     
     tickets_por_mes = defaultdict(int)
     tickets = []
@@ -217,7 +215,6 @@ def crear_informe(data):
     TicketsAsociados = response[ARCHER_IDS['idsGraficos']['TicketsAsociados']]['Value']
     
     for contentIdTickets in TicketsAsociados:
-        logger.info(contentIdTickets)
         infoTickets = get_data_of_content_id(contentIdTickets, token)
         FechaCreacionTicket = infoTickets[ARCHER_IDS['idsGraficos']['FechaCreacionTicket']]['Value']
 
@@ -261,7 +258,6 @@ def crear_informe(data):
         
         #FechaCreacionTicket = infoTickets[ARCHER_IDS['idsGraficos']['FechaCreacionTicket']]['Value']
         UltimaActualizacion = infoTickets[ARCHER_IDS['idsGraficos']['UltimaActualizacion']]['Value']
-        logger.info(UltimaActualizacion)
 
         if UltimaActualizacion:
             try:

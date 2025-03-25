@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [25-03-2025 11:51:58] WARNING   * Debugger is active!
 [25-03-2025 11:51:58] INFO      * Debugger PIN: 246-412-492
 [25-03-2025 12:08:05] INFO     Se obtuvo el token de la solicitud correctamente
@@ -586,3 +587,9 @@ requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 [25-03-2025 13:02:16] INFO     2025-03-21T18:24:48.14
 [25-03-2025 13:02:16] INFO     127.0.0.1 - - [25/Mar/2025 13:02:16] "POST /informe HTTP/1.1" 200 -
 [25-03-2025 14:15:48] INFO      * Detected change in 'C:\\Users\\mbegani\\OneDrive - NOVARED CHILE S.A\\Documentos\\Dev\\Proyectos\\automatizacion-informes\\back\\app.py', reloading
+=======
+[21-03-2025 13:06:27] WARNING   * Debugger is active!
+[21-03-2025 13:06:27] INFO      * Debugger PIN: 369-247-726
+[21-03-2025 13:06:28] INFO     Se obtuvo el token de la solicitud correctamente
+[21-03-2025 13:06:29] INFO     127.0.0.1 - - [21/Mar/2025 13:06:29] "GET /getContratos HTTP/1.1" 200 -
+>>>>>>> 32aa43a346e729af91ab059e0af4d3a11e37253c
