@@ -4,7 +4,8 @@
 [25-03-2025 12:08:06] INFO     127.0.0.1 - - [25/Mar/2025 12:08:06] "GET /getContratos HTTP/1.1" 200 -
 [25-03-2025 12:08:16] INFO     127.0.0.1 - - [25/Mar/2025 12:08:16] "OPTIONS /informe HTTP/1.1" 200 -
 [25-03-2025 12:08:16] INFO     Se obtuvo el token de la solicitud correctamente
-[25-03-2025 12:08:18] INFO     Se obtuvo el token de la solicitud correctamente
+[2[25-03-2025 14:15:48] INFO      * Restarting with stat
+licitud correctamente
 [25-03-2025 12:08:18] INFO     {'ContentId': 2667119, 'LevelId': 2277}
 [25-03-2025 12:08:18] INFO     {'ContentId': 2667380, 'LevelId': 2277}
 [25-03-2025 12:08:19] INFO     {'ContentId': 2667381, 'LevelId': 2277}
@@ -584,3 +585,4 @@ requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 [25-03-2025 13:02:15] INFO     2681416
 [25-03-2025 13:02:16] INFO     2025-03-21T18:24:48.14
 [25-03-2025 13:02:16] INFO     127.0.0.1 - - [25/Mar/2025 13:02:16] "POST /informe HTTP/1.1" 200 -
+[25-03-2025 14:15:48] INFO      * Detected change in 'C:\\Users\\mbegani\\OneDrive - NOVARED CHILE S.A\\Documentos\\Dev\\Proyectos\\automatizacion-informes\\back\\app.py', reloading
