@@ -173,17 +173,19 @@ def get_data_of_content_id(contentId: str, token: str):
         "Content-Type": "application/json",
         "X-Http-Method-Override": "GET"
     }
-    try:
-        response = req.post(f'{URL}/api/core/content/contentid?id={contentId}', headers=headers, verify=False, timeout=30)
-    except ConnectionError as e:
-        logger.error('No se recibio respuesta de archer para el indicador solicitado')
-        logger.error(f'Detalle del error: {e}')
-        logger.error(f'Detalle del traceback: {tr.format_exc()}')
+    noPase = True
+    while(noPase):
+        try:
+            response = req.post(f'{URL}/api/core/content/contentid?id={contentId}', headers=headers, verify=False, timeout=60)
+            noPase = False
+        except Exception as e:
+            logger.warning(f"Error al buscar la data del content id {contentId}, se volvera a intentar")
     try:
         if not response: 
             logger.error(f'Se obtuvo un response None de un request data of content id')
         if response.status_code != 500:
-            return response.json()['RequestedObject']['FieldContents']
+            result = response.json()['RequestedObject']['FieldContents']
+            return result
     except (OSError,KeyError,json.decoder.JSONDecodeError) as e:
         logger.error(f'Ocurrio un error al accceder al valor del content id {contentId} obtenido en el response')
         logger.error(f'Detalle del error: {e}')
@@ -329,8 +331,8 @@ def get_value_list_value(valueId: str, token: str):
                     "ns1": "http://archer-tech.com/webservices/"
                 }
             tree = ET.fromstring(response.content)
-            valueData = tree.find(".//ns1:GetValuesListValueResult", ns).text
-            return valueData
+            valueData = tree.find(".//ns1:GetValuesListValueResult", ns)
+            return valueData.text
     except (OSError,KeyError,json.decoder.JSONDecodeError) as e:
         logger.error(f'Ocurrio un error al accceder al valor del valueId {valueId} obtenido en el response')
         logger.error(f'Detalle del error: {e}')

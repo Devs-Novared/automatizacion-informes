@@ -87,7 +87,6 @@ def generar_informe():
         }
         
         contratosInfo = getAllContratos()
-        #logger.info(contratosInfo)
 
         contratosSeleccionado = next((contrato for contrato in contratosInfo if contrato['contentId'] == data.get('contentId')), None)
         #logger.info(contratosSeleccionado)
@@ -97,16 +96,15 @@ def generar_informe():
         contratosSeleccionado['horasSoporte'] = horasConsultoria
         
         img_bytes_horas = grafico_linea_HorasConsumidas(resultado_mensual, meta_horas = horasConsultoria)
-        #logger.info(img_bytes_horas)
+        logger.info("img_bytes_horas")
         
         img_bytes_tickets = grafico_linea_TicketsConsumidos(resultado_mensual_tickets)
-        #logger.info(img_bytes_tickets)
+        logger.info("img_bytes_tickets")
 
         image_horas_base64 = base64.b64encode(img_bytes_horas.read()).decode('utf-8')
         image_tickets_base64 = base64.b64encode(img_bytes_tickets.read()).decode('utf-8')
 
-        # Retornar las imágenes en formato JSON
-        return jsonify({
+        body={
             "contratosSeleccionado": contratosSeleccionado,
             'image_horas': image_horas_base64,
             'image_tickets': image_tickets_base64,
@@ -114,7 +112,10 @@ def generar_informe():
             "tickets_ult_act":  mensual_Ult_Actualizacion,
             "logoCliente": logoData,
             "logoTecnologia": logoTecnologiaData
-        }), 200
+        }
+        logger.info(body)
+        # Retornar las imágenes en formato JSON
+        return jsonify(body), 200
     except Exception as e:
         logger.error(f"Error al generar el informe: {e}")
         return jsonify({"error": "Error al generar el informe"}), 500

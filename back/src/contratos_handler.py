@@ -171,7 +171,7 @@ def crear_informe(data):
 
     token = archer_login()
     response = get_data_of_content_id(data["contentId"], token)
-    
+
     logoId = response[logo_id]['Value']
     logoData = None
     if(logoId):
@@ -182,19 +182,20 @@ def crear_informe(data):
     if(logoTecnologiaId):
         logoTecnologiaData = get_data_of_attachment_id(logoTecnologiaId[0], token)
     
-    horasConsultoria = response[horasConsultoria_id]['Value']['ValuesListIds'][0]
-    horasConsultoria = get_value_list_value(horasConsultoria, token)
+    horasConsultoria = response[horasConsultoria_id]['Value']
+    if(horasConsultoria):
+        horasConsultoria= horasConsultoria['ValuesListIds'][0]
+        horasConsultoria = get_value_list_value(horasConsultoria, token)
+        logger.info(horasConsultoria)
     
     valores_mensuales = defaultdict(int)
     
     detalleCargaHoras = response[ARCHER_IDS['idsGraficos']['detalleCargaHoras']]['Value']
-    #logger.info(detalleCargaHoras)
-    
+
     for contentIdHoras in detalleCargaHoras:
         infoHoras = get_data_of_content_id(contentIdHoras["ContentId"], token)
 
         cargaHorasNormales = infoHoras[ARCHER_IDS['idsGraficos']['cargaHorasNormales']]['Value']
-
         FechaCargaHora = infoHoras[ARCHER_IDS['idsGraficos']['FechaCargaHora']]['Value']
         #shadow = bool(infoHoras[ARCHER_IDS['idsGraficos']['shadow']]['Value'])
 
@@ -210,13 +211,13 @@ def crear_informe(data):
                 logger.error(f"Error procesando fecha de carga de horas: {FechaCargaHora}")
             
     resultado_mensual = [{"mes": mes, "totalHorasMensual": totalHorasMensual} for mes, totalHorasMensual in valores_mensuales.items()]
-    
+
     tickets_por_mes = defaultdict(int)
     tickets = []
     ticketsUltimaActualizacion = []
     
     TicketsAsociados = response[ARCHER_IDS['idsGraficos']['TicketsAsociados']]['Value']
-    
+
     for contentIdTickets in TicketsAsociados:
         infoTickets = get_data_of_content_id(contentIdTickets, token)
         FechaCreacionTicket = infoTickets[ARCHER_IDS['idsGraficos']['FechaCreacionTicket']]['Value']
@@ -237,10 +238,9 @@ def crear_informe(data):
         fechaCierreTicket = infoTickets[ARCHER_IDS['idsGraficos']['FechaCierreTicket']]['Value']
             
         propietarioTicketId = infoTickets[ARCHER_IDS['idsGraficos']['PropietarioTicket']]['Value'][0]['ContentId']
-        
         userContent = get_data_of_content_id(propietarioTicketId, token)
         userName = userContent[userName_id]['Value']
-            
+        
         if fechaCierreTicket:
             try:
                 fecha_objeto = datetime.strptime(fechaCierreTicket, "%Y-%m-%dT%H:%M:%S")
@@ -267,7 +267,6 @@ def crear_informe(data):
             except ValueError as e:
                 logger.error(f"Error procesando fecha de cerrado de ticket: {e}")
     
-        
         #FechaCreacionTicket = infoTickets[ARCHER_IDS['idsGraficos']['FechaCreacionTicket']]['Value']
         UltimaActualizacion = infoTickets[ARCHER_IDS['idsGraficos']['UltimaActualizacion']]['Value']
 
