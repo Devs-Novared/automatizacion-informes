@@ -113,7 +113,6 @@ def generar_informe():
             "logoCliente": logoData,
             "logoTecnologia": logoTecnologiaData
         }
-        logger.info(body)
         # Retornar las imágenes en formato JSON
         return jsonify(body), 200
     except Exception as e:
