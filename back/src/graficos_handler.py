@@ -25,18 +25,13 @@ def formatear_meses(lista_fechas):
 def grafico_linea_HorasConsumidas(resultado_mensual,
                                   titulo="Horas Consumidas - Soporte Evolutivo",
                                   etiqueta_x="Fecha de carga de Horas",
-                                  etiqueta_y="Horas Cargadas Normales"):
+                                  etiqueta_y="Horas Cargadas Normales",
+                                  meta_horas=12):
     # Extraemos los datos
     meses = [item['mes'] for item in resultado_mensual]
     totalHorasMensual = [item['totalHorasMensual'] for item in resultado_mensual]
     
     meses_formateados = formatear_meses(meses)
-
-    # Crear DataFrame
-    data = pd.DataFrame({
-        etiqueta_x: meses_formateados,
-        etiqueta_y: totalHorasMensual
-    })
     
     if(len(totalHorasMensual) == 1 and meta_horas):
         totalHorasMensual = [None] + totalHorasMensual + [None]
@@ -77,7 +72,6 @@ def grafico_linea_HorasConsumidas(resultado_mensual,
     img_bytes = BytesIO()
     pio.write_image(fig, img_bytes, format='png')
     img_bytes.seek(0)
-
     return img_bytes
 
 

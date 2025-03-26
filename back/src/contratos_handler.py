@@ -184,9 +184,8 @@ def crear_informe(data):
     
     horasConsultoria = response[horasConsultoria_id]['Value']
     if(horasConsultoria):
-        horasConsultoria= horasConsultoria['ValuesListIds'][0]
+        horasConsultoria = horasConsultoria['ValuesListIds'][0]
         horasConsultoria = get_value_list_value(horasConsultoria, token)
-        logger.info(horasConsultoria)
     
     valores_mensuales = defaultdict(int)
     
