@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import html2pdf from "html2pdf.js";
 import "./styles/pdf.css";
 
-const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageTickets, ticketsMensual, ticketsUltAct, logoCliente, logoTecnologia }) => {
+const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetro, imageTickets, ticketsMensual, ticketsUltAct, logoCliente, logoTecnologia }) => {
   const [fechaTexto, setFechaTexto] = useState("");
   const [year, setYear] = useState("");
 
@@ -139,6 +139,26 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageTickets, ticket
               <img
                 src={`data:image/png;base64,${imageTickets}`}
                 alt="Tickets Consumidos"
+                style={{ width: "65%", height: "auto" }}
+              />
+            )}
+          </div>
+        </div>
+        <div style={{ display: "flex", marginTop: "20px" }}>
+          <div style={{ textAlign: "center" }}>
+            {imageHorasVelocimetro && (
+              <img
+                src={`data:image/png;base64,${imageHorasVelocimetro}`}
+                alt="Horas Consumidas Velocimetro"
+                style={{ width: "65%", height: "auto" }}
+              />
+            )}
+          </div>
+          <div style={{ textAlign: "center" }}>
+            {imageTickets && (
+              <img
+                src={`data:image/png;base64,${imageHorasVelocimetro}`}
+                alt="Tickets Consumidos Velocimetro"
                 style={{ width: "65%", height: "auto" }}
               />
             )}

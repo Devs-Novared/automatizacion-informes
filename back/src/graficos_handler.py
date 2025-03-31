@@ -6,12 +6,19 @@ import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
 import matplotlib.pyplot as plt
-import pandas as pd
+import traceback as tr
+import plotly as po
+
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+from decimal import DivisionByZero
+from numpy import radians, cos, sin, linspace
 
 import plotly.io as pio      # Para guardar el gráfico como imagen
 from io import BytesIO 
 
 from src.shared import ARCHER_IDS, URL
+from src.utils import set_lang_color_name
 #from src.archer_api_handler import archer_login, get_all_tree_sub_elements, get_tree_element, get_data_of_content_id
 
 logger = logging.getLogger(__name__)
@@ -75,7 +82,251 @@ def grafico_linea_HorasConsumidas(resultado_mensual,
     return img_bytes
 
 
-def grafico_linea_TicketsConsumidos(resultado_mensual_tickets,
+def grafico_linea_TicketsConsumidos(resultado_mensual_tickets):
+    
+    titulo="Tickets Consumidos - Soporte Evolutivo"
+    etiqueta_x="Mes"
+    etiqueta_y="Tickets Totales"
+                                    
+    # Extraemos los datos
+    meses = [item['mes'] for item in resultado_mensual_tickets]
+    totalTicketsMensual = [item['totalTicketsMensual'] for item in resultado_mensual_tickets]
+    
+    meses_formateados = formatear_meses(meses)
+
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=meses_formateados,
+        y=totalTicketsMensual,
+        mode="lines+markers",  
+        line=dict(color="blue", width=2),
+        marker=dict(color="blue", size=8),
+        name="Horas Cargadas"
+    ))
+    fig.update_layout(
+        title=titulo,
+        xaxis_title=etiqueta_x,
+        yaxis_title=etiqueta_y,
+        xaxis=dict(categoryorder="array", categoryarray=meses),  
+    )
+    fig.update_layout(
+        paper_bgcolor='rgba(200, 200, 200, 0.5)',  # Fondo de toda la figura semi-transparente
+        plot_bgcolor='rgba(200, 200, 200, 0.5)'   # Fondo del área del gráfico semi-transparente
+    )
+    img_bytes = BytesIO()
+    pio.write_image(fig, img_bytes, format='png')
+    img_bytes.seek(0)
+
+    return img_bytes
+
+
+def grafico_velocimetro_HorasConsumidas(fechasContrato, resultado_mensual):
+    
+    """Armado del velocimetro con los datos propios del contrato
+
+    Args:
+        fechasContrato (dict): Diccionario con los datos del indicador
+        que necesita actualmente el velocimetro
+            {
+                'fechaInicioContrato': '2024-05-17T00:00:00',
+                'fechaFinContrato': '2025-05-17T00:00:00',
+                'mesInforme': 'Febrero'
+            }
+        resultado_mensual (dict):
+
+    Returns:
+        Union[str, None]: String base64 del grafico o None en caso de que exista algun error
+    """
+    if(not fechasContrato["horasPorMes"]): return None
+    
+    sumaDeHoras = sum(resultado["totalHorasMensual"] for resultado in resultado_mensual) #Aguja velocimetro
+    
+    delta = relativedelta(datetime.strptime(fechasContrato["fechaFinContrato"], "%Y-%m-%dT%H:%M:%S"), datetime.strptime(fechasContrato["fechaInicioContrato"], "%Y-%m-%dT%H:%M:%S"))
+    diferenciaMesesContrato =  delta.years * 12 + delta.months
+    horasMaximasContrato = int(diferenciaMesesContrato) * int(fechasContrato["horasPorMes"]) #Rojo / Limite amarillo
+    
+    delta = relativedelta(datetime.today(), datetime.strptime(fechasContrato["fechaInicioContrato"], "%Y-%m-%dT%H:%M:%S"))
+    diferenciaMesesRelativa =  delta.years * 12 + delta.months
+    horasMaximasRelativas = int(diferenciaMesesRelativa) * int(fechasContrato["horasPorMes"]) #Amarillo/Limite verde
+    
+    horasMaximasExceso = int(horasMaximasRelativas*1.2) #/Limite amarillo
+
+    umbrals_from_values = [0, horasMaximasRelativas, min(horasMaximasExceso, horasMaximasContrato)]    
+    umbrals_to_values = [horasMaximasRelativas, min(horasMaximasExceso, horasMaximasContrato), max(horasMaximasExceso, horasMaximasContrato, sumaDeHoras)]
+    umbrals_colors = ["Verde","Amarillo","Rojo"]
+    
+    sumaDeHoras = sum(resultado["totalHorasMensual"] for resultado in resultado_mensual) #Aguja velocimetro
+    result_value = sumaDeHoras
+
+    # value = 95
+    umbrals_min_value = min(umbrals_from_values)
+    umbrals_max_value = max(umbrals_to_values)
+
+    def load_data_to_fig() -> None:
+        """Carga los datos asociados por valor - color dentro de un listado, y luego los asocia con un rango - color
+        para el grafico del velocimetro
+
+        """
+        range_color_list = list()
+        aux_mapping = [
+            {
+                'valorAsociado' : value, 
+                'colorAsociado' : color
+            } for (value, color) in zip(umbrals_to_values, umbrals_colors)
+        ]
+        for index, item in enumerate(aux_mapping):
+            previous_value = umbrals_from_values[index]
+            range_color_list.append({
+                'range': [previous_value, item['valorAsociado']], 
+                'color': set_lang_color_name(item['colorAsociado'])
+            })
+        return range_color_list
+
+    try:
+        steps_list = load_data_to_fig()
+        elements_to_count = 3
+        
+        #tick_values = [
+        #    value for value in list(linspace(umbrals_min_value, umbrals_max_value, elements_to_count))
+        #    ]
+        tick_values = [0] + [result_value] + umbrals_to_values
+        
+        tick_text = [
+            tick_value for tick_value in tick_values
+        ]
+    except (OSError,ValueError,TypeError,AttributeError,DivisionByZero) as e:
+        logger.error('Ocurrio un error al calcular los valores a asignar al velocimetro (tickValues o tickText)')
+        logger.error(f'Detalle del error: {e}')
+        logger.error(f'Detalle del traceback: {tr.format_exc()}')
+        return None
+
+    if result_value is not None:
+        try:
+            fig = po.graph_objects.Figure(po.graph_objects.Indicator(
+                domain={
+                    'x': [0, 1],
+                    'y': [0, 1]
+                },
+                value = result_value,
+                mode="gauge",
+                title={'text': "Velocimetro de horas consumidas"},
+                delta={'reference': 380},
+                gauge={
+                        'axis': {'range': [umbrals_min_value, umbrals_max_value],
+                        "tickmode": "array",
+                        "tickvals": tick_values,
+                        "tickangle": 0,
+                        "ticktext": tick_text
+                    },
+                    'bar': {'thickness': 0},
+                    'steps': steps_list
+                },
+            ))
+        except (OSError,ValueError,TypeError) as e:
+            logger.error('Ocurrio un error al armar el grafico para el velocimetro')
+            logger.error(f'Detalle del error: {e}')
+            logger.error(f'Detalle del traceback: {tr.format_exc()}')
+            return None
+
+        try:
+            fig.update_layout(
+                autosize=False,
+                font={'color': "black", 'family': "Arial"},
+                xaxis={'showgrid': False, 'range': [-1, 1], 'visible': False},
+                yaxis={'showgrid': False, 'range': [0, 1], 'visible': False},
+                plot_bgcolor='rgba(0,0,0,0)'
+            )
+        except (OSError,ValueError,TypeError) as e:
+            logger.error('No se pudo configurar el layout del grafico')
+            logger.error(f'Detalle del error: {e}')
+            logger.error(f'Detalle del traceback: {tr.format_exc()}')
+            return None
+
+        # Aguja del velocimetro
+        aux = result_value
+        if result_value < umbrals_min_value:
+            aux = umbrals_min_value
+        elif result_value > umbrals_max_value:
+            aux = umbrals_max_value
+
+        if umbrals_min_value <= 0:
+            factor = abs(umbrals_min_value)
+        else:
+            factor = -umbrals_min_value
+
+        theta_angle = (umbrals_max_value - (aux+factor) + factor) * 180 / (umbrals_max_value + factor)
+        radio = 0.75
+        x_tail = 0
+        y_tail = 0.1
+        x_scale_factor = 1.3
+        y_scale_factor = 1.1
+        
+        try:
+            x_head = 0 + (radio * cos(radians(theta_angle)))*x_scale_factor
+            y_head = 0.08 + (radio * sin(radians(theta_angle)))*y_scale_factor
+        except (OSError,ValueError,TypeError) as e:
+            logger.error('Ocurrio un error a la hora de realizar los calculos del ángulo')
+            logger.error(f'Detalle del error: {e}')
+            logger.error(f'Detalle del traceback: {tr.format_exc()}')
+            return None
+
+        try:
+            fig.add_annotation(
+                ax=x_tail, ay=y_tail, axref='x', ayref='y',
+                x=x_head, y=y_head, xref='x', yref='y',
+                showarrow=True, arrowhead=0, arrowsize=1, arrowwidth=4
+            )
+        except OSError as e:
+            logger.error('No se pudo agregar la anotacion de la flecha del velocimetro al grafico')
+            logger.error(f'Detalle del error: {e}')
+            logger.error(f'Detalle del traceback: {tr.format_exc()}')
+            return None
+    else:
+        logger.warning('No se encontraron datos para el valor actual de la aguja/flecha del velocimetro al grafico')
+        fig = po.graph_objects.Figure(po.graph_objects.Indicator(
+            domain={
+                'x': [0, 1],
+                'y': [0, 1]
+            },
+            mode="gauge",
+            title={'text': "Velocimetro"},
+            delta={'reference': 380},
+            gauge={
+                    'axis': {'range': [umbrals_min_value, umbrals_max_value],
+                    "tickmode": "array",
+                    "tickvals": tick_values,
+                    "tickangle": 0,
+                    "ticktext": tick_text
+                },
+                'bar': {'thickness': 0},
+                'steps': steps_list
+            },
+        ))
+        fig.update_layout(
+            autosize=False,
+            font={'color': "black", 'family': "Arial"},
+            xaxis={'showgrid': False, 'range': [-1, 1], 'visible': False},
+            yaxis={'showgrid': False, 'range': [0, 1], 'visible': False},
+            plot_bgcolor='rgba(0,0,0,0)'
+        )
+
+    # Valor donde apuntara la aguja del velocimetro
+    fig.add_annotation(
+        x=0, y=0, xref="x", yref="y",
+        text=result_value, showarrow=False,
+        font=dict(size=64, color="#000000"),
+        align="center", ax=20, ay=-30, opacity=0.8
+    )
+
+    # with open('velocimetro.txt', 'wb') as file: file.write(getBase64Figure(fig).encode())
+
+    img_bytes = BytesIO()
+    pio.write_image(fig, img_bytes, format='png')
+    img_bytes.seek(0)
+    return img_bytes
+
+
+def grafico_velocimetro_TicketsConsumidos(resultado_mensual_tickets,
                                     titulo="Tickets Consumidos - Soporte Evolutivo",
                                     etiqueta_x="Mes",
                                     etiqueta_y="Tickets Totales"):

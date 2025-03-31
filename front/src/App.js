@@ -18,6 +18,7 @@ function App() {
   });
 
   const [imageHoras, setImageHoras] = useState("");
+  const [imageHorasVelocimetro, setImageHorasVelocimetro] = useState("");
   const [imageTickets, setImageTickets] = useState("");
   const [contratosSeleccionado, setContratosSeleccionado] = useState({});
   const [isReportReady, setIsReportReady] = useState(false);
@@ -95,6 +96,7 @@ function App() {
       
       if (response.status === 200) {
         setImageHoras(response.data.image_horas);
+        setImageHorasVelocimetro(response.data.image_horas_velocimetro);
         setImageTickets(response.data.image_tickets);
         setLogoCliente(response.data.logoCliente)
         setLogoTecnologia(response.data.logoTecnologia)
@@ -136,6 +138,7 @@ function App() {
           contratosSeleccionado={contratosSeleccionado}
           formData={formData}
           imageHoras={imageHoras}
+          imageHorasVelocimetro={imageHorasVelocimetro}
           imageTickets={imageTickets}
           ticketsMensual={ticketsMensual} // Pasamos los tickets al PDF
           ticketsUltAct={ticketsUltAct}

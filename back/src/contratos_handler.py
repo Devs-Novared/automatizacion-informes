@@ -38,7 +38,9 @@ logo_id = ARCHER_IDS['idsGraficos']['Logo']
 user_id = ARCHER_IDS['idsGraficos']['UserId']
 userName_id = ARCHER_IDS['idsGraficos']['Username']
 tecnologiaLogo_id = ARCHER_IDS['idsGraficos']['TecnologiaLogo']
-horasConsultoria_id = ARCHER_IDS['idsGraficos']['HorasConsultoria']
+horasPorMes_id = ARCHER_IDS['idsGraficos']['HorasPorMes']
+fechaInicioContrato_id = ARCHER_IDS['idsGraficos']['FechaInicioContrato']
+fechaFinContrato_id = ARCHER_IDS['idsGraficos']['FechaFinContrato']
 
 def getAllContratos ():
     token = archer_login()
@@ -168,7 +170,8 @@ def crear_informe(data):
     if mes_seleccionado is None:
         logger.error(f"El mes '{data['mes']}' no es válido.")
         return None, None
-
+    añoActual = datetime.now().year
+    
     token = archer_login()
     response = get_data_of_content_id(data["contentId"], token)
 
@@ -182,13 +185,19 @@ def crear_informe(data):
     if(logoTecnologiaId):
         logoTecnologiaData = get_data_of_attachment_id(logoTecnologiaId[0], token)
     
-    horasConsultoria = response[horasConsultoria_id]['Value']
-    if(horasConsultoria):
-        horasConsultoria = horasConsultoria['ValuesListIds'][0]
-        horasConsultoria = get_value_list_value(horasConsultoria, token)
+    horasPorMes = response[horasPorMes_id]['Value']
+    if(horasPorMes):
+        horasPorMes = horasPorMes['ValuesListIds'][0]
+        horasPorMes = get_value_list_value(horasPorMes, token)
+    
+    fechasContrato = {
+        "fechaInicioContrato": response[fechaInicioContrato_id]['Value'],
+        "fechaFinContrato": response[fechaFinContrato_id]['Value'],
+        "mesInforme": mes_seleccionado,
+        "horasPorMes": horasPorMes
+    }
     
     valores_mensuales = defaultdict(int)
-    
     detalleCargaHoras = response[ARCHER_IDS['idsGraficos']['detalleCargaHoras']]['Value']
 
     for contentIdHoras in detalleCargaHoras:
@@ -202,7 +211,7 @@ def crear_informe(data):
             try:
                 fecha_objeto = datetime.strptime(FechaCargaHora, "%Y-%m-%dT%H:%M:%S")
                 
-                if fecha_objeto.month <= mes_seleccionado:
+                if ((fecha_objeto.month <= mes_seleccionado and fecha_objeto.year == añoActual) or (fecha_objeto.year < añoActual)):
                     mes_anio = fecha_objeto.strftime('%Y-%m')
                     valores_mensuales[mes_anio] += cargaHorasNormales
                    
@@ -226,7 +235,7 @@ def crear_informe(data):
                 if("." not in FechaCreacionTicket): FechaCreacionTicket = FechaCreacionTicket + ".00" 
                 fecha_objeto = datetime.strptime(FechaCreacionTicket, "%Y-%m-%dT%H:%M:%S.%f")
                 
-                if fecha_objeto.month <= mes_seleccionado:
+                if ((fecha_objeto.month <= mes_seleccionado and fecha_objeto.year == añoActual) or (fecha_objeto.year < añoActual)):
                     mes_anio = fecha_objeto.strftime('%Y-%m')
                     tickets_por_mes[mes_anio] += 1
 
@@ -299,6 +308,6 @@ def crear_informe(data):
     mensual_tickets_Cerrados = tickets
     mensual_Ult_Actualizacion = ticketsUltimaActualizacion
     
-    return resultado_mensual, resultado_mensual_tickets, mensual_tickets_Cerrados, mensual_Ult_Actualizacion, logoData, logoTecnologiaData, horasConsultoria
+    return resultado_mensual, resultado_mensual_tickets, mensual_tickets_Cerrados, mensual_Ult_Actualizacion, logoData, logoTecnologiaData, horasPorMes, fechasContrato
 
 
