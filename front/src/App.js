@@ -27,6 +27,8 @@ function App() {
   const [ticketsUltAct, setTicketsUltAct] = useState([]);
   const [logoCliente, setLogoCliente] = useState("");
   const [logoTecnologia, setLogoTecnologia] = useState("");
+  const [acumTicketsActivos, setAcumTicketsActivos] = useState("");
+  
 
   useEffect(() => {
     const fetchContratos = async () => {
@@ -100,6 +102,7 @@ function App() {
         setImageTickets(response.data.image_tickets);
         setLogoCliente(response.data.logoCliente)
         setLogoTecnologia(response.data.logoTecnologia)
+        setAcumTicketsActivos(response.data.acumTicketsActivos)
         setContratosSeleccionado(response.data.contratosSeleccionado);
         setTicketsMensual(response.data.tickets_mensual_Cerrados || []); // Agregar tickets
         setTicketsUltAct(response.data.tickets_ult_act || []);
@@ -140,10 +143,11 @@ function App() {
           imageHoras={imageHoras}
           imageHorasVelocimetro={imageHorasVelocimetro}
           imageTickets={imageTickets}
-          ticketsMensual={ticketsMensual} // Pasamos los tickets al PDF
+          ticketsMensual={ticketsMensual}
           ticketsUltAct={ticketsUltAct}
           logoCliente={logoCliente}
           logoTecnologia={logoTecnologia}
+          acumTicketsActivos={acumTicketsActivos}
         />
       )}
     </>

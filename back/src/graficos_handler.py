@@ -45,15 +45,19 @@ def grafico_linea_HorasConsumidas(resultado_mensual,
         meses_formateados = ["Inicio"] + meses_formateados + ["Fin"]
         
     fig = go.Figure()
+    # Línea suavizada y relleno hasta el eje x
     fig.add_trace(go.Scatter(
         x=meses_formateados,
         y=totalHorasMensual,
-        mode="lines+markers", 
-        line=dict(color="blue", width=2),
+        fill='tozeroy',
+        fillcolor='rgba(173, 216, 230, 0.5)',
+        mode="lines+markers",
+        line=dict(color="blue", width=2, shape='spline'),
         marker=dict(color="blue", size=8),
         name="Horas Cargadas"
     ))
-    if (meta_horas):
+    # Línea de meta en rojo punteado
+    if meta_horas:
         mes_inicio = meses_formateados[0]
         mes_fin = meses_formateados[-1]  
         fig.add_shape(
@@ -63,19 +67,16 @@ def grafico_linea_HorasConsumidas(resultado_mensual,
             line=dict(color="red", width=2, dash="dash"), 
             name="Meta de Horas"
         )
-
     # Hacer el fondo semi-transparente
     fig.update_layout(
         paper_bgcolor='rgba(200, 200, 200, 0.5)',  # Fondo de toda la figura semi-transparente
-        plot_bgcolor='rgba(200, 200, 200, 0.5)'   # Fondo del área del gráfico semi-transparente
-    )
-    
-    fig.update_layout(
+        plot_bgcolor='rgba(200, 200, 200, 0.5)',   # Fondo del área del gráfico semi-transparente
         title=titulo,
         xaxis_title=etiqueta_x,
         yaxis_title=etiqueta_y,
         xaxis=dict(categoryorder="array", categoryarray=meses)
     )
+    
     img_bytes = BytesIO()
     pio.write_image(fig, img_bytes, format='png')
     img_bytes.seek(0)
@@ -95,24 +96,27 @@ def grafico_linea_TicketsConsumidos(resultado_mensual_tickets):
     meses_formateados = formatear_meses(meses)
 
     fig = go.Figure()
+    # Línea suavizada y relleno hasta el eje x
     fig.add_trace(go.Scatter(
         x=meses_formateados,
         y=totalTicketsMensual,
-        mode="lines+markers",  
-        line=dict(color="blue", width=2),
+        fill='tozeroy',
+        fillcolor='rgba(173, 216, 230, 0.5)',
+        mode="lines+markers",
+        line=dict(color="blue", width=2, shape='spline'),
         marker=dict(color="blue", size=8),
         name="Horas Cargadas"
     ))
+    # Hacer el fondo semi-transparente
     fig.update_layout(
+        paper_bgcolor='rgba(200, 200, 200, 0.5)',  # Fondo de toda la figura semi-transparente
+        plot_bgcolor='rgba(200, 200, 200, 0.5)',   # Fondo del área del gráfico semi-transparente
         title=titulo,
         xaxis_title=etiqueta_x,
         yaxis_title=etiqueta_y,
-        xaxis=dict(categoryorder="array", categoryarray=meses),  
+        xaxis=dict(categoryorder="array", categoryarray=meses)
     )
-    fig.update_layout(
-        paper_bgcolor='rgba(200, 200, 200, 0.5)',  # Fondo de toda la figura semi-transparente
-        plot_bgcolor='rgba(200, 200, 200, 0.5)'   # Fondo del área del gráfico semi-transparente
-    )
+    
     img_bytes = BytesIO()
     pio.write_image(fig, img_bytes, format='png')
     img_bytes.seek(0)
@@ -120,7 +124,7 @@ def grafico_linea_TicketsConsumidos(resultado_mensual_tickets):
     return img_bytes
 
 
-def grafico_velocimetro_HorasConsumidas(fechasContrato, resultado_mensual):
+def grafico_velocimetro_HorasConsumidas(fechasContrato, cantidadHSConsultoria, resultado_mensual):
     
     """Armado del velocimetro con los datos propios del contrato
 
@@ -132,6 +136,7 @@ def grafico_velocimetro_HorasConsumidas(fechasContrato, resultado_mensual):
                 'fechaFinContrato': '2025-05-17T00:00:00',
                 'mesInforme': 'Febrero'
             }
+        cantidadHSConsultoria (int): horas de consultoria
         resultado_mensual (dict):
 
     Returns:
@@ -139,7 +144,7 @@ def grafico_velocimetro_HorasConsumidas(fechasContrato, resultado_mensual):
     """
     if(not fechasContrato["horasPorMes"]): return None
     
-    sumaDeHoras = sum(resultado["totalHorasMensual"] for resultado in resultado_mensual) #Aguja velocimetro
+    result_value = cantidadHSConsultoria #Aguja velocimetro
     
     delta = relativedelta(datetime.strptime(fechasContrato["fechaFinContrato"], "%Y-%m-%dT%H:%M:%S"), datetime.strptime(fechasContrato["fechaInicioContrato"], "%Y-%m-%dT%H:%M:%S"))
     diferenciaMesesContrato =  delta.years * 12 + delta.months
@@ -152,11 +157,9 @@ def grafico_velocimetro_HorasConsumidas(fechasContrato, resultado_mensual):
     horasMaximasExceso = int(horasMaximasRelativas*1.2) #/Limite amarillo
 
     umbrals_from_values = [0, horasMaximasRelativas, min(horasMaximasExceso, horasMaximasContrato)]    
-    umbrals_to_values = [horasMaximasRelativas, min(horasMaximasExceso, horasMaximasContrato), max(horasMaximasExceso, horasMaximasContrato, sumaDeHoras)]
+    umbrals_to_values = [horasMaximasRelativas, min(horasMaximasExceso, horasMaximasContrato), max(horasMaximasExceso, horasMaximasContrato, result_value)]
     umbrals_colors = ["Verde","Amarillo","Rojo"]
     
-    sumaDeHoras = sum(resultado["totalHorasMensual"] for resultado in resultado_mensual) #Aguja velocimetro
-    result_value = sumaDeHoras
 
     # value = 95
     umbrals_min_value = min(umbrals_from_values)
@@ -184,11 +187,6 @@ def grafico_velocimetro_HorasConsumidas(fechasContrato, resultado_mensual):
 
     try:
         steps_list = load_data_to_fig()
-        elements_to_count = 3
-        
-        #tick_values = [
-        #    value for value in list(linspace(umbrals_min_value, umbrals_max_value, elements_to_count))
-        #    ]
         tick_values = [0] + [result_value] + umbrals_to_values
         
         tick_text = [
@@ -209,7 +207,6 @@ def grafico_velocimetro_HorasConsumidas(fechasContrato, resultado_mensual):
                 },
                 value = result_value,
                 mode="gauge",
-                title={'text': "Velocimetro de horas consumidas"},
                 delta={'reference': 380},
                 gauge={
                         'axis': {'range': [umbrals_min_value, umbrals_max_value],
@@ -222,94 +219,52 @@ def grafico_velocimetro_HorasConsumidas(fechasContrato, resultado_mensual):
                     'steps': steps_list
                 },
             ))
-        except (OSError,ValueError,TypeError) as e:
-            logger.error('Ocurrio un error al armar el grafico para el velocimetro')
-            logger.error(f'Detalle del error: {e}')
-            logger.error(f'Detalle del traceback: {tr.format_exc()}')
-            return None
 
-        try:
             fig.update_layout(
-                autosize=False,
-                font={'color': "black", 'family': "Arial"},
+                paper_bgcolor='rgba(200, 200, 200, 0.5)',  # Fondo de toda la figura semi-transparente
+                plot_bgcolor='rgba(200, 200, 200, 0)',   # Fondo del área del gráfico semi-transparente
+                title="Velocimetro de horas consumidas",
                 xaxis={'showgrid': False, 'range': [-1, 1], 'visible': False},
-                yaxis={'showgrid': False, 'range': [0, 1], 'visible': False},
-                plot_bgcolor='rgba(0,0,0,0)'
+                yaxis={'showgrid': False, 'range': [0, 1], 'visible': False}
             )
-        except (OSError,ValueError,TypeError) as e:
-            logger.error('No se pudo configurar el layout del grafico')
-            logger.error(f'Detalle del error: {e}')
-            logger.error(f'Detalle del traceback: {tr.format_exc()}')
-            return None
 
-        # Aguja del velocimetro
-        aux = result_value
-        if result_value < umbrals_min_value:
-            aux = umbrals_min_value
-        elif result_value > umbrals_max_value:
-            aux = umbrals_max_value
+            # Aguja del velocimetro
+            aux = result_value
+            if result_value < umbrals_min_value:
+                aux = umbrals_min_value
+            elif result_value > umbrals_max_value:
+                aux = umbrals_max_value
 
-        if umbrals_min_value <= 0:
-            factor = abs(umbrals_min_value)
-        else:
-            factor = -umbrals_min_value
+            if umbrals_min_value <= 0:
+                factor = abs(umbrals_min_value)
+            else:
+                factor = -umbrals_min_value
 
-        theta_angle = (umbrals_max_value - (aux+factor) + factor) * 180 / (umbrals_max_value + factor)
-        radio = 0.75
-        x_tail = 0
-        y_tail = 0.1
-        x_scale_factor = 1.3
-        y_scale_factor = 1.1
+            theta_angle = (umbrals_max_value - (aux+factor) + factor) * 180 / (umbrals_max_value + factor)
+            radio = 0.75
+            x_tail = 0
+            y_tail = 0.1
+            x_scale_factor = 1.3
+            y_scale_factor = 1.1
         
-        try:
             x_head = 0 + (radio * cos(radians(theta_angle)))*x_scale_factor
             y_head = 0.08 + (radio * sin(radians(theta_angle)))*y_scale_factor
-        except (OSError,ValueError,TypeError) as e:
-            logger.error('Ocurrio un error a la hora de realizar los calculos del ángulo')
-            logger.error(f'Detalle del error: {e}')
-            logger.error(f'Detalle del traceback: {tr.format_exc()}')
-            return None
-
-        try:
+            
             fig.add_annotation(
                 ax=x_tail, ay=y_tail, axref='x', ayref='y',
                 x=x_head, y=y_head, xref='x', yref='y',
                 showarrow=True, arrowhead=0, arrowsize=1, arrowwidth=4
             )
-        except OSError as e:
-            logger.error('No se pudo agregar la anotacion de la flecha del velocimetro al grafico')
+            
+        except (OSError,ValueError,TypeError) as e:
+            logger.error('Ocurrio un error al armar el grafico para el velocimetro')
             logger.error(f'Detalle del error: {e}')
             logger.error(f'Detalle del traceback: {tr.format_exc()}')
             return None
     else:
         logger.warning('No se encontraron datos para el valor actual de la aguja/flecha del velocimetro al grafico')
-        fig = po.graph_objects.Figure(po.graph_objects.Indicator(
-            domain={
-                'x': [0, 1],
-                'y': [0, 1]
-            },
-            mode="gauge",
-            title={'text': "Velocimetro"},
-            delta={'reference': 380},
-            gauge={
-                    'axis': {'range': [umbrals_min_value, umbrals_max_value],
-                    "tickmode": "array",
-                    "tickvals": tick_values,
-                    "tickangle": 0,
-                    "ticktext": tick_text
-                },
-                'bar': {'thickness': 0},
-                'steps': steps_list
-            },
-        ))
-        fig.update_layout(
-            autosize=False,
-            font={'color': "black", 'family': "Arial"},
-            xaxis={'showgrid': False, 'range': [-1, 1], 'visible': False},
-            yaxis={'showgrid': False, 'range': [0, 1], 'visible': False},
-            plot_bgcolor='rgba(0,0,0,0)'
-        )
-
+        return None
+    
     # Valor donde apuntara la aguja del velocimetro
     fig.add_annotation(
         x=0, y=0, xref="x", yref="y",
@@ -318,45 +273,8 @@ def grafico_velocimetro_HorasConsumidas(fechasContrato, resultado_mensual):
         align="center", ax=20, ay=-30, opacity=0.8
     )
 
-    # with open('velocimetro.txt', 'wb') as file: file.write(getBase64Figure(fig).encode())
-
     img_bytes = BytesIO()
     pio.write_image(fig, img_bytes, format='png')
     img_bytes.seek(0)
     return img_bytes
 
-
-def grafico_velocimetro_TicketsConsumidos(resultado_mensual_tickets,
-                                    titulo="Tickets Consumidos - Soporte Evolutivo",
-                                    etiqueta_x="Mes",
-                                    etiqueta_y="Tickets Totales"):
-    # Extraemos los datos
-    meses = [item['mes'] for item in resultado_mensual_tickets]
-    totalTicketsMensual = [item['totalTicketsMensual'] for item in resultado_mensual_tickets]
-    
-    meses_formateados = formatear_meses(meses)
-
-    fig = go.Figure()
-    fig.add_trace(go.Scatter(
-        x=meses_formateados,
-        y=totalTicketsMensual,
-        mode="lines+markers",  
-        line=dict(color="blue", width=2),
-        marker=dict(color="blue", size=8),
-        name="Horas Cargadas"
-    ))
-    fig.update_layout(
-        title=titulo,
-        xaxis_title=etiqueta_x,
-        yaxis_title=etiqueta_y,
-        xaxis=dict(categoryorder="array", categoryarray=meses),  
-    )
-    fig.update_layout(
-        paper_bgcolor='rgba(200, 200, 200, 0.5)',  # Fondo de toda la figura semi-transparente
-        plot_bgcolor='rgba(200, 200, 200, 0.5)'   # Fondo del área del gráfico semi-transparente
-    )
-    img_bytes = BytesIO()
-    pio.write_image(fig, img_bytes, format='png')
-    img_bytes.seek(0)
-
-    return img_bytes

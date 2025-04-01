@@ -28,7 +28,7 @@ shadow_id = ARCHER_IDS['idsGraficos']['shadow']
 FechaCreacionTicket_id = ARCHER_IDS['idsGraficos']['FechaCreacionTicket']
 CreadorTicket_id = ARCHER_IDS['idsGraficos']['CreadorTicket']
 PropietarioTicket_id = ARCHER_IDS['idsGraficos']['PropietarioTicket']
-FechaCierreTicket_id = ARCHER_IDS['idsGraficos']['FechaCierreTicket']
+fechaCierreTicket_id = ARCHER_IDS['idsGraficos']['FechaCierreTicket']
 TipoTicket_id = ARCHER_IDS['idsGraficos']['TipoTicket']
 TecnologiaTicket_id = ARCHER_IDS['idsGraficos']['TecnologiaTicket']
 HorasConsumidasTicket_id = ARCHER_IDS['idsGraficos']['HorasConsumidasTicket']
@@ -41,6 +41,7 @@ tecnologiaLogo_id = ARCHER_IDS['idsGraficos']['TecnologiaLogo']
 horasPorMes_id = ARCHER_IDS['idsGraficos']['HorasPorMes']
 fechaInicioContrato_id = ARCHER_IDS['idsGraficos']['FechaInicioContrato']
 fechaFinContrato_id = ARCHER_IDS['idsGraficos']['FechaFinContrato']
+colaDelMensaje_id = ARCHER_IDS['idsGraficos']['ColaDelMensaje']
 
 def getAllContratos ():
     token = archer_login()
@@ -199,31 +200,37 @@ def crear_informe(data):
     
     valores_mensuales = defaultdict(int)
     detalleCargaHoras = response[ARCHER_IDS['idsGraficos']['detalleCargaHoras']]['Value']
-
+    acumHSConsultoria = 0
+    
     for contentIdHoras in detalleCargaHoras:
         infoHoras = get_data_of_content_id(contentIdHoras["ContentId"], token)
 
         cargaHorasNormales = infoHoras[ARCHER_IDS['idsGraficos']['cargaHorasNormales']]['Value']
-        FechaCargaHora = infoHoras[ARCHER_IDS['idsGraficos']['FechaCargaHora']]['Value']
-        #shadow = bool(infoHoras[ARCHER_IDS['idsGraficos']['shadow']]['Value'])
+        fechaCargaHora = infoHoras[ARCHER_IDS['idsGraficos']['FechaCargaHora']]['Value']
 
-        if FechaCargaHora:
+        if fechaCargaHora:
             try:
-                fecha_objeto = datetime.strptime(FechaCargaHora, "%Y-%m-%dT%H:%M:%S")
+                fecha_objeto = datetime.strptime(fechaCargaHora, "%Y-%m-%dT%H:%M:%S")
                 
                 if ((fecha_objeto.month <= mes_seleccionado and fecha_objeto.year == añoActual) or (fecha_objeto.year < añoActual)):
                     mes_anio = fecha_objeto.strftime('%Y-%m')
                     valores_mensuales[mes_anio] += cargaHorasNormales
+                    
+                    shadow = bool(infoHoras[shadow_id]['Value'])
+                    colaDelMensaje = infoHoras[colaDelMensaje_id]['Value']['ValuesListIds'][0]
+                    colaDelMensaje = get_value_list_value(colaDelMensaje, token)
+                    if(not shadow and colaDelMensaje == "Servicios Profesionales"):
+                        acumHSConsultoria = acumHSConsultoria + cargaHorasNormales
                    
             except ValueError:
-                logger.error(f"Error procesando fecha de carga de horas: {FechaCargaHora}")
+                logger.error(f"Error procesando fecha de carga de horas: {fechaCargaHora}")
             
     resultado_mensual = [{"mes": mes, "totalHorasMensual": totalHorasMensual} for mes, totalHorasMensual in valores_mensuales.items()]
 
     tickets_por_mes = defaultdict(int)
     tickets = []
     ticketsUltimaActualizacion = []
-    
+    acumTicketsActivos = 0
     TicketsAsociados = response[ARCHER_IDS['idsGraficos']['TicketsAsociados']]['Value']
 
     for contentIdTickets in TicketsAsociados:
@@ -238,13 +245,14 @@ def crear_informe(data):
                 if ((fecha_objeto.month <= mes_seleccionado and fecha_objeto.year == añoActual) or (fecha_objeto.year < añoActual)):
                     mes_anio = fecha_objeto.strftime('%Y-%m')
                     tickets_por_mes[mes_anio] += 1
+                    if(infoTickets[fechaCierreTicket_id]['Value']):
+                        acumTicketsActivos += 1
 
             except ValueError as e:
                 logger.error(f"Error procesando fecha de creación de ticket: {FechaCreacionTicket}")
                 logger.error(e)
 
-        fechaCierreTicket = infoTickets[ARCHER_IDS['idsGraficos']['FechaCierreTicket']]['Value']
-            
+        fechaCierreTicket = infoTickets[ARCHER_IDS['idsGraficos']['FechaCierreTicket']]['Value']        
         propietarioTicketId = infoTickets[ARCHER_IDS['idsGraficos']['PropietarioTicket']]['Value'][0]['ContentId']
         userContent = get_data_of_content_id(propietarioTicketId, token)
         userName = userContent[userName_id]['Value']
@@ -308,6 +316,6 @@ def crear_informe(data):
     mensual_tickets_Cerrados = tickets
     mensual_Ult_Actualizacion = ticketsUltimaActualizacion
     
-    return resultado_mensual, resultado_mensual_tickets, mensual_tickets_Cerrados, mensual_Ult_Actualizacion, logoData, logoTecnologiaData, horasPorMes, fechasContrato
+    return resultado_mensual, resultado_mensual_tickets, mensual_tickets_Cerrados, mensual_Ult_Actualizacion, logoData, logoTecnologiaData, horasPorMes, fechasContrato, acumHSConsultoria, acumTicketsActivos
 
 

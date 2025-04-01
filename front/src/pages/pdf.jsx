@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import html2pdf from "html2pdf.js";
 import "./styles/pdf.css";
+import SquareCard from "../components/SquareCard"
 
-const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetro, imageTickets, ticketsMensual, ticketsUltAct, logoCliente, logoTecnologia }) => {
+const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetro, imageTickets, ticketsMensual, ticketsUltAct, logoCliente, logoTecnologia, acumTicketsActivos }) => {
   const [fechaTexto, setFechaTexto] = useState("");
   const [year, setYear] = useState("");
 
@@ -130,7 +131,7 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
               <img
                 src={`data:image/png;base64,${imageHoras}`}
                 alt="Horas Consumidas"
-                style={{ width: "65%", height: "auto" }}
+                style={{ width: "30vw", height: "auto", margin: "10px", borderRadius: "20px", marginBottom: "0px" }}
               />
             )}
           </div>
@@ -139,28 +140,30 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
               <img
                 src={`data:image/png;base64,${imageTickets}`}
                 alt="Tickets Consumidos"
-                style={{ width: "65%", height: "auto" }}
+                style={{ width: "30vw", height: "auto", margin: "10px", borderRadius: "20px", marginBottom: "0px" }}
               />
             )}
           </div>
         </div>
-        <div style={{ display: "flex", marginTop: "20px" }}>
+        <div style={{ display: "flex"}}>
           <div style={{ textAlign: "center" }}>
             {imageHorasVelocimetro && (
               <img
                 src={`data:image/png;base64,${imageHorasVelocimetro}`}
                 alt="Horas Consumidas Velocimetro"
-                style={{ width: "65%", height: "auto" }}
+                style={{ width: "30vw", height: "auto", margin: "10px", borderRadius: "20px", marginBottom: "0px" }}
               />
             )}
           </div>
-          <div style={{ textAlign: "center" }}>
-            {imageTickets && (
-              <img
-                src={`data:image/png;base64,${imageHorasVelocimetro}`}
-                alt="Tickets Consumidos Velocimetro"
-                style={{ width: "65%", height: "auto" }}
-              />
+          <div style={{ display: "flex", flexWrap: "wrap", width: "30vw", margin: "10px"}}>
+            {ticketsUltAct && (
+              <SquareCard title="Tickets abiertos" number={ticketsUltAct.length} />
+            )}
+            {ticketsMensual && (
+              <SquareCard title="Tickets cerrados" number={ticketsMensual.length} />
+            )}
+            {imageHorasVelocimetro && (
+              <SquareCard title="Tickets activos" number={acumTicketsActivos} />
             )}
           </div>
         </div>

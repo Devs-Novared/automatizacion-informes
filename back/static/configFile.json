@@ -2,7 +2,7 @@
     "API" : {
         "url" : "https://arsvarcher",
         "instance_name" : "PROD",
-        "username" : "apitest",
+        "username" : "tapi",
         "password" : "Novared#12345!"
     },
     "APP_FLASK" : {
