@@ -306,7 +306,8 @@ def crear_informe(data):
                         "Propietario Ticket": userName,
                         "Fecha Creacion Ticket": fechaCreacionTicketString,
                         "Tipo Ticket": infoTickets[ARCHER_IDS['idsGraficos']['TipoTicket']]['Value'],
-                        "Asunto": infoTickets[ARCHER_IDS['idsGraficos']['Asunto']]['Value']
+                        "Asunto": infoTickets[ARCHER_IDS['idsGraficos']['Asunto']]['Value'],
+                        "Comentario": infoTickets[ARCHER_IDS['idsGraficos']['Comentarios']]['Value']
                     }
                     ticketsUltimaActualizacion.append(jsonTicketsUlt)
             except ValueError as e:

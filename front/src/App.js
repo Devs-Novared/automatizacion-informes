@@ -9,7 +9,6 @@ function App() {
   const [listaCliente, setListaCliente] = useState([]);
   const [listaTecnologia, setListaTecnologia] = useState([]);
   const [listaContentIdContrato, setListaContentIdContrato] = useState([]);
-
   const [formData, setFormData] = useState({
     cliente: "",
     tecnologia: "",
@@ -23,11 +22,12 @@ function App() {
   const [contratosSeleccionado, setContratosSeleccionado] = useState({});
   const [isReportReady, setIsReportReady] = useState(false);
   const [error, setError] = useState(""); 
-  const [ticketsMensual, setTicketsMensual] = useState([]); // Estado para los tickets
+  const [ticketsMensual, setTicketsMensual] = useState([]);
   const [ticketsUltAct, setTicketsUltAct] = useState([]);
   const [logoCliente, setLogoCliente] = useState("");
   const [logoTecnologia, setLogoTecnologia] = useState("");
   const [acumTicketsActivos, setAcumTicketsActivos] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   
 
   useEffect(() => {
@@ -37,7 +37,6 @@ function App() {
 
         if (response.status === 200) {
           const contratos = response.data.Result;
-
           setListaCliente([...new Set(contratos.map((item) => item.cliente.toLowerCase()))]);
           setListaTecnologia([...new Set(contratos.map((item) => item.tecnologia.toLowerCase()))]);
           setListaContrato([...new Set(contratos.map((item) => item.nroContrato.toLowerCase()))]);
@@ -81,21 +80,17 @@ function App() {
     e.preventDefault();
     if (!validarFormulario()) return;
 
-    const { cliente, tecnologia, contrato, selectedMonth } = formData;
+    setIsLoading(true); // Mostrar el popup de carga
 
+    const { cliente, tecnologia, contrato, selectedMonth } = formData;
     let contentIdSeleccionado = listaContentIdContrato.find(
       (dupla) => dupla.nroContrato === contrato
     )?.contentId;
 
-    const datosAEnviar = {
-      selectedMonth,
-      contentId: contentIdSeleccionado
-    };
+    const datosAEnviar = { selectedMonth, contentId: contentIdSeleccionado };
 
     try {
       const response = await axios.post("http://127.0.0.1:5000/informe", datosAEnviar);
-      console.log(response.data)
-      
       if (response.status === 200) {
         setImageHoras(response.data.image_horas);
         setImageHorasVelocimetro(response.data.image_horas_velocimetro);
@@ -104,15 +99,17 @@ function App() {
         setLogoTecnologia(response.data.logoTecnologia)
         setAcumTicketsActivos(response.data.acumTicketsActivos)
         setContratosSeleccionado(response.data.contratosSeleccionado);
-        setTicketsMensual(response.data.tickets_mensual_Cerrados || []); // Agregar tickets
+        setTicketsMensual(response.data.tickets_mensual_Cerrados || []);
         setTicketsUltAct(response.data.tickets_ult_act || []);
-        
+
         setIsReportReady(true);
         setError(""); 
       }
     } catch (error) {
       console.error("Error al generar el informe:", error);
       setError("Hubo un error al generar el informe. Intente nuevamente.");
+    } finally {
+      setIsLoading(false); // Ocultar el popup de carga cuando termine la solicitud
     }
   };
 
@@ -135,6 +132,14 @@ function App() {
           Generar Informe
         </button>
       </div>
+
+      {isLoading && (
+        <div className="popup-loading">
+          <div className="popup-content">
+            <p>Generando informe...</p>
+          </div>
+        </div>
+      )}
 
       {isReportReady && contratosSeleccionado && (
         <Pdf
