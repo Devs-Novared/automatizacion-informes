@@ -1,2 +1,10 @@
-[26-03-2025 16:39:30] WARNING   * Debugger is active!
-[26-03-2025 16:39:30] INFO      * Debugger PIN: 369-247-726
+[03-04-2025 09:30:05] WARNING   * Debugger is active!
+[03-04-2025 09:30:05] INFO      * Debugger PIN: 246-412-492
+[03-04-2025 09:40:10] INFO     Se obtuvo el token de la solicitud correctamente
+[03-04-2025 09:40:13] INFO     127.0.0.1 - - [03/Apr/2025 09:40:13] "GET /getContratos HTTP/1.1" 200 -
+[03-04-2025 09:45:15] INFO     127.0.0.1 - - [03/Apr/2025 09:45:15] "OPTIONS /informe HTTP/1.1" 200 -
+[03-04-2025 09:45:15] INFO     Se obtuvo el token de la solicitud correctamente
+[03-04-2025 09:45:17] INFO     Se obtuvo el token de la solicitud correctamente
+[03-04-2025 09:47:23] INFO     img_bytes_horas
+[03-04-2025 09:47:23] INFO     img_bytes_tickets
+[03-04-2025 09:47:23] INFO     127.0.0.1 - - [03/Apr/2025 09:47:23] "POST /informe HTTP/1.1" 200 -
