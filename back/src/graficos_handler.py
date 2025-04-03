@@ -29,11 +29,11 @@ def formatear_meses(lista_fechas):
     return [pd.to_datetime(mes).strftime("%b %Y") for mes in lista_fechas]
 
 
-def grafico_linea_HorasConsumidas(resultado_mensual,
-                                  titulo="Horas Consumidas - Soporte Evolutivo",
-                                  etiqueta_x="Fecha de carga de Horas",
-                                  etiqueta_y="Horas Cargadas Normales",
-                                  meta_horas=12):
+def grafico_linea_HorasConsumidas(resultado_mensual, meta_horas):    
+    titulo="Horas Consumidas - Soporte Evolutivo"
+    etiqueta_x="Fecha de carga de Horas"
+    etiqueta_y="Horas Cargadas Normales"
+    
     # Extraemos los datos
     meses = [item['mes'] for item in resultado_mensual]
     totalHorasMensual = [item['totalHorasMensual'] for item in resultado_mensual]
@@ -49,9 +49,13 @@ def grafico_linea_HorasConsumidas(resultado_mensual,
     fig.add_trace(go.Scatter(
         x=meses_formateados,
         y=totalHorasMensual,
+        text=[str(val) if val is not None else "" for val in totalHorasMensual], 
+        textposition="top center",
+        cliponaxis=False,
+        textfont=dict(color="black", size=14), 
         fill='tozeroy',
         fillcolor='rgba(173, 216, 230, 0.5)',
-        mode="lines+markers",
+        mode="lines+markers+text",
         line=dict(color="blue", width=2, shape='spline'),
         marker=dict(color="blue", size=8),
         name="Horas Cargadas"
@@ -71,10 +75,15 @@ def grafico_linea_HorasConsumidas(resultado_mensual,
     fig.update_layout(
         paper_bgcolor='rgba(200, 200, 200, 0.5)',  # Fondo de toda la figura semi-transparente
         plot_bgcolor='rgba(200, 200, 200, 0.5)',   # Fondo del área del gráfico semi-transparente
-        title=titulo,
-        xaxis_title=etiqueta_x,
-        yaxis_title=etiqueta_y,
-        xaxis=dict(categoryorder="array", categoryarray=meses)
+        title=dict(text=titulo, font=dict(color="black", size=18)),
+        xaxis=dict(
+            title=dict(text=etiqueta_x, font=dict(color="black", size=14)),
+            tickfont=dict(color="black", size=12) 
+        ),
+        yaxis=dict(
+            title=dict(text=etiqueta_y, font=dict(color="black", size=14)), 
+            tickfont=dict(color="black", size=12) 
+        )
     )
     
     img_bytes = BytesIO()
@@ -84,9 +93,8 @@ def grafico_linea_HorasConsumidas(resultado_mensual,
 
 
 def grafico_linea_TicketsConsumidos(resultado_mensual_tickets):
-    
     titulo="Tickets Consumidos - Soporte Evolutivo"
-    etiqueta_x="Mes"
+    etiqueta_x="Fecha de creación de Ticket"
     etiqueta_y="Tickets Totales"
                                     
     # Extraemos los datos
@@ -100,9 +108,13 @@ def grafico_linea_TicketsConsumidos(resultado_mensual_tickets):
     fig.add_trace(go.Scatter(
         x=meses_formateados,
         y=totalTicketsMensual,
+        text=[str(val) if val is not None else "" for val in totalTicketsMensual], 
+        textposition="top center",
+        cliponaxis=False,
+        textfont=dict(color="black", size=14), 
         fill='tozeroy',
         fillcolor='rgba(173, 216, 230, 0.5)',
-        mode="lines+markers",
+        mode="lines+markers+text",
         line=dict(color="blue", width=2, shape='spline'),
         marker=dict(color="blue", size=8),
         name="Horas Cargadas"
@@ -111,10 +123,15 @@ def grafico_linea_TicketsConsumidos(resultado_mensual_tickets):
     fig.update_layout(
         paper_bgcolor='rgba(200, 200, 200, 0.5)',  # Fondo de toda la figura semi-transparente
         plot_bgcolor='rgba(200, 200, 200, 0.5)',   # Fondo del área del gráfico semi-transparente
-        title=titulo,
-        xaxis_title=etiqueta_x,
-        yaxis_title=etiqueta_y,
-        xaxis=dict(categoryorder="array", categoryarray=meses)
+        title=dict(text=titulo, font=dict(color="black", size=18)),
+        xaxis=dict(
+            title=dict(text=etiqueta_x, font=dict(color="black", size=14)),
+            tickfont=dict(color="black", size=12) 
+        ),
+        yaxis=dict(
+            title=dict(text=etiqueta_y, font=dict(color="black", size=14)), 
+            tickfont=dict(color="black", size=12) 
+        )
     )
     
     img_bytes = BytesIO()
@@ -142,6 +159,8 @@ def grafico_velocimetro_HorasConsumidas(fechasContrato, cantidadHSConsultoria, r
     Returns:
         Union[str, None]: String base64 del grafico o None en caso de que exista algun error
     """
+    
+    title = "Velocimetro de horas consumidas"
     if(not fechasContrato["horasPorMes"]): return None
     
     result_value = cantidadHSConsultoria #Aguja velocimetro
@@ -213,7 +232,9 @@ def grafico_velocimetro_HorasConsumidas(fechasContrato, cantidadHSConsultoria, r
                         "tickmode": "array",
                         "tickvals": tick_values,
                         "tickangle": 0,
-                        "ticktext": tick_text
+                        "ticktext": tick_text,
+                        "tickfont": {'color': 'black', 'size': 14} 
+
                     },
                     'bar': {'thickness': 0},
                     'steps': steps_list
@@ -223,7 +244,7 @@ def grafico_velocimetro_HorasConsumidas(fechasContrato, cantidadHSConsultoria, r
             fig.update_layout(
                 paper_bgcolor='rgba(200, 200, 200, 0.5)',  # Fondo de toda la figura semi-transparente
                 plot_bgcolor='rgba(200, 200, 200, 0)',   # Fondo del área del gráfico semi-transparente
-                title="Velocimetro de horas consumidas",
+                title=dict(text=title, font=dict(color="black", size=18)),
                 xaxis={'showgrid': False, 'range': [-1, 1], 'visible': False},
                 yaxis={'showgrid': False, 'range': [0, 1], 'visible': False}
             )

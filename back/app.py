@@ -96,15 +96,20 @@ def generar_informe():
         contratosSeleccionado['horasSoporte'] = horasPorMes
         
         img_bytes_horas = grafico_linea_HorasConsumidas(resultado_mensual, meta_horas = horasPorMes)
-        image_horas_base64 = base64.b64encode(img_bytes_horas.read()).decode('utf-8')
+        image_horas_base64 = None
+        if img_bytes_horas:
+            image_horas_base64 = base64.b64encode(img_bytes_horas.read()).decode('utf-8')
         
         img_bytes_tickets = grafico_linea_TicketsConsumidos(resultado_mensual_tickets)
-        image_tickets_base64 = base64.b64encode(img_bytes_tickets.read()).decode('utf-8')
+        image_tickets_base64 = None
+        if img_bytes_tickets:
+            image_tickets_base64 = base64.b64encode(img_bytes_tickets.read()).decode('utf-8')
 
         #TODO una vez que se cambie la forma en que la fecha se selecciona en el front utilizarla en el grafico de velocimetro reemplazando la fecha calculada de hoy
         img_bytes_horas_velocimetro = grafico_velocimetro_HorasConsumidas(fechasContrato, cantidadHSConsultoria, resultado_mensual)
-        image_horas_velocimetro_base64 = base64.b64encode(img_bytes_horas_velocimetro.read()).decode('utf-8')
-        
+        image_horas_velocimetro_base64 = None
+        if img_bytes_horas_velocimetro:
+            image_horas_velocimetro_base64 = base64.b64encode(img_bytes_horas_velocimetro.read()).decode('utf-8')
         
         body={
             "contratosSeleccionado": contratosSeleccionado,
