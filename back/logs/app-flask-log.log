@@ -1,24 +1,89 @@
-<<<<<<< HEAD
-[03-04-2025 09:30:05] WARNING   * Debugger is active!
-[03-04-2025 09:30:05] INFO      * Debugger PIN: 246-412-492
-[03-04-2025 09:40:10] INFO     Se obtuvo el token de la solicitud correctamente
-[03-04-2025 09:40:13] INFO     127.0.0.1 - - [03/Apr/2025 09:40:13] "GET /getContratos HTTP/1.1" 200 -
-[03-04-2025 09:45:15] INFO     127.0.0.1 - - [03/Apr/2025 09:45:15] "OPTIONS /informe HTTP/1.1" 200 -
-[03-04-2025 09:45:15] INFO     Se obtuvo el token de la solicitud correctamente
-[03-04-2025 09:45:17] INFO     Se obtuvo el token de la solicitud correctamente
-[03-04-2025 09:47:23] INFO     img_bytes_horas
-[03-04-2025 09:47:23] INFO     img_bytes_tickets
-[03-04-2025 09:47:23] INFO     127.0.0.1 - - [03/Apr/2025 09:47:23] "POST /informe HTTP/1.1" 200 -
-=======
-[01-04-2025 15:47:15] WARNING   * Debugger is active!
-[01-04-2025 15:47:15] INFO      * Debugger PIN: 369-247-726
-[01-04-2025 15:48:19] INFO     Se obtuvo el token de la solicitud correctamente
-[01-04-2025 15:48:20] INFO     127.0.0.1 - - [01/Apr/2025 15:48:20] "GET /getContratos HTTP/1.1" 200 -
-[01-04-2025 15:48:50] INFO     Se obtuvo el token de la solicitud correctamente
-[01-04-2025 15:48:51] INFO     127.0.0.1 - - [01/Apr/2025 15:48:51] "GET /getContratos HTTP/1.1" 200 -
-[01-04-2025 15:48:58] INFO     127.0.0.1 - - [01/Apr/2025 15:48:58] "OPTIONS /informe HTTP/1.1" 200 -
-[01-04-2025 15:48:58] INFO     Se obtuvo el token de la solicitud correctamente
-[01-04-2025 15:49:00] INFO     Se obtuvo el token de la solicitud correctamente
-[01-04-2025 15:50:18] WARNING  Error al buscar la data del content id 2673570, se volvera a intentar
-[01-04-2025 15:51:18] INFO     127.0.0.1 - - [01/Apr/2025 15:51:18] "POST /informe HTTP/1.1" 200 -
->>>>>>> dca51bd7bdf6fa98995e569a0fe872e7e1218a0e
+[03-04-2025 10:12:13] WARNING   * Debugger is active!
+[03-04-2025 10:12:13] INFO      * Debugger PIN: 246-412-492
+[03-04-2025 10:13:52] INFO     Se obtuvo el token de la solicitud correctamente
+[03-04-2025 10:13:53] INFO     127.0.0.1 - - [03/Apr/2025 10:13:53] "GET /getContratos HTTP/1.1" 200 -
+[03-04-2025 10:14:05] INFO     127.0.0.1 - - [03/Apr/2025 10:14:05] "OPTIONS /informe HTTP/1.1" 200 -
+[03-04-2025 10:14:05] INFO     Se obtuvo el token de la solicitud correctamente
+[03-04-2025 10:14:07] INFO     Se obtuvo el token de la solicitud correctamente
+[03-04-2025 10:15:21] ERROR    Se obtuvo un response None de un request data of user id
+[03-04-2025 10:15:21] ERROR    Se obtuvo un response None de un request data of content id
+[03-04-2025 10:15:21] ERROR    Ocurrio un error al accceder al valor del content id 2683136 obtenido en el response
+[03-04-2025 10:15:21] ERROR    Detalle del error: Expecting value: line 1 column 1 (char 0)
+[03-04-2025 10:15:22] ERROR    Detalle del traceback: Traceback (most recent call last):
+  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\requests\models.py", line 974, in json
+    return complexjson.loads(self.text, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\mbegani\OneDrive - NOVARED CHILE S.A\Documentos\Dev\Proyectos\automatizacion-informes\back\src\archer_api_handler.py", line 187, in get_data_of_content_id
+    result = response.json()['RequestedObject']['FieldContents']
+             ^^^^^^^^^^^^^^^
+  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\requests\models.py", line 978, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+[03-04-2025 10:15:22] ERROR    Error al generar el informe: 'NoneType' object is not subscriptable
+[03-04-2025 10:15:22] INFO     127.0.0.1 - - [03/Apr/2025 10:15:22] "[35m[1mPOST /informe HTTP/1.1[0m" 500 -
+[03-04-2025 10:15:38] INFO     Se obtuvo el token de la solicitud correctamente
+[03-04-2025 10:15:40] INFO     127.0.0.1 - - [03/Apr/2025 10:15:40] "GET /getContratos HTTP/1.1" 200 -
+[03-04-2025 10:15:58] INFO     127.0.0.1 - - [03/Apr/2025 10:15:58] "OPTIONS /informe HTTP/1.1" 200 -
+[03-04-2025 10:15:59] INFO     Se obtuvo el token de la solicitud correctamente
+[03-04-2025 10:16:01] INFO     Se obtuvo el token de la solicitud correctamente
+[03-04-2025 10:18:00] ERROR    Se obtuvo un response None de un request data of content id
+[03-04-2025 10:18:00] ERROR    Ocurrio un error al accceder al valor del content id 2679326 obtenido en el response
+[03-04-2025 10:18:00] ERROR    Detalle del error: Expecting value: line 1 column 1 (char 0)
+[03-04-2025 10:18:00] ERROR    Detalle del traceback: Traceback (most recent call last):
+  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\requests\models.py", line 974, in json
+    return complexjson.loads(self.text, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\mbegani\OneDrive - NOVARED CHILE S.A\Documentos\Dev\Proyectos\automatizacion-informes\back\src\archer_api_handler.py", line 187, in get_data_of_content_id
+    result = response.json()['RequestedObject']['FieldContents']
+             ^^^^^^^^^^^^^^^
+  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\requests\models.py", line 978, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+[03-04-2025 10:18:00] ERROR    Error al generar el informe: 'NoneType' object is not subscriptable
+[03-04-2025 10:18:00] INFO     127.0.0.1 - - [03/Apr/2025 10:18:00] "[35m[1mPOST /informe HTTP/1.1[0m" 500 -
+[03-04-2025 11:09:34] INFO     127.0.0.1 - - [03/Apr/2025 11:09:34] "OPTIONS /informe HTTP/1.1" 200 -
+[03-04-2025 11:09:35] INFO     Se obtuvo el token de la solicitud correctamente
+[03-04-2025 11:09:36] INFO     Se obtuvo el token de la solicitud correctamente
+[03-04-2025 11:11:26] ERROR    Error al generar el informe: 'NoneType' object has no attribute 'read'
+[03-04-2025 11:11:26] INFO     127.0.0.1 - - [03/Apr/2025 11:11:26] "[35m[1mPOST /informe HTTP/1.1[0m" 500 -
+[03-04-2025 11:11:37] INFO     Se obtuvo el token de la solicitud correctamente
+[03-04-2025 11:11:38] INFO     127.0.0.1 - - [03/Apr/2025 11:11:38] "GET /getContratos HTTP/1.1" 200 -
+[03-04-2025 11:27:38] INFO     127.0.0.1 - - [03/Apr/2025 11:27:38] "OPTIONS /informe HTTP/1.1" 200 -
+[03-04-2025 11:27:38] INFO     Se obtuvo el token de la solicitud correctamente
+[03-04-2025 11:27:39] INFO     Se obtuvo el token de la solicitud correctamente
+[03-04-2025 11:29:28] ERROR    Error al generar el informe: 'NoneType' object has no attribute 'read'
+[03-04-2025 11:29:28] INFO     127.0.0.1 - - [03/Apr/2025 11:29:28] "[35m[1mPOST /informe HTTP/1.1[0m" 500 -
+[03-04-2025 11:31:08] INFO     Se obtuvo el token de la solicitud correctamente
+[03-04-2025 11:31:09] INFO     127.0.0.1 - - [03/Apr/2025 11:31:09] "GET /getContratos HTTP/1.1" 200 -
+[03-04-2025 11:31:19] INFO     127.0.0.1 - - [03/Apr/2025 11:31:19] "OPTIONS /informe HTTP/1.1" 200 -
+[03-04-2025 11:31:19] INFO     Se obtuvo el token de la solicitud correctamente
+[03-04-2025 11:31:21] INFO     Se obtuvo el token de la solicitud correctamente
+[03-04-2025 11:34:07] INFO     127.0.0.1 - - [03/Apr/2025 11:34:07] "POST /informe HTTP/1.1" 200 -
