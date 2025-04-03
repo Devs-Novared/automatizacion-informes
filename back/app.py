@@ -7,7 +7,7 @@ import json
 import base64
 
 from src.contratos_handler import getAllContratos, crear_informe
-from src.graficos_handler import grafico_linea_HorasConsumidas, grafico_linea_TicketsConsumidos
+from src.graficos_handler import grafico_linea_HorasConsumidas, grafico_linea_TicketsConsumidos, grafico_velocimetro_HorasConsumidas
 
 from src.shared import URL
 
@@ -91,27 +91,31 @@ def generar_informe():
         contratosSeleccionado = next((contrato for contrato in contratosInfo if contrato['contentId'] == data.get('contentId')), None)
         #logger.info(contratosSeleccionado)
         
-        resultado_mensual, resultado_mensual_tickets, mensual_tickets_Cerrados, mensual_Ult_Actualizacion, logoData, logoTecnologiaData, horasConsultoria = crear_informe(data)
+        resultado_mensual, resultado_mensual_tickets, mensual_tickets_Cerrados, mensual_Ult_Actualizacion, logoData, logoTecnologiaData, horasPorMes, fechasContrato, cantidadHSConsultoria, acumTicketsActivos = crear_informe(data)
 
-        contratosSeleccionado['horasSoporte'] = horasConsultoria
+        contratosSeleccionado['horasSoporte'] = horasPorMes
         
-        img_bytes_horas = grafico_linea_HorasConsumidas(resultado_mensual, meta_horas = horasConsultoria)
-        logger.info("img_bytes_horas")
+        img_bytes_horas = grafico_linea_HorasConsumidas(resultado_mensual, meta_horas = horasPorMes)
+        image_horas_base64 = base64.b64encode(img_bytes_horas.read()).decode('utf-8')
         
         img_bytes_tickets = grafico_linea_TicketsConsumidos(resultado_mensual_tickets)
-        logger.info("img_bytes_tickets")
-
-        image_horas_base64 = base64.b64encode(img_bytes_horas.read()).decode('utf-8')
         image_tickets_base64 = base64.b64encode(img_bytes_tickets.read()).decode('utf-8')
 
+        #TODO una vez que se cambie la forma en que la fecha se selecciona en el front utilizarla en el grafico de velocimetro reemplazando la fecha calculada de hoy
+        img_bytes_horas_velocimetro = grafico_velocimetro_HorasConsumidas(fechasContrato, cantidadHSConsultoria, resultado_mensual)
+        image_horas_velocimetro_base64 = base64.b64encode(img_bytes_horas_velocimetro.read()).decode('utf-8')
+        
+        
         body={
             "contratosSeleccionado": contratosSeleccionado,
             'image_horas': image_horas_base64,
             'image_tickets': image_tickets_base64,
+            'image_horas_velocimetro': image_horas_velocimetro_base64,
             "tickets_mensual_Cerrados" : mensual_tickets_Cerrados,
             "tickets_ult_act":  mensual_Ult_Actualizacion,
             "logoCliente": logoData,
-            "logoTecnologia": logoTecnologiaData
+            "logoTecnologia": logoTecnologiaData,
+            "acumTicketsActivos": acumTicketsActivos
         }
         # Retornar las imágenes en formato JSON
         return jsonify(body), 200

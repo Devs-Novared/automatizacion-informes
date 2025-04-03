@@ -30,7 +30,10 @@
             "UserId": "24276",
             "Username": "531",
             "TecnologiaLogo": "28509",
-            "HorasConsultoria": "27022",
+            "HorasPorMes": "27022",
+            "FechaInicioContrato": "15140",
+            "FechaFinContrato": "15141",
+            "ColaDelMensaje": "26032",
             "Comentarios": "28357"
         }
 

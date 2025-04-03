@@ -17,6 +17,7 @@ function App() {
   });
 
   const [imageHoras, setImageHoras] = useState("");
+  const [imageHorasVelocimetro, setImageHorasVelocimetro] = useState("");
   const [imageTickets, setImageTickets] = useState("");
   const [contratosSeleccionado, setContratosSeleccionado] = useState({});
   const [isReportReady, setIsReportReady] = useState(false);
@@ -25,7 +26,12 @@ function App() {
   const [ticketsUltAct, setTicketsUltAct] = useState([]);
   const [logoCliente, setLogoCliente] = useState("");
   const [logoTecnologia, setLogoTecnologia] = useState("");
+<<<<<<< HEAD
   const [isLoading, setIsLoading] = useState(false); // Estado para mostrar el loading
+=======
+  const [acumTicketsActivos, setAcumTicketsActivos] = useState("");
+  
+>>>>>>> dca51bd7bdf6fa98995e569a0fe872e7e1218a0e
 
   useEffect(() => {
     const fetchContratos = async () => {
@@ -90,9 +96,16 @@ function App() {
       const response = await axios.post("http://127.0.0.1:5000/informe", datosAEnviar);
       if (response.status === 200) {
         setImageHoras(response.data.image_horas);
+        setImageHorasVelocimetro(response.data.image_horas_velocimetro);
         setImageTickets(response.data.image_tickets);
+<<<<<<< HEAD
         setLogoCliente(response.data.logoCliente);
         setLogoTecnologia(response.data.logoTecnologia);
+=======
+        setLogoCliente(response.data.logoCliente)
+        setLogoTecnologia(response.data.logoTecnologia)
+        setAcumTicketsActivos(response.data.acumTicketsActivos)
+>>>>>>> dca51bd7bdf6fa98995e569a0fe872e7e1218a0e
         setContratosSeleccionado(response.data.contratosSeleccionado);
         setTicketsMensual(response.data.tickets_mensual_Cerrados || []);
         setTicketsUltAct(response.data.tickets_ult_act || []);
@@ -141,11 +154,13 @@ function App() {
           contratosSeleccionado={contratosSeleccionado}
           formData={formData}
           imageHoras={imageHoras}
+          imageHorasVelocimetro={imageHorasVelocimetro}
           imageTickets={imageTickets}
           ticketsMensual={ticketsMensual}
           ticketsUltAct={ticketsUltAct}
           logoCliente={logoCliente}
           logoTecnologia={logoTecnologia}
+          acumTicketsActivos={acumTicketsActivos}
         />
       )}
     </>
