@@ -213,15 +213,15 @@ def crear_informe(data):
                 fecha_objeto = datetime.strptime(fechaCargaHora, "%Y-%m-%dT%H:%M:%S")
                 
                 if ((fecha_objeto.month <= mes_seleccionado and fecha_objeto.year == añoActual) or (fecha_objeto.year < añoActual)):
-                    mes_anio = fecha_objeto.strftime('%Y-%m')
-                    valores_mensuales[mes_anio] += cargaHorasNormales
-                    
                     shadow = bool(infoHoras[shadow_id]['Value'])
                     colaDelMensaje = infoHoras[colaDelMensaje_id]['Value']['ValuesListIds'][0]
                     colaDelMensaje = get_value_list_value(colaDelMensaje, token)
                     if(not shadow and colaDelMensaje == "Servicios Profesionales"):
                         acumHSConsultoria = acumHSConsultoria + cargaHorasNormales
-                   
+                        
+                        mes_anio = fecha_objeto.strftime('%Y-%m')
+                        valores_mensuales[mes_anio] += cargaHorasNormales
+                    
             except ValueError:
                 logger.error(f"Error procesando fecha de carga de horas: {fechaCargaHora}")
             

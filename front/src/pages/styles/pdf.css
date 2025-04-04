@@ -2,11 +2,16 @@
 @media print {
   .download-pdf-btn {
     display: none !important;
-  }
-  .no-print {
-    display: none !important;
-  }
+    
 }
+.no-print {
+  display: none !important;
+}
+    .no-print {
+      display: none !important;
+    }
+  }
+
 
 body {
   font-family: Arial, sans-serif;
@@ -17,12 +22,28 @@ body {
   justify-content: flex-start;
   align-items: center;
 }
-
-/* Set A4 landscape page size with no margins */
 @page {
-  size: 528mm 373mm;
-  margin: 0; /* Ajusta los márgenes si es necesario */
+  size: A4 landscape;
+  margin: 10mm;
 }
+
+
+.contenedor-graficos {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+
+.logo {
+  width: auto;
+  max-width: 120px;
+  height: auto;
+}
+
 
 .container {
   width: 100%;
@@ -43,9 +64,9 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  page-break-before: always; /* Inicia en una nueva página */
-  page-break-after: auto; /* Se adapta automáticamente */
-  page-break-inside: avoid; /* Evita que se corte contenido */
+  page-break-before: always;
+  page-break-after: avoid;
+  page-break-inside: avoid;
   overflow: hidden; /* Evita desbordamientos */
 }
 

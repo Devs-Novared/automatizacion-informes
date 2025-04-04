@@ -34,7 +34,7 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
       filename,
       image: { type: "jpeg", quality: 0.98 },
       html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
-      jsPDF: { unit: "mm", format: [528, 373], orientation: "landscape" }, // Ajuste exacto del tamaño del PDF
+      jsPDF: { unit: "mm", format: "a4", orientation: "landscape" }, // Ajuste exacto del tamaño del PDF
       pagebreak: { mode: ["css"] },
     };
     
@@ -162,7 +162,7 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
             {ticketsMensual && (
               <SquareCard title="Tickets cerrados" number={ticketsMensual.length} />
             )}
-            {imageHorasVelocimetro && (
+            {acumTicketsActivos && (
               <SquareCard title="Tickets activos" number={acumTicketsActivos} />
             )}
           </div>
