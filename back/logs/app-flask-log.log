@@ -1,214 +1,46 @@
-[03-04-2025 15:33:16] WARNING   * Debugger is active!
-[03-04-2025 15:33:16] INFO      * Debugger PIN: 246-412-492
-[03-04-2025 15:33:26] INFO     Se obtuvo el token de la solicitud correctamente
-[03-04-2025 15:33:27] INFO     127.0.0.1 - - [03/Apr/2025 15:33:27] "GET /getContratos HTTP/1.1" 200 -
-[03-04-2025 15:33:44] INFO     127.0.0.1 - - [03/Apr/2025 15:33:44] "OPTIONS /informe HTTP/1.1" 200 -
-[03-04-2025 15:33:44] INFO     Se obtuvo el token de la solicitud correctamente
-[03-04-2025 15:33:46] INFO     Se obtuvo el token de la solicitud correctamente
-[03-04-2025 15:35:31] INFO     Se obtuvo el token de la solicitud correctamente
-[03-04-2025 15:35:31] ERROR    Se obtuvo un response None de un request data of content id
-[03-04-2025 15:35:31] ERROR    Ocurrio un error al accceder al valor del content id 2019900 obtenido en el response
-[03-04-2025 15:35:31] ERROR    Detalle del error: Expecting value: line 1 column 1 (char 0)
-[03-04-2025 15:35:31] ERROR    Detalle del traceback: Traceback (most recent call last):
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\requests\models.py", line 974, in json
+[04-04-2025 14:49:54] WARNING   * Debugger is active!
+[04-04-2025 14:49:54] INFO      * Debugger PIN: 369-247-726
+[04-04-2025 14:49:54] INFO     127.0.0.1 - - [04/Apr/2025 14:49:54] "OPTIONS /informe HTTP/1.1" 200 -
+[04-04-2025 14:49:54] INFO     Se obtuvo el token de la solicitud correctamente
+[04-04-2025 14:49:56] INFO     Se obtuvo el token de la solicitud correctamente
+[04-04-2025 14:52:23] INFO     127.0.0.1 - - [04/Apr/2025 14:52:23] "POST /informe HTTP/1.1" 200 -
+[04-04-2025 15:00:32] INFO     Se obtuvo el token de la solicitud correctamente
+[04-04-2025 15:00:34] INFO     127.0.0.1 - - [04/Apr/2025 15:00:34] "GET /getContratos HTTP/1.1" 200 -
+[04-04-2025 15:00:41] INFO     127.0.0.1 - - [04/Apr/2025 15:00:41] "OPTIONS /informe HTTP/1.1" 200 -
+[04-04-2025 15:00:41] INFO     Se obtuvo el token de la solicitud correctamente
+[04-04-2025 15:00:42] INFO     Se obtuvo el token de la solicitud correctamente
+[04-04-2025 15:02:08] INFO     Se obtuvo el token de la solicitud correctamente
+[04-04-2025 15:02:08] ERROR    Se obtuvo un response None de un request data of user id
+[04-04-2025 15:02:08] ERROR    Se obtuvo un response None de un request data of content id
+[04-04-2025 15:02:08] ERROR    Ocurrio un error al accceder al valor del content id 2674980 obtenido en el response
+[04-04-2025 15:02:08] ERROR    Detalle del error: Expecting value: line 1 column 1 (char 0)
+[04-04-2025 15:02:08] ERROR    Detalle del traceback: Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 971, in json
     return complexjson.loads(self.text, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Python312\Lib\json\__init__.py", line 346, in loads
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\json\__init__.py", line 346, in loads
     return _default_decoder.decode(s)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Python312\Lib\json\decoder.py", line 337, in decode
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py", line 337, in decode
     obj, end = self.raw_decode(s, idx=_w(s, 0).end())
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Python312\Lib\json\decoder.py", line 355, in raw_decode
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py", line 355, in raw_decode
     raise JSONDecodeError("Expecting value", s, err.value) from None
 json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File "C:\Users\mbegani\OneDrive - NOVARED CHILE S.A\Documentos\Dev\Proyectos\automatizacion-informes\back\src\archer_api_handler.py", line 187, in get_data_of_content_id
+  File "C:\Users\amisztal\Desktop\Programas\automatizacion-informes\back\src\archer_api_handler.py", line 187, in get_data_of_content_id
     result = response.json()['RequestedObject']['FieldContents']
              ^^^^^^^^^^^^^^^
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\requests\models.py", line 978, in json
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 975, in json
     raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
 requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 
-[03-04-2025 15:35:31] ERROR    Error al generar el informe: 'NoneType' object is not subscriptable
-[03-04-2025 15:35:31] INFO     127.0.0.1 - - [03/Apr/2025 15:35:31] "[35m[1mPOST /informe HTTP/1.1[0m" 500 -
-[03-04-2025 15:35:32] INFO     127.0.0.1 - - [03/Apr/2025 15:35:32] "GET /getContratos HTTP/1.1" 200 -
-[03-04-2025 15:35:40] INFO     127.0.0.1 - - [03/Apr/2025 15:35:40] "OPTIONS /informe HTTP/1.1" 200 -
-[03-04-2025 15:35:41] INFO     Se obtuvo el token de la solicitud correctamente
-[03-04-2025 15:35:43] INFO     Se obtuvo el token de la solicitud correctamente
-[03-04-2025 15:38:45] INFO     127.0.0.1 - - [03/Apr/2025 15:38:45] "POST /informe HTTP/1.1" 200 -
-[03-04-2025 19:42:20] ERROR    Hubo un error al iniciar sesión, comprueba el nombre de usuario y la contraseña
-[03-04-2025 19:42:20] ERROR    Detalle del error HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /api/core/security/login (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000023AE35363F0>: Failed to resolve 'arsvarcher' ([Errno 11001] getaddrinfo failed)"))
-[03-04-2025 19:42:20] ERROR    Detalle del traceback: Traceback (most recent call last):
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\urllib3\connection.py", line 199, in _new_conn
-    sock = connection.create_connection(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\urllib3\util\connection.py", line 60, in create_connection
-    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Python312\Lib\socket.py", line 976, in getaddrinfo
-    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-socket.gaierror: [Errno 11001] getaddrinfo failed
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\urllib3\connectionpool.py", line 789, in urlopen
-    response = self._make_request(
-               ^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\urllib3\connectionpool.py", line 490, in _make_request
-    raise new_e
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\urllib3\connectionpool.py", line 466, in _make_request
-    self._validate_conn(conn)
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\urllib3\connectionpool.py", line 1095, in _validate_conn
-    conn.connect()
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\urllib3\connection.py", line 693, in connect
-    self.sock = sock = self._new_conn()
-                       ^^^^^^^^^^^^^^^^
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\urllib3\connection.py", line 206, in _new_conn
-    raise NameResolutionError(self.host, self, e) from e
-urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x0000023AE35363F0>: Failed to resolve 'arsvarcher' ([Errno 11001] getaddrinfo failed)
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\requests\adapters.py", line 667, in send
-    resp = conn.urlopen(
-           ^^^^^^^^^^^^^
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\urllib3\connectionpool.py", line 843, in urlopen
-    retries = retries.increment(
-              ^^^^^^^^^^^^^^^^^^
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\urllib3\util\retry.py", line 519, in increment
-    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /api/core/security/login (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000023AE35363F0>: Failed to resolve 'arsvarcher' ([Errno 11001] getaddrinfo failed)"))
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "C:\Users\mbegani\OneDrive - NOVARED CHILE S.A\Documentos\Dev\Proyectos\automatizacion-informes\back\src\archer_api_handler.py", line 42, in archer_login
-    response = req.post(f"{URL}/api/core/security/login", data=json.dumps(credentials), headers=headers, verify=False)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\requests\api.py", line 115, in post
-    return request("post", url, data=data, json=json, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\requests\api.py", line 59, in request
-    return session.request(method=method, url=url, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\requests\sessions.py", line 589, in request
-    resp = self.send(prep, **send_kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\requests\sessions.py", line 703, in send
-    r = adapter.send(request, **kwargs)
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\requests\adapters.py", line 700, in send
-    raise ConnectionError(e, request=request)
-requests.exceptions.ConnectionError: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /api/core/security/login (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000023AE35363F0>: Failed to resolve 'arsvarcher' ([Errno 11001] getaddrinfo failed)"))
-
-[03-04-2025 19:42:20] INFO     No se pudo obtener el token correctamente, validar usuario de servicio de archer
-[03-04-2025 19:42:20] INFO     127.0.0.1 - - [03/Apr/2025 19:42:20] "GET /getContratos HTTP/1.1" 200 -
-[03-04-2025 19:42:45] INFO     Se obtuvo el token de la solicitud correctamente
-[03-04-2025 19:42:47] INFO     127.0.0.1 - - [03/Apr/2025 19:42:47] "GET /getContratos HTTP/1.1" 200 -
-[03-04-2025 19:42:57] INFO     127.0.0.1 - - [03/Apr/2025 19:42:57] "OPTIONS /informe HTTP/1.1" 200 -
-[03-04-2025 19:42:57] INFO     Se obtuvo el token de la solicitud correctamente
-[03-04-2025 19:42:58] INFO     Se obtuvo el token de la solicitud correctamente
-[03-04-2025 19:45:57] INFO     127.0.0.1 - - [03/Apr/2025 19:45:57] "POST /informe HTTP/1.1" 200 -
-[03-04-2025 19:51:34] INFO     Se obtuvo el token de la solicitud correctamente
-[03-04-2025 19:51:35] INFO     127.0.0.1 - - [03/Apr/2025 19:51:35] "GET /getContratos HTTP/1.1" 200 -
-[03-04-2025 19:51:41] INFO     127.0.0.1 - - [03/Apr/2025 19:51:41] "OPTIONS /informe HTTP/1.1" 200 -
-[03-04-2025 19:51:41] INFO     Se obtuvo el token de la solicitud correctamente
-[03-04-2025 19:51:42] INFO     Se obtuvo el token de la solicitud correctamente
-[03-04-2025 19:54:16] INFO     127.0.0.1 - - [03/Apr/2025 19:54:16] "POST /informe HTTP/1.1" 200 -
-[03-04-2025 19:55:26] INFO     Se obtuvo el token de la solicitud correctamente
-[03-04-2025 19:55:27] INFO     127.0.0.1 - - [03/Apr/2025 19:55:27] "GET /getContratos HTTP/1.1" 200 -
-[03-04-2025 19:55:32] INFO     127.0.0.1 - - [03/Apr/2025 19:55:32] "OPTIONS /informe HTTP/1.1" 200 -
-[03-04-2025 19:55:32] INFO     Se obtuvo el token de la solicitud correctamente
-[03-04-2025 19:55:34] INFO     Se obtuvo el token de la solicitud correctamente
-[03-04-2025 19:57:27] ERROR    Ocurrio un error al accceder al valor del valueId 66631 obtenido en el response
-[03-04-2025 19:57:27] ERROR    Detalle del error: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000023AE37670E0>: Failed to resolve 'arsvarcher' ([Errno 11001] getaddrinfo failed)"))
-[03-04-2025 19:57:27] ERROR    Detalle del traceback: Traceback (most recent call last):
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\urllib3\connection.py", line 199, in _new_conn
-    sock = connection.create_connection(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\urllib3\util\connection.py", line 60, in create_connection
-    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Python312\Lib\socket.py", line 976, in getaddrinfo
-    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-socket.gaierror: [Errno 11001] getaddrinfo failed
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\urllib3\connectionpool.py", line 789, in urlopen
-    response = self._make_request(
-               ^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\urllib3\connectionpool.py", line 490, in _make_request
-    raise new_e
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\urllib3\connectionpool.py", line 466, in _make_request
-    self._validate_conn(conn)
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\urllib3\connectionpool.py", line 1095, in _validate_conn
-    conn.connect()
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\urllib3\connection.py", line 693, in connect
-    self.sock = sock = self._new_conn()
-                       ^^^^^^^^^^^^^^^^
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\urllib3\connection.py", line 206, in _new_conn
-    raise NameResolutionError(self.host, self, e) from e
-urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x0000023AE37670E0>: Failed to resolve 'arsvarcher' ([Errno 11001] getaddrinfo failed)
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\requests\adapters.py", line 667, in send
-    resp = conn.urlopen(
-           ^^^^^^^^^^^^^
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\urllib3\connectionpool.py", line 843, in urlopen
-    retries = retries.increment(
-              ^^^^^^^^^^^^^^^^^^
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\urllib3\util\retry.py", line 519, in increment
-    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000023AE37670E0>: Failed to resolve 'arsvarcher' ([Errno 11001] getaddrinfo failed)"))
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "C:\Users\mbegani\OneDrive - NOVARED CHILE S.A\Documentos\Dev\Proyectos\automatizacion-informes\back\src\archer_api_handler.py", line 325, in get_value_list_value
-    response = req.post(f'{URL}/ws/field.asmx', headers=headers, data=body, verify=False)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\requests\api.py", line 115, in post
-    return request("post", url, data=data, json=json, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\requests\api.py", line 59, in request
-    return session.request(method=method, url=url, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\requests\sessions.py", line 589, in request
-    resp = self.send(prep, **send_kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\requests\sessions.py", line 703, in send
-    r = adapter.send(request, **kwargs)
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\mbegani\AppData\Roaming\Python\Python312\site-packages\requests\adapters.py", line 700, in send
-    raise ConnectionError(e, request=request)
-requests.exceptions.ConnectionError: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000023AE37670E0>: Failed to resolve 'arsvarcher' ([Errno 11001] getaddrinfo failed)"))
-
-[03-04-2025 19:57:30] WARNING  Error al buscar la data del content id 2680106, se volvera a intentar
-[03-04-2025 19:57:33] WARNING  Error al buscar la data del content id 2680106, se volvera a intentar
-[03-04-2025 19:57:36] WARNING  Error al buscar la data del content id 2680106, se volvera a intentar
-[03-04-2025 19:57:38] WARNING  Error al buscar la data del content id 2680106, se volvera a intentar
-[03-04-2025 19:57:41] WARNING  Error al buscar la data del content id 2680106, se volvera a intentar
-[03-04-2025 19:57:44] WARNING  Error al buscar la data del content id 2680106, se volvera a intentar
-[03-04-2025 19:57:47] WARNING  Error al buscar la data del content id 2680106, se volvera a intentar
-[03-04-2025 19:57:49] WARNING  Error al buscar la data del content id 2680106, se volvera a intentar
-[03-04-2025 19:58:40] INFO     127.0.0.1 - - [03/Apr/2025 19:58:40] "POST /informe HTTP/1.1" 200 -
-[04-04-2025 09:11:01] INFO     Se obtuvo el token de la solicitud correctamente
-[04-04-2025 09:11:04] INFO     127.0.0.1 - - [04/Apr/2025 09:11:04] "GET /getContratos HTTP/1.1" 200 -
-[04-04-2025 09:11:16] INFO     127.0.0.1 - - [04/Apr/2025 09:11:16] "OPTIONS /informe HTTP/1.1" 200 -
-[04-04-2025 09:11:16] INFO     Se obtuvo el token de la solicitud correctamente
-[04-04-2025 09:11:18] INFO     Se obtuvo el token de la solicitud correctamente
-[04-04-2025 09:14:13] INFO     127.0.0.1 - - [04/Apr/2025 09:14:13] "POST /informe HTTP/1.1" 200 -
+[04-04-2025 15:02:08] ERROR    Error al generar el informe: 'NoneType' object is not subscriptable
+[04-04-2025 15:02:08] INFO     127.0.0.1 - - [04/Apr/2025 15:02:08] "[35m[1mPOST /informe HTTP/1.1[0m" 500 -
+[04-04-2025 15:02:09] INFO     127.0.0.1 - - [04/Apr/2025 15:02:09] "GET /getContratos HTTP/1.1" 200 -
+[04-04-2025 15:03:23] INFO     127.0.0.1 - - [04/Apr/2025 15:03:23] "OPTIONS /informe HTTP/1.1" 200 -
+[04-04-2025 15:03:23] INFO     Se obtuvo el token de la solicitud correctamente
+[04-04-2025 15:03:25] INFO     Se obtuvo el token de la solicitud correctamente

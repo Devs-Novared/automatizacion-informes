@@ -3,7 +3,7 @@ import html2pdf from "html2pdf.js";
 import "./styles/pdf.css";
 import SquareCard from "../components/SquareCard"
 
-const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetro, imageTickets, ticketsMensual, ticketsUltAct, logoCliente, logoTecnologia, acumTicketsActivos }) => {
+const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetro, imageTickets, ticketsMensual, ticketsUltAct, logoCliente, logoTecnologia, acumTicketsActivos, promHSConsultoria }) => {
   const [fechaTexto, setFechaTexto] = useState("");
   const [year, setYear] = useState("");
 
@@ -20,12 +20,12 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
 
   const handleDownloadPDF = () => {
     const downloadButton = document.querySelector(".download-pdf-btn");
-    if (!downloadButton) return; // Ensure the button exists before modifying
+    if (!downloadButton) return; 
 
-    downloadButton.style.display = "none"; // Hide the button
+    downloadButton.style.display = "none"; 
 
     const element = document.getElementById("pdf-content");
-    if (!element) return; // Ensure the element exists
+    if (!element) return; 
 
     const filename = `informe_estado_servicio_${selectedMonth || "mes-no-especificado"}_${year}.pdf`;
 
@@ -156,6 +156,9 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
             )}
           </div>
           <div style={{ display: "flex", flexWrap: "wrap", width: "30vw", margin: "10px"}}>
+            {promHSConsultoria && (
+              <SquareCard title="Promedio de carga de horas" number={promHSConsultoria} />
+            )}
             {ticketsUltAct && (
               <SquareCard title="Tickets abiertos" number={ticketsUltAct.length} />
             )}
