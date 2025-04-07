@@ -22,8 +22,8 @@ function App() {
   const [contratosSeleccionado, setContratosSeleccionado] = useState({});
   const [isReportReady, setIsReportReady] = useState(false);
   const [error, setError] = useState(""); 
-  const [ticketsMensual, setTicketsMensual] = useState([]);
-  const [ticketsUltAct, setTicketsUltAct] = useState([]);
+  const [ticketsUltActSoporte, setTicketsUltActSoporte] = useState([]);
+  const [ticketsUltActServicios, setTicketsUltActServicios] = useState([]);
   const [logoCliente, setLogoCliente] = useState("");
   const [logoTecnologia, setLogoTecnologia] = useState("");
   const [acumTicketsActivos, setAcumTicketsActivos] = useState("");
@@ -101,9 +101,8 @@ function App() {
         setAcumTicketsActivos(response.data.acumTicketsActivos)
         setContratosSeleccionado(response.data.contratosSeleccionado);
         setPromHSConsultoria(response.data.promHSConsultoria);
-        setTicketsMensual(response.data.tickets_mensual_Cerrados || []);
-        setTicketsUltAct(response.data.tickets_ult_act || []);
-
+        setTicketsUltActSoporte(response.data.tickets_ult_act_soporte || []);
+        setTicketsUltActServicios(response.data.tickets_ult_act_servicios || []);
 
         setIsReportReady(true);
         setError(""); 
@@ -151,8 +150,8 @@ function App() {
           imageHoras={imageHoras}
           imageHorasVelocimetro={imageHorasVelocimetro}
           imageTickets={imageTickets}
-          ticketsMensual={ticketsMensual}
-          ticketsUltAct={ticketsUltAct}
+          ticketsUltActServicios={ticketsUltActServicios}
+          ticketsUltActSoporte={ticketsUltActSoporte}
           logoCliente={logoCliente}
           logoTecnologia={logoTecnologia}
           acumTicketsActivos={acumTicketsActivos}

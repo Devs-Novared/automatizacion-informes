@@ -229,7 +229,8 @@ def crear_informe(data):
 
     tickets_por_mes = defaultdict(int)
     tickets = []
-    ticketsUltimaActualizacion = []
+    ticketsUltimaActualizacionSoporte = []
+    ticketsUltimaActualizacionServicios = []
     acumTicketsActivos = 0
     TicketsAsociados = response[ARCHER_IDS['idsGraficos']['TicketsAsociados']]['Value']
 
@@ -309,14 +310,16 @@ def crear_informe(data):
                         "Asunto": infoTickets[ARCHER_IDS['idsGraficos']['Asunto']]['Value'],
                         "Comentario": infoTickets[ARCHER_IDS['idsGraficos']['Comentarios']]['Value']
                     }
-                    ticketsUltimaActualizacion.append(jsonTicketsUlt)
+                    if(infoTickets[TipoTicket_id]['Value'] == "Soporte"):
+                        ticketsUltimaActualizacionSoporte.append(jsonTicketsUlt)
+                    elif(infoTickets[TipoTicket_id]['Value'] == "Servicios Profesionales"):
+                        ticketsUltimaActualizacionServicios.append(jsonTicketsUlt)
             except ValueError as e:
                 logger.error(f"Error procesando fecha de cerrado de ticket: {e}")
             
     resultado_mensual_tickets = [{"mes": mes, "totalTicketsMensual": total} for mes, total in tickets_por_mes.items()]
     mensual_tickets_Cerrados = tickets
-    mensual_Ult_Actualizacion = ticketsUltimaActualizacion
     
-    return resultado_mensual, resultado_mensual_tickets, mensual_tickets_Cerrados, mensual_Ult_Actualizacion, logoData, logoTecnologiaData, horasPorMes, fechasContrato, acumHSConsultoria, acumTicketsActivos
+    return resultado_mensual, resultado_mensual_tickets, mensual_tickets_Cerrados, ticketsUltimaActualizacionSoporte, ticketsUltimaActualizacionServicios, logoData, logoTecnologiaData, horasPorMes, fechasContrato, acumHSConsultoria, acumTicketsActivos
 
 

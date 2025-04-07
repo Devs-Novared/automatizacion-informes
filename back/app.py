@@ -91,7 +91,7 @@ def generar_informe():
         contratosSeleccionado = next((contrato for contrato in contratosInfo if contrato['contentId'] == data.get('contentId')), None)
         #logger.info(contratosSeleccionado)
         
-        resultado_mensual, resultado_mensual_tickets, mensual_tickets_Cerrados, mensual_Ult_Actualizacion, logoData, logoTecnologiaData, horasPorMes, fechasContrato, cantidadHSConsultoria, acumTicketsActivos = crear_informe(data)
+        resultado_mensual, resultado_mensual_tickets, mensual_tickets_Cerrados, ticketsUltimaActualizacionSoporte, ticketsUltimaActualizacionServicios, logoData, logoTecnologiaData, horasPorMes, fechasContrato, cantidadHSConsultoria, acumTicketsActivos = crear_informe(data)
 
         promHSConsultoria = round(sum(item["totalHorasMensual"] for item in resultado_mensual) / len(resultado_mensual), 2)
         
@@ -119,7 +119,8 @@ def generar_informe():
             'image_tickets': image_tickets_base64,
             'image_horas_velocimetro': image_horas_velocimetro_base64,
             "tickets_mensual_Cerrados" : mensual_tickets_Cerrados,
-            "tickets_ult_act":  mensual_Ult_Actualizacion,
+            "tickets_ult_act_soporte":  ticketsUltimaActualizacionSoporte,
+            "tickets_ult_act_servicios":  ticketsUltimaActualizacionServicios,
             "logoCliente": logoData,
             "logoTecnologia": logoTecnologiaData,
             "acumTicketsActivos": acumTicketsActivos,

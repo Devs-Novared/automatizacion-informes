@@ -1,46 +1,6 @@
-[04-04-2025 14:49:54] WARNING   * Debugger is active!
-[04-04-2025 14:49:54] INFO      * Debugger PIN: 369-247-726
-[04-04-2025 14:49:54] INFO     127.0.0.1 - - [04/Apr/2025 14:49:54] "OPTIONS /informe HTTP/1.1" 200 -
-[04-04-2025 14:49:54] INFO     Se obtuvo el token de la solicitud correctamente
-[04-04-2025 14:49:56] INFO     Se obtuvo el token de la solicitud correctamente
-[04-04-2025 14:52:23] INFO     127.0.0.1 - - [04/Apr/2025 14:52:23] "POST /informe HTTP/1.1" 200 -
-[04-04-2025 15:00:32] INFO     Se obtuvo el token de la solicitud correctamente
-[04-04-2025 15:00:34] INFO     127.0.0.1 - - [04/Apr/2025 15:00:34] "GET /getContratos HTTP/1.1" 200 -
-[04-04-2025 15:00:41] INFO     127.0.0.1 - - [04/Apr/2025 15:00:41] "OPTIONS /informe HTTP/1.1" 200 -
-[04-04-2025 15:00:41] INFO     Se obtuvo el token de la solicitud correctamente
-[04-04-2025 15:00:42] INFO     Se obtuvo el token de la solicitud correctamente
-[04-04-2025 15:02:08] INFO     Se obtuvo el token de la solicitud correctamente
-[04-04-2025 15:02:08] ERROR    Se obtuvo un response None de un request data of user id
-[04-04-2025 15:02:08] ERROR    Se obtuvo un response None de un request data of content id
-[04-04-2025 15:02:08] ERROR    Ocurrio un error al accceder al valor del content id 2674980 obtenido en el response
-[04-04-2025 15:02:08] ERROR    Detalle del error: Expecting value: line 1 column 1 (char 0)
-[04-04-2025 15:02:08] ERROR    Detalle del traceback: Traceback (most recent call last):
-  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 971, in json
-    return complexjson.loads(self.text, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\json\__init__.py", line 346, in loads
-    return _default_decoder.decode(s)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py", line 337, in decode
-    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py", line 355, in raw_decode
-    raise JSONDecodeError("Expecting value", s, err.value) from None
-json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "C:\Users\amisztal\Desktop\Programas\automatizacion-informes\back\src\archer_api_handler.py", line 187, in get_data_of_content_id
-    result = response.json()['RequestedObject']['FieldContents']
-             ^^^^^^^^^^^^^^^
-  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 975, in json
-    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
-requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
-
-[04-04-2025 15:02:08] ERROR    Error al generar el informe: 'NoneType' object is not subscriptable
-[04-04-2025 15:02:08] INFO     127.0.0.1 - - [04/Apr/2025 15:02:08] "[35m[1mPOST /informe HTTP/1.1[0m" 500 -
-[04-04-2025 15:02:09] INFO     127.0.0.1 - - [04/Apr/2025 15:02:09] "GET /getContratos HTTP/1.1" 200 -
-[04-04-2025 15:03:23] INFO     127.0.0.1 - - [04/Apr/2025 15:03:23] "OPTIONS /informe HTTP/1.1" 200 -
-[04-04-2025 15:03:23] INFO     Se obtuvo el token de la solicitud correctamente
-[04-04-2025 15:03:25] INFO     Se obtuvo el token de la solicitud correctamente
+[07-04-2025 15:10:58] WARNING   * Debugger is active!
+[07-04-2025 15:10:58] INFO      * Debugger PIN: 369-247-726
+[07-04-2025 15:16:08] INFO     Se obtuvo el token de la solicitud correctamente
+[07-04-2025 15:16:09] INFO     127.0.0.1 - - [07/Apr/2025 15:16:09] "GET /getContratos HTTP/1.1" 200 -
+[07-04-2025 15:18:37] INFO     Se obtuvo el token de la solicitud correctamente
+[07-04-2025 15:18:38] INFO     127.0.0.1 - - [07/Apr/2025 15:18:38] "GET /getContratos HTTP/1.1" 200 -

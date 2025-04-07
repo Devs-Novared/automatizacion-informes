@@ -3,7 +3,7 @@ import html2pdf from "html2pdf.js";
 import "./styles/pdf.css";
 import SquareCard from "../components/SquareCard"
 
-const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetro, imageTickets, ticketsMensual, ticketsUltAct, logoCliente, logoTecnologia, acumTicketsActivos, promHSConsultoria }) => {
+const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetro, imageTickets, ticketsUltActServicios, ticketsUltActSoporte, logoCliente, logoTecnologia, acumTicketsActivos, promHSConsultoria }) => {
   const [fechaTexto, setFechaTexto] = useState("");
   const [year, setYear] = useState("");
 
@@ -160,11 +160,11 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
             {promHSConsultoria && (
               <SquareCard title={`Promedio horas consumidas - ${selectedMonth}`} number={promHSConsultoria} />
             )}
-            {ticketsUltAct && (
-              <SquareCard title={`Tickets Abiertos - ${selectedMonth}`} number={ticketsUltAct.length} />
+            {ticketsUltActServicios && (
+              <SquareCard title={`Tickets Abiertos - ${selectedMonth}`} number={ticketsUltActServicios.length} />
             )}
-            {ticketsMensual && (
-              <SquareCard title={`Tickets Cerrados - ${selectedMonth}`} number={ticketsMensual.length} />
+            {ticketsUltActSoporte && (
+              <SquareCard title={`Tickets Cerrados - ${selectedMonth}`} number={ticketsUltActSoporte.length} />
             )}
             {acumTicketsActivos && (
               <SquareCard title={`Tickets Abiertos - ${selectedMonth}`} number={acumTicketsActivos} />
@@ -173,17 +173,17 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
         </div>
 
         <h2 style={{ marginTop: "8px", marginBottom: "5px" }}>Detalle de Tickets Soporte Evolutivo/Correctivo</h2>
-        {ticketsMensual && ticketsMensual.length > 0 ? (
+        {ticketsUltActServicios && ticketsUltActServicios.length > 0 ? (
           <table className="tabla-tickets">
             <thead>
               <tr>
-                {Object.keys(ticketsMensual[0]).map((key) => (
+                {Object.keys(ticketsUltActServicios[0]).map((key) => (
                   <th key={key}>{key}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {ticketsMensual.map((ticket, index) => (
+              {ticketsUltActServicios.map((ticket, index) => (
                 <tr key={index}>
                   {Object.values(ticket).map((value, i) => (
                     <td key={i} style={{ backgroundColor: 'rgba(212, 229, 252, 0.74)' }}>{value}</td>
@@ -198,17 +198,17 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
         
         <h2>Detalle de Última Actualización de Tickets</h2>
         {/* Tabla de Tickets Última Actualización */}
-        {ticketsUltAct && ticketsUltAct.length > 0 ? (
+        {ticketsUltActSoporte && ticketsUltActSoporte.length > 0 ? (
           <table className="tabla-tickets">
             <thead>
               <tr>
-                {Object.keys(ticketsUltAct[0]).map((key) => (
+                {Object.keys(ticketsUltActSoporte[0]).map((key) => (
                   <th key={key}>{key}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {ticketsUltAct.map((ticket, index) => (
+              {ticketsUltActSoporte.map((ticket, index) => (
                 <tr key={index}>
                   {Object.values(ticket).map((value, i) => (
                     <td key={i} style={{ backgroundColor: 'rgba(212, 229, 252, 0.74)' }}>{value}</td>
