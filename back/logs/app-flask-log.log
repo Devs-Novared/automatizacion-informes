@@ -212,3 +212,18 @@ requests.exceptions.ConnectionError: HTTPSConnectionPool(host='arsvarcher', port
 [04-04-2025 09:11:16] INFO     Se obtuvo el token de la solicitud correctamente
 [04-04-2025 09:11:18] INFO     Se obtuvo el token de la solicitud correctamente
 [04-04-2025 09:14:13] INFO     127.0.0.1 - - [04/Apr/2025 09:14:13] "POST /informe HTTP/1.1" 200 -
+[04-04-2025 11:11:59] INFO     Se obtuvo el token de la solicitud correctamente
+[04-04-2025 11:12:00] INFO     127.0.0.1 - - [04/Apr/2025 11:12:00] "GET /getContratos HTTP/1.1" 200 -
+[04-04-2025 14:05:03] INFO     127.0.0.1 - - [04/Apr/2025 14:05:03] "OPTIONS /informe HTTP/1.1" 200 -
+[04-04-2025 14:05:03] INFO     Se obtuvo el token de la solicitud correctamente
+[04-04-2025 14:05:05] INFO     Se obtuvo el token de la solicitud correctamente
+[04-04-2025 14:07:54] INFO     127.0.0.1 - - [04/Apr/2025 14:07:54] "POST /informe HTTP/1.1" 200 -
+[04-04-2025 15:17:53] INFO     Se obtuvo el token de la solicitud correctamente
+[04-04-2025 15:17:54] INFO     127.0.0.1 - - [04/Apr/2025 15:17:54] "GET /getContratos HTTP/1.1" 200 -
+[04-04-2025 15:18:02] INFO     127.0.0.1 - - [04/Apr/2025 15:18:02] "OPTIONS /informe HTTP/1.1" 200 -
+[04-04-2025 15:18:02] INFO     Se obtuvo el token de la solicitud correctamente
+[04-04-2025 15:18:03] INFO     Se obtuvo el token de la solicitud correctamente
+[04-04-2025 15:19:19] WARNING  Error al buscar la data del content id 2643353, se volvera a intentar
+[04-04-2025 15:21:58] INFO     127.0.0.1 - - [04/Apr/2025 15:21:58] "POST /informe HTTP/1.1" 200 -
+[07-04-2025 09:19:02] INFO     Se obtuvo el token de la solicitud correctamente
+[07-04-2025 09:19:05] INFO     127.0.0.1 - - [07/Apr/2025 09:19:05] "GET /getContratos HTTP/1.1" 200 -
