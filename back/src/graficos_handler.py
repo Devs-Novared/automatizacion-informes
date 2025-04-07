@@ -30,7 +30,7 @@ def formatear_meses(lista_fechas):
 
 
 def grafico_linea_HorasConsumidas(resultado_mensual, meta_horas):    
-    titulo="Horas Consumidas - Soporte Evolutivo"
+    titulo="Horas Consumidas"
     etiqueta_x="Fecha de carga de Horas"
     etiqueta_y="Horas Cargadas Normales"
     
@@ -93,7 +93,7 @@ def grafico_linea_HorasConsumidas(resultado_mensual, meta_horas):
 
 
 def grafico_linea_TicketsConsumidos(resultado_mensual_tickets):
-    titulo="Tickets Consumidos - Soporte Evolutivo"
+    titulo="Tickets Consumidos"
     etiqueta_x="Fecha de creación de Ticket"
     etiqueta_y="Tickets Totales"
                                     

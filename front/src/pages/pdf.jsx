@@ -125,6 +125,7 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
 
       {/* Página 3 - Gráficos y Tablas */}
       <section className="page">
+        <h1>Soporte Evolutivo</h1>
         <div style={{ display: "flex", marginTop: "20px" }}>
           <div style={{ textAlign: "center" }}>
             {imageHoras && (
