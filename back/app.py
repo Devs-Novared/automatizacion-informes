@@ -93,6 +93,8 @@ def generar_informe():
         
         resultado_mensual, resultado_mensual_tickets, mensual_tickets_Cerrados, mensual_Ult_Actualizacion, logoData, logoTecnologiaData, horasPorMes, fechasContrato, cantidadHSConsultoria, acumTicketsActivos = crear_informe(data)
 
+        promHSConsultoria = round(sum(item["totalHorasMensual"] for item in resultado_mensual) / len(resultado_mensual), 2)
+        
         contratosSeleccionado['horasSoporte'] = horasPorMes
         
         img_bytes_horas = grafico_linea_HorasConsumidas(resultado_mensual, meta_horas = horasPorMes)
@@ -120,7 +122,8 @@ def generar_informe():
             "tickets_ult_act":  mensual_Ult_Actualizacion,
             "logoCliente": logoData,
             "logoTecnologia": logoTecnologiaData,
-            "acumTicketsActivos": acumTicketsActivos
+            "acumTicketsActivos": acumTicketsActivos,
+            "promHSConsultoria": promHSConsultoria
         }
         # Retornar las imágenes en formato JSON
         return jsonify(body), 200

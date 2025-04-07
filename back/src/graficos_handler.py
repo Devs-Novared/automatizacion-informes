@@ -160,7 +160,7 @@ def grafico_velocimetro_HorasConsumidas(fechasContrato, cantidadHSConsultoria, r
         Union[str, None]: String base64 del grafico o None en caso de que exista algun error
     """
     
-    title = "Velocimetro de horas consumidas"
+    title = "Horas consumidas - Soporte Evolutivo"
     if(not fechasContrato["horasPorMes"]): return None
     
     result_value = cantidadHSConsultoria #Aguja velocimetro
