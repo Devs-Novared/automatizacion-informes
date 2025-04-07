@@ -1,8 +1,10 @@
-[07-04-2025 11:30:57] WARNING   * Debugger is active!
-[07-04-2025 11:30:57] INFO      * Debugger PIN: 246-412-492
-[07-04-2025 11:34:46] INFO     Se obtuvo el token de la solicitud correctamente
-[07-04-2025 11:34:47] INFO     127.0.0.1 - - [07/Apr/2025 11:34:47] "GET /getContratos HTTP/1.1" 200 -
-[07-04-2025 11:34:53] INFO     127.0.0.1 - - [07/Apr/2025 11:34:53] "OPTIONS /informe HTTP/1.1" 200 -
-[07-04-2025 11:34:53] INFO     Se obtuvo el token de la solicitud correctamente
-[07-04-2025 11:34:55] INFO     Se obtuvo el token de la solicitud correctamente
-[07-04-2025 11:37:20] INFO     127.0.0.1 - - [07/Apr/2025 11:37:20] "POST /informe HTTP/1.1" 200 -
+[07-04-2025 11:46:42] WARNING   * Debugger is active!
+[07-04-2025 11:46:42] INFO      * Debugger PIN: 246-412-492
+[07-04-2025 12:13:39] INFO     Se obtuvo el token de la solicitud correctamente
+[07-04-2025 12:13:41] INFO     127.0.0.1 - - [07/Apr/2025 12:13:41] "GET /getContratos HTTP/1.1" 200 -
+[07-04-2025 12:14:05] INFO     127.0.0.1 - - [07/Apr/2025 12:14:05] "OPTIONS /informe HTTP/1.1" 200 -
+[07-04-2025 12:14:05] INFO     Se obtuvo el token de la solicitud correctamente
+[07-04-2025 12:14:08] INFO     Se obtuvo el token de la solicitud correctamente
+[07-04-2025 12:15:56] WARNING  Error al buscar la data del content id 2662937, se volvera a intentar
+[07-04-2025 12:17:17] WARNING  Error al buscar la data del content id 2675505, se volvera a intentar
+[07-04-2025 12:18:34] INFO     127.0.0.1 - - [07/Apr/2025 12:18:34] "POST /informe HTTP/1.1" 200 -
