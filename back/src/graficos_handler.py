@@ -294,6 +294,17 @@ def grafico_velocimetro_HorasConsumidas(fechasContrato, cantidadHSConsultoria, r
         align="center", ax=20, ay=-30, opacity=0.8
     )
 
+    fig.add_annotation(
+    x=0.5, y=-0.25,  # Más abajo aún
+    xref="paper", yref="paper",
+    text=f"Total de horas del contrato: {horasMaximasContrato}",
+    showarrow=False,
+    font=dict(size=20, color="black"),  # Más grande y negra
+    align="center"
+    )
+
+    
+
     img_bytes = BytesIO()
     pio.write_image(fig, img_bytes, format='png')
     img_bytes.seek(0)
