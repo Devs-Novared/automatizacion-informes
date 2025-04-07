@@ -1,46 +1,170 @@
-[04-04-2025 14:49:54] WARNING   * Debugger is active!
-[04-04-2025 14:49:54] INFO      * Debugger PIN: 369-247-726
-[04-04-2025 14:49:54] INFO     127.0.0.1 - - [04/Apr/2025 14:49:54] "OPTIONS /informe HTTP/1.1" 200 -
-[04-04-2025 14:49:54] INFO     Se obtuvo el token de la solicitud correctamente
-[04-04-2025 14:49:56] INFO     Se obtuvo el token de la solicitud correctamente
-[04-04-2025 14:52:23] INFO     127.0.0.1 - - [04/Apr/2025 14:52:23] "POST /informe HTTP/1.1" 200 -
-[04-04-2025 15:00:32] INFO     Se obtuvo el token de la solicitud correctamente
-[04-04-2025 15:00:34] INFO     127.0.0.1 - - [04/Apr/2025 15:00:34] "GET /getContratos HTTP/1.1" 200 -
-[04-04-2025 15:00:41] INFO     127.0.0.1 - - [04/Apr/2025 15:00:41] "OPTIONS /informe HTTP/1.1" 200 -
-[04-04-2025 15:00:41] INFO     Se obtuvo el token de la solicitud correctamente
-[04-04-2025 15:00:42] INFO     Se obtuvo el token de la solicitud correctamente
-[04-04-2025 15:02:08] INFO     Se obtuvo el token de la solicitud correctamente
-[04-04-2025 15:02:08] ERROR    Se obtuvo un response None de un request data of user id
-[04-04-2025 15:02:08] ERROR    Se obtuvo un response None de un request data of content id
-[04-04-2025 15:02:08] ERROR    Ocurrio un error al accceder al valor del content id 2674980 obtenido en el response
-[04-04-2025 15:02:08] ERROR    Detalle del error: Expecting value: line 1 column 1 (char 0)
-[04-04-2025 15:02:08] ERROR    Detalle del traceback: Traceback (most recent call last):
-  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 971, in json
-    return complexjson.loads(self.text, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\json\__init__.py", line 346, in loads
-    return _default_decoder.decode(s)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py", line 337, in decode
-    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py", line 355, in raw_decode
-    raise JSONDecodeError("Expecting value", s, err.value) from None
-json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[04-04-2025 15:23:55] WARNING   * Debugger is active!
+[04-04-2025 15:23:55] INFO      * Debugger PIN: 369-247-726
+[04-04-2025 15:23:56] INFO     Se obtuvo el token de la solicitud correctamente
+[04-04-2025 15:23:58] INFO     127.0.0.1 - - [04/Apr/2025 15:23:58] "GET /getContratos HTTP/1.1" 200 -
+[04-04-2025 15:23:58] INFO     Se obtuvo el token de la solicitud correctamente
+[04-04-2025 15:23:59] INFO     127.0.0.1 - - [04/Apr/2025 15:23:59] "GET /getContratos HTTP/1.1" 200 -
+[04-04-2025 15:24:04] INFO     127.0.0.1 - - [04/Apr/2025 15:24:04] "OPTIONS /informe HTTP/1.1" 200 -
+[04-04-2025 15:24:05] INFO     Se obtuvo el token de la solicitud correctamente
+[04-04-2025 15:24:06] INFO     Se obtuvo el token de la solicitud correctamente
+[04-04-2025 15:26:28] INFO     127.0.0.1 - - [04/Apr/2025 15:26:28] "POST /informe HTTP/1.1" 200 -
+[04-04-2025 15:29:00] ERROR    Hubo un error al iniciar sesión, comprueba el nombre de usuario y la contraseña
+[04-04-2025 15:29:00] ERROR    Detalle del error ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+[04-04-2025 15:29:00] ERROR    Hubo un error al iniciar sesión, comprueba el nombre de usuario y la contraseña
+[04-04-2025 15:29:00] ERROR    Detalle del error ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+[04-04-2025 15:29:00] ERROR    Detalle del traceback: Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+                       ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 449, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 3, in raise_from
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 444, in _make_request
+    httplib_response = conn.getresponse()
+                       ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1374, in getresponse
+    response.begin()
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 318, in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 287, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+http.client.RemoteDisconnected: Remote end closed connection without response
 
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File "C:\Users\amisztal\Desktop\Programas\automatizacion-informes\back\src\archer_api_handler.py", line 187, in get_data_of_content_id
-    result = response.json()['RequestedObject']['FieldContents']
-             ^^^^^^^^^^^^^^^
-  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 975, in json
-    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
-requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 489, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 550, in increment
+    raise six.reraise(type(error), error, _stacktrace)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\packages\six.py", line 769, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+                       ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 449, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 3, in raise_from
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 444, in _make_request
+    httplib_response = conn.getresponse()
+                       ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1374, in getresponse
+    response.begin()
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 318, in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 287, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+urllib3.exceptions.ProtocolError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
 
-[04-04-2025 15:02:08] ERROR    Error al generar el informe: 'NoneType' object is not subscriptable
-[04-04-2025 15:02:08] INFO     127.0.0.1 - - [04/Apr/2025 15:02:08] "[35m[1mPOST /informe HTTP/1.1[0m" 500 -
-[04-04-2025 15:02:09] INFO     127.0.0.1 - - [04/Apr/2025 15:02:09] "GET /getContratos HTTP/1.1" 200 -
-[04-04-2025 15:03:23] INFO     127.0.0.1 - - [04/Apr/2025 15:03:23] "OPTIONS /informe HTTP/1.1" 200 -
-[04-04-2025 15:03:23] INFO     Se obtuvo el token de la solicitud correctamente
-[04-04-2025 15:03:25] INFO     Se obtuvo el token de la solicitud correctamente
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\Desktop\Programas\automatizacion-informes\back\src\archer_api_handler.py", line 42, in archer_login
+    response = req.post(f"{URL}/api/core/security/login", data=json.dumps(credentials), headers=headers, verify=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 547, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+[04-04-2025 15:29:00] INFO     No se pudo obtener el token correctamente, validar usuario de servicio de archer
+[04-04-2025 15:29:00] ERROR    Detalle del traceback: Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+                       ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 449, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 3, in raise_from
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 444, in _make_request
+    httplib_response = conn.getresponse()
+                       ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1374, in getresponse
+    response.begin()
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 318, in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 287, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+http.client.RemoteDisconnected: Remote end closed connection without response
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 489, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 550, in increment
+    raise six.reraise(type(error), error, _stacktrace)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\packages\six.py", line 769, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+                       ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 449, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 3, in raise_from
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 444, in _make_request
+    httplib_response = conn.getresponse()
+                       ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1374, in getresponse
+    response.begin()
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 318, in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 287, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+urllib3.exceptions.ProtocolError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\Desktop\Programas\automatizacion-informes\back\src\archer_api_handler.py", line 42, in archer_login
+    response = req.post(f"{URL}/api/core/security/login", data=json.dumps(credentials), headers=headers, verify=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 547, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+[04-04-2025 15:29:00] INFO     127.0.0.1 - - [04/Apr/2025 15:29:00] "GET /getContratos HTTP/1.1" 200 -
+[04-04-2025 15:29:00] INFO     No se pudo obtener el token correctamente, validar usuario de servicio de archer
+[04-04-2025 15:29:00] INFO     127.0.0.1 - - [04/Apr/2025 15:29:00] "GET /getContratos HTTP/1.1" 200 -
+[04-04-2025 15:29:33] INFO     Se obtuvo el token de la solicitud correctamente
+[04-04-2025 15:29:35] INFO     127.0.0.1 - - [04/Apr/2025 15:29:35] "GET /getContratos HTTP/1.1" 200 -
+[04-04-2025 15:30:21] INFO     127.0.0.1 - - [04/Apr/2025 15:30:21] "OPTIONS /informe HTTP/1.1" 200 -
+[04-04-2025 15:30:21] INFO     Se obtuvo el token de la solicitud correctamente
+[04-04-2025 15:30:22] INFO     Se obtuvo el token de la solicitud correctamente
+[04-04-2025 15:32:51] INFO     127.0.0.1 - - [04/Apr/2025 15:32:51] "POST /informe HTTP/1.1" 200 -
