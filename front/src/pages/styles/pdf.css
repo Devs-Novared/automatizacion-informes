@@ -178,3 +178,11 @@ body {
   display: block;
   margin: 10px auto;
 }
+
+.h2 {
+   display: "flex"; 
+   justify-content: "center"; 
+   gap: "1rem"; 
+   flex-wrap: "wrap"; 
+   margin-top: "2rem";
+}
