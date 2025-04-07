@@ -185,7 +185,7 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
               {ticketsMensual.map((ticket, index) => (
                 <tr key={index}>
                   {Object.values(ticket).map((value, i) => (
-                    <td key={i} style={{ backgroundColor: 'rgba(202, 225, 255, 0.96)' }}>{value}</td>
+                    <td key={i} style={{ backgroundColor: 'rgba(202, 225, 255, 0.69)' }}>{value}</td>
                   ))}
                 </tr>
               ))}
@@ -210,7 +210,7 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
               {ticketsUltAct.map((ticket, index) => (
                 <tr key={index}>
                   {Object.values(ticket).map((value, i) => (
-                    <td key={i} style={{ backgroundColor: 'rgba(202, 225, 255, 0.96)' }}>{value}</td>
+                    <td key={i} style={{ backgroundColor: 'rgba(202, 225, 255, 0.69)' }}>{value}</td>
                   ))}
                 </tr>
               ))}
