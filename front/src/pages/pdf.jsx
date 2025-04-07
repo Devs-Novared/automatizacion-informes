@@ -125,6 +125,7 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
 
       {/* Página 3 - Gráficos y Tablas */}
       <section className="page">
+        <h1>Soporte Evolutivo</h1>
         <div style={{ display: "flex", marginTop: "20px" }}>
           <div style={{ textAlign: "center" }}>
             {imageHoras && (
@@ -157,16 +158,16 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
           </div>
           <div style={{ display: "flex", flexWrap: "wrap", width: "30vw", margin: "10px"}}>
             {promHSConsultoria && (
-              <SquareCard title="Promedio de carga de horas" number={promHSConsultoria} />
+              <SquareCard title={`Promedio horas consumidas - ${selectedMonth}`} number={promHSConsultoria} />
             )}
             {ticketsUltAct && (
-              <SquareCard title="Tickets abiertos" number={ticketsUltAct.length} />
+              <SquareCard title={`Tickets Abiertos - ${selectedMonth}`} number={ticketsUltAct.length} />
             )}
             {ticketsMensual && (
-              <SquareCard title="Tickets cerrados" number={ticketsMensual.length} />
+              <SquareCard title={`Tickets Cerrados - ${selectedMonth}`} number={ticketsMensual.length} />
             )}
             {acumTicketsActivos && (
-              <SquareCard title="Tickets activos" number={acumTicketsActivos} />
+              <SquareCard title={`Tickets Abiertos - ${selectedMonth}`} number={acumTicketsActivos} />
             )}
           </div>
         </div>
@@ -185,7 +186,7 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
               {ticketsMensual.map((ticket, index) => (
                 <tr key={index}>
                   {Object.values(ticket).map((value, i) => (
-                    <td key={i} style={{ backgroundColor: "white" }}>{value}</td>
+                    <td key={i} style={{ backgroundColor: 'rgba(212, 229, 252, 0.74)' }}>{value}</td>
                   ))}
                 </tr>
               ))}
@@ -210,7 +211,7 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
               {ticketsUltAct.map((ticket, index) => (
                 <tr key={index}>
                   {Object.values(ticket).map((value, i) => (
-                    <td key={i} style={{ backgroundColor: "white" }}>{value}</td>
+                    <td key={i} style={{ backgroundColor: 'rgba(212, 229, 252, 0.74)' }}>{value}</td>
                   ))}
                 </tr>
               ))}

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [04-04-2025 15:23:55] WARNING   * Debugger is active!
 [04-04-2025 15:23:55] INFO      * Debugger PIN: 369-247-726
 [04-04-2025 15:23:56] INFO     Se obtuvo el token de la solicitud correctamente
@@ -168,3 +169,13 @@ requests.exceptions.ConnectionError: ('Connection aborted.', RemoteDisconnected(
 [04-04-2025 15:30:21] INFO     Se obtuvo el token de la solicitud correctamente
 [04-04-2025 15:30:22] INFO     Se obtuvo el token de la solicitud correctamente
 [04-04-2025 15:32:51] INFO     127.0.0.1 - - [04/Apr/2025 15:32:51] "POST /informe HTTP/1.1" 200 -
+=======
+[07-04-2025 11:30:57] WARNING   * Debugger is active!
+[07-04-2025 11:30:57] INFO      * Debugger PIN: 246-412-492
+[07-04-2025 11:34:46] INFO     Se obtuvo el token de la solicitud correctamente
+[07-04-2025 11:34:47] INFO     127.0.0.1 - - [07/Apr/2025 11:34:47] "GET /getContratos HTTP/1.1" 200 -
+[07-04-2025 11:34:53] INFO     127.0.0.1 - - [07/Apr/2025 11:34:53] "OPTIONS /informe HTTP/1.1" 200 -
+[07-04-2025 11:34:53] INFO     Se obtuvo el token de la solicitud correctamente
+[07-04-2025 11:34:55] INFO     Se obtuvo el token de la solicitud correctamente
+[07-04-2025 11:37:20] INFO     127.0.0.1 - - [07/Apr/2025 11:37:20] "POST /informe HTTP/1.1" 200 -
+>>>>>>> 4ef7586dc0ee415cefc37903d219fad675af315d

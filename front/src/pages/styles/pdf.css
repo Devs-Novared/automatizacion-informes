@@ -1,17 +1,9 @@
 /* Hide download button in the PDF */
 @media print {
-  .download-pdf-btn {
+  .download-pdf-btn, .no-print {
     display: none !important;
-    
-}
-.no-print {
-  display: none !important;
-}
-    .no-print {
-      display: none !important;
-    }
   }
-
+}
 
 body {
   font-family: Arial, sans-serif;
@@ -22,41 +14,25 @@ body {
   justify-content: flex-start;
   align-items: center;
 }
+
+/* Set A4 landscape page size with no margins */
 @page {
-  size: A4 landscape;
-  margin: 10mm;
+  size: 528mm 373mm;
+  margin: 0;
 }
-
-
-.contenedor-graficos {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  align-items: center;
-  margin-bottom: 20px;
-  width: 100%;
-}
-
-
-.logo {
-  width: auto;
-  max-width: 120px;
-  height: auto;
-}
-
 
 .container {
   width: 100%;
-  height: 373mm; /* Ajusta la altura para que sea exactamente 373mm */
-  min-height: 373mm; /* Altura total */
+  height: 373mm;
+  min-height: 373mm;
   box-sizing: border-box;
-  padding: 10mm; /* Ajuste de margen interno */
+  padding: 0;
 }
 
 /* Página */
 .page {
   width: 100%;
-  min-height: auto; /* Permite que la altura sea dinámica */
+  min-height: auto;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -65,9 +41,9 @@ body {
   justify-content: flex-start;
   align-items: center;
   page-break-before: always;
-  page-break-after: avoid;
+  page-break-after: auto;
   page-break-inside: avoid;
-  overflow: hidden; /* Evita desbordamientos */
+  overflow: hidden;
 }
 
 /* Background image for each page */
@@ -78,21 +54,11 @@ body {
 }
 
 /* Header styles */
-header h1 {
-  color: #003777;
-  margin-top: 270px;
-}
-
-header h2 {
-  color: #3e77b6;
-}
-
-/* Central title */
 .titulo-central {
   text-align: center;
   color: #003777;
   margin-bottom: 20px;
-  margin-top: 180px;
+  margin-top: 100px;
 }
 
 /* Paragraphs styling */
@@ -109,14 +75,11 @@ header h2 {
   flex: 1;
 }
 
-.parrafos hr {
-  width: 50%;
-  margin: auto;
-}
-
-/* Central text */
 .texto-central {
   color: #00599d;
+  font-size: 14px;
+  text-align: justify;
+  max-width: 90%;
 }
 
 /* Additional info section */
@@ -133,32 +96,22 @@ header h2 {
   flex: 1;
 }
 
-.informacion-adicional hr {
-  width: 40%;
-  margin: auto;
-  margin-bottom: 0.5cm;
-}
-
-
-/* Logos */
 /* Logos */
 .logos {
   display: flex;
-  justify-content: center; /* Centra los logos */
-  gap: 20px; /* Espacio entre los logos */
+  justify-content: center;
+  gap: 20px;
   align-items: center;
   width: 100%;
 }
 
 .logos img {
-  width: auto;  /* Asegura que la imagen mantenga su proporción */
-  max-width: 120px; /* Limita el tamaño máximo de los logos */
-  height: auto; /* Mantiene la proporción de las imágenes */
+  width: auto;
+  max-width: 120px;
+  height: auto;
 }
 
-
-
-/* Download button (only visible on screen) */
+/* Download button */
 .download-pdf-btn {
   display: block;
   margin: 20px auto;
@@ -179,14 +132,14 @@ header h2 {
   margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
-  page-break-inside: avoid; /* Evita que la tabla se corte en dos páginas */
-  font-size: 13px; /* Tamaño de fuente más pequeño para hacer la tabla más compacta */
+  page-break-inside: avoid;
+  font-size: 13px;
 }
 
 .tabla-tickets th,
 .tabla-tickets td {
   border: 1px solid #004987;
-  padding: 4px 8px; /* Reducción del padding */
+  padding: 4px 8px;
   text-align: center;
 }
 
@@ -203,24 +156,24 @@ header h2 {
   gap: 40px;
   align-items: center;
   margin-bottom: 20px;
-  width: 100%; /* Asegúrate de que el contenedor use todo el ancho disponible */
-  height: auto; /* Asegúrate de que también ocupe toda la altura */
+  width: 100%;
+  height: auto;
 }
 
 .grafico {
   text-align: center;
-  width: 100%; /* Ocupa todo el espacio disponible */
+  width: 100%;
 }
 
 .grafico img {
-  width: 100%; /* Asegura que la imagen ocupe todo el contenedor */
-  max-width: 600px; /* Limita el tamaño máximo de las imágenes */
-  height: auto; /* Mantiene la proporción */
+  width: 100%;
+  max-width: 600px;
+  height: auto;
 }
 
 /* Ajustes adicionales */
 .page img {
-  width: 45%; /* Limita las imágenes a un máximo del 45% del ancho */
+  width: 45%;
   height: auto;
   display: block;
   margin: 10px auto;

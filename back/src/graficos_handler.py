@@ -30,7 +30,7 @@ def formatear_meses(lista_fechas):
 
 
 def grafico_linea_HorasConsumidas(resultado_mensual, meta_horas):    
-    titulo="Horas Consumidas - Soporte Evolutivo"
+    titulo="Horas Consumidas"
     etiqueta_x="Fecha de carga de Horas"
     etiqueta_y="Horas Cargadas Normales"
     
@@ -93,7 +93,7 @@ def grafico_linea_HorasConsumidas(resultado_mensual, meta_horas):
 
 
 def grafico_linea_TicketsConsumidos(resultado_mensual_tickets):
-    titulo="Tickets Consumidos - Soporte Evolutivo"
+    titulo="Tickets Consumidos"
     etiqueta_x="Fecha de creación de Ticket"
     etiqueta_y="Tickets Totales"
                                     
@@ -160,7 +160,7 @@ def grafico_velocimetro_HorasConsumidas(fechasContrato, cantidadHSConsultoria, r
         Union[str, None]: String base64 del grafico o None en caso de que exista algun error
     """
     
-    title = "Velocimetro de horas consumidas"
+    title = "Horas consumidas - Soporte Evolutivo"
     if(not fechasContrato["horasPorMes"]): return None
     
     result_value = cantidadHSConsultoria #Aguja velocimetro
@@ -293,6 +293,17 @@ def grafico_velocimetro_HorasConsumidas(fechasContrato, cantidadHSConsultoria, r
         font=dict(size=64, color="#000000"),
         align="center", ax=20, ay=-30, opacity=0.8
     )
+
+    fig.add_annotation(
+    x=0.5, y=-0.25,  # Más abajo aún
+    xref="paper", yref="paper",
+    text=f"Total de horas del contrato: {horasMaximasContrato}",
+    showarrow=False,
+    font=dict(size=20, color="black"),  # Más grande y negra
+    align="center"
+    )
+
+    
 
     img_bytes = BytesIO()
     pio.write_image(fig, img_bytes, format='png')
