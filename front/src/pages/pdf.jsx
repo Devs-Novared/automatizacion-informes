@@ -193,8 +193,8 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
 
       <h1 style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap", marginTop: "2rem" }}>Soporte Correctivo</h1>
       <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap", marginTop: "3rem" }}>
-      {ticketsUltAct && (
-              <SquareCard title={`Tickets Abiertos - ${selectedMonth}`} number={ticketsUltAct.length} />
+      {ticketsUltActServicios && (
+              <SquareCard title={`Tickets Abiertos - ${selectedMonth}`} number={ticketsUltActServicios.length} />
             )}
             {ticketsMensual && (
               <SquareCard title={`Tickets Cerrados - ${selectedMonth}`} number={ticketsMensual.length} />
@@ -206,17 +206,17 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
       <div>
       <h2 style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap", marginTop: "2rem" }}>Detalle de Última Actualización de Tickets</h2>
         {/* Tabla de Tickets Última Actualización */}
-        {ticketsUltAct && ticketsUltAct.length > 0 ? (
+        {ticketsUltActServicios && ticketsUltActServicios.length > 0 ? (
           <table className="tabla-tickets">
             <thead>
               <tr>
-                {Object.keys(ticketsUltAct[0]).map((key) => (
+                {Object.keys(ticketsUltActServicios[0]).map((key) => (
                   <th key={key}>{key}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {ticketsUltAct.map((ticket, index) => (
+              {ticketsUltActServicios.map((ticket, index) => (
                 <tr key={index}>
                   {Object.values(ticket).map((value, i) => (
                     <td key={i} style={{ backgroundColor: 'rgba(212, 229, 252, 0.74)' }}>{value}</td>
