@@ -196,9 +196,6 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
       {ticketsUltActServicios && (
               <SquareCard title={`Tickets Abiertos - ${selectedMonth}`} number={ticketsUltActServicios.length} />
             )}
-            {ticketsMensual && (
-              <SquareCard title={`Tickets Cerrados - ${selectedMonth}`} number={ticketsMensual.length} />
-            )}
             {acumTicketsActivos && (
               <SquareCard title={`Tickets Abiertos - ${selectedMonth}`} number={acumTicketsActivos} />
             )}
