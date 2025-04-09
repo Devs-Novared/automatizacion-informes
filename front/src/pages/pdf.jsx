@@ -123,7 +123,7 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
         </div>
       </section>
 
-      {/* Página 3 - Gráficos y Tablas */}
+      {/* Página 3 - Soporte evolutivo */}
       <section className="page">
         <h1>Soporte Evolutivo</h1>
         <div style={{ display: "flex", marginTop: "20px" }}>
@@ -160,12 +160,13 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
             {promHSConsultoria && (
               <SquareCard title={`Promedio horas consumidas - ${selectedMonth}`} number={promHSConsultoria} />
             )}
-
+            {promHSConsultoria && (
+              <SquareCard title={`Promedio horas consumidas - ${selectedMonth}`} number={promHSConsultoria} />
+            )}
           </div>
         </div>
         
-        <h2>Detalle de Última Actualización de Tickets</h2>
-        {/* Tabla de Tickets Última Actualización */}
+        <h2>Última Actualización de Tickets</h2>
         {ticketsUltActSoporte && ticketsUltActSoporte.length > 0 ? (
           <table className="tabla-tickets">
             <thead>
@@ -190,43 +191,48 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
         )}
       </section>
       
-
-      <h1 style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap", marginTop: "2rem" }}>Soporte Correctivo</h1>
-      <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap", marginTop: "3rem" }}>
-      {ticketsUltActServicios && (
-              <SquareCard title={`Tickets Abiertos - ${selectedMonth}`} number={ticketsUltActServicios.length} />
-            )}
-            {acumTicketsActivos && (
-              <SquareCard title={`Tickets Abiertos - ${selectedMonth}`} number={acumTicketsActivos} />
-            )}
-      </div>
-      <div>
-      <h2 style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap", marginTop: "2rem" }}>Detalle de Última Actualización de Tickets</h2>
-        {/* Tabla de Tickets Última Actualización */}
-        {ticketsUltActServicios && ticketsUltActServicios.length > 0 ? (
-          <table className="tabla-tickets">
-            <thead>
-              <tr>
-                {Object.keys(ticketsUltActServicios[0]).map((key) => (
-                  <th key={key}>{key}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {ticketsUltActServicios.map((ticket, index) => (
-                <tr key={index}>
-                  {Object.values(ticket).map((value, i) => (
-                    <td key={i} style={{ backgroundColor: 'rgba(212, 229, 252, 0.74)' }}>{value}</td>
+      {/* Página 4 - Soporte Correctivo */}
+      <section className="page">
+        <h1 style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap", marginTop: "2rem" }}>Soporte Correctivo</h1>
+        <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap", marginTop: "3rem" }}>
+          {ticketsUltActServicios && (
+            <SquareCard title={`Tickets Abiertos - ${selectedMonth}`} number={ticketsUltActServicios.length} />
+          )}
+          {acumTicketsActivos && (
+            <SquareCard title={`Tickets Abiertos - ${selectedMonth}`} number={acumTicketsActivos} />
+          )}
+          {acumTicketsActivos && (
+            <SquareCard title={`Tickets Abiertos - ${selectedMonth}`} number={acumTicketsActivos} />
+          )}
+        </div>
+        <div>
+          <h2 style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap", marginTop: "2rem" }}>Última Actualización de Tickets</h2>
+          {ticketsUltActServicios && ticketsUltActServicios.length > 0 ? (
+            <table className="tabla-tickets">
+              <thead>
+                <tr>
+                  {Object.keys(ticketsUltActServicios[0]).map((key) => (
+                    <th key={key}>{key}</th>
                   ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <p>No hay tickets con actualización reciente.</p>
-        )}
-      </div>
-
+              </thead>
+              <tbody>
+                {ticketsUltActServicios.map((ticket, index) => (
+                  <tr key={index}>
+                    {Object.values(ticket).map((value, i) => (
+                      <td key={i} style={{ backgroundColor: 'rgba(212, 229, 252, 0.74)' }}>{value}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <div style={{display: "flex"}}>
+              <p style={{margin: "auto"}}>No hay tickets correctivos con una actualización reciente.</p>
+            </div>
+          )}
+        </div>
+      </section>
       <button onClick={handleDownloadPDF} className="download-pdf-btn no-print">
         Descargar PDF
       </button>

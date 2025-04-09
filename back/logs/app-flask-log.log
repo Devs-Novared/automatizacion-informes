@@ -1,2 +1,18 @@
-[09-04-2025 14:25:02] WARNING   * Debugger is active!
-[09-04-2025 14:25:02] INFO      * Debugger PIN: 369-247-726
+[09-04-2025 15:24:37] WARNING   * Debugger is active!
+[09-04-2025 15:24:37] INFO      * Debugger PIN: 369-247-726
+[09-04-2025 15:25:44] INFO     127.0.0.1 - - [09/Apr/2025 15:25:44] "OPTIONS /informe HTTP/1.1" 200 -
+[09-04-2025 15:25:44] INFO     Se obtuvo el token de la solicitud correctamente
+[09-04-2025 15:25:45] INFO     Se obtuvo el token de la solicitud correctamente
+[09-04-2025 15:27:52] INFO     Soporte
+[09-04-2025 15:27:59] INFO     Soporte
+[09-04-2025 15:28:01] INFO     Soporte
+[09-04-2025 15:28:02] INFO     Soporte
+[09-04-2025 15:28:05] INFO     Soporte
+[09-04-2025 15:28:07] INFO     Soporte
+[09-04-2025 15:28:12] INFO     127.0.0.1 - - [09/Apr/2025 15:28:12] "POST /informe HTTP/1.1" 200 -
+[09-04-2025 15:28:47] INFO     127.0.0.1 - - [09/Apr/2025 15:28:47] "OPTIONS /informe HTTP/1.1" 200 -
+[09-04-2025 15:28:47] INFO     Se obtuvo el token de la solicitud correctamente
+[09-04-2025 15:28:48] INFO     Se obtuvo el token de la solicitud correctamente
+[09-04-2025 15:31:16] INFO     Soporte
+[09-04-2025 15:31:17] INFO     Soporte
+[09-04-2025 15:31:18] INFO     127.0.0.1 - - [09/Apr/2025 15:31:18] "POST /informe HTTP/1.1" 200 -

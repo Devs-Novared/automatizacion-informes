@@ -228,7 +228,6 @@ def crear_informe(data):
     resultado_mensual = [{"mes": mes, "totalHorasMensual": totalHorasMensual} for mes, totalHorasMensual in valores_mensuales.items()]
 
     tickets_por_mes = defaultdict(int)
-    tickets = []
     ticketsUltimaActualizacionSoporte = []
     ticketsUltimaActualizacionServicios = []
     acumTicketsActivos = 0
@@ -253,36 +252,9 @@ def crear_informe(data):
                 logger.error(f"Error procesando fecha de creación de ticket: {FechaCreacionTicket}")
                 logger.error(e)
 
-        fechaCierreTicket = infoTickets[ARCHER_IDS['idsGraficos']['FechaCierreTicket']]['Value']        
         propietarioTicketId = infoTickets[ARCHER_IDS['idsGraficos']['PropietarioTicket']]['Value'][0]['ContentId']
         userContent = get_data_of_content_id(propietarioTicketId, token)
         userName = userContent[userName_id]['Value']
-        
-        if fechaCierreTicket:
-            try:
-                fecha_objeto = datetime.strptime(fechaCierreTicket, "%Y-%m-%dT%H:%M:%S")
-    
-                if fecha_objeto.month == mes_seleccionado:
-                    fechaCreacionTicketString = infoTickets[ARCHER_IDS['idsGraficos']['FechaCreacionTicket']]['Value']
-                    if("." not in fechaCreacionTicketString): fechaCreacionTicketString = fechaCreacionTicketString + ".00" 
-                    fechaCreacionTicketString = datetime.strptime(fechaCreacionTicketString, "%Y-%m-%dT%H:%M:%S.%f")
-                    fechaCreacionTicketString = fechaCreacionTicketString.strftime('%Y-%m-%d %H:%M')
-                    
-                    fechaCierreTicketString = datetime.strptime(fechaCierreTicket, "%Y-%m-%dT%H:%M:%S")
-                    fechaCierreTicketString = fechaCierreTicketString.strftime('%Y-%m-%d %H:%M')
-                    
-                    jsonTickets = {
-                        "Nro de Ticket":infoTickets[ARCHER_IDS['idsGraficos']['NroTicket']]['Value'],
-                        "Fecha Cierre Ticket": fechaCierreTicketString,
-                        "Creador Ticket": infoTickets[ARCHER_IDS['idsGraficos']['CreadorTicket']]['Value'],
-                        "Propietario Ticket": userName,
-                        "Fecha Creacion Ticket": fechaCreacionTicketString,
-                        "Tipo Ticket": infoTickets[ARCHER_IDS['idsGraficos']['TipoTicket']]['Value'],
-                        "Asunto": infoTickets[ARCHER_IDS['idsGraficos']['Asunto']]['Value'],
-                    }
-                    tickets.append(jsonTickets)
-            except ValueError as e:
-                logger.error(f"Error procesando fecha de cerrado de ticket: {e}")
     
         #FechaCreacionTicket = infoTickets[ARCHER_IDS['idsGraficos']['FechaCreacionTicket']]['Value']
         UltimaActualizacion = infoTickets[ARCHER_IDS['idsGraficos']['UltimaActualizacion']]['Value']
@@ -310,6 +282,7 @@ def crear_informe(data):
                         "Asunto": infoTickets[ARCHER_IDS['idsGraficos']['Asunto']]['Value'],
                         "Comentario": infoTickets[ARCHER_IDS['idsGraficos']['Comentarios']]['Value']
                     }
+                    logger.info(infoTickets[TipoTicket_id]['Value'])
                     if(infoTickets[TipoTicket_id]['Value'] == "Soporte"):
                         ticketsUltimaActualizacionSoporte.append(jsonTicketsUlt)
                     elif(infoTickets[TipoTicket_id]['Value'] == "Servicios Profesionales"):
@@ -318,8 +291,7 @@ def crear_informe(data):
                 logger.error(f"Error procesando fecha de cerrado de ticket: {e}")
             
     resultado_mensual_tickets = [{"mes": mes, "totalTicketsMensual": total} for mes, total in tickets_por_mes.items()]
-    mensual_tickets_Cerrados = tickets
     
-    return resultado_mensual, resultado_mensual_tickets, mensual_tickets_Cerrados, ticketsUltimaActualizacionSoporte, ticketsUltimaActualizacionServicios, logoData, logoTecnologiaData, horasPorMes, fechasContrato, acumHSConsultoria, acumTicketsActivos
+    return resultado_mensual, resultado_mensual_tickets, ticketsUltimaActualizacionSoporte, ticketsUltimaActualizacionServicios, logoData, logoTecnologiaData, horasPorMes, fechasContrato, acumHSConsultoria, acumTicketsActivos
 
 

@@ -103,7 +103,7 @@ function App() {
         setPromHSConsultoria(response.data.promHSConsultoria);
         setTicketsUltActSoporte(response.data.tickets_ult_act_soporte || []);
         setTicketsUltActServicios(response.data.tickets_ult_act_servicios || []);
-
+        console.log(response.data)
         setIsReportReady(true);
         setError(""); 
       }
