@@ -26,7 +26,7 @@ function App() {
   const [ticketsUltActServicios, setTicketsUltActServicios] = useState([]);
   const [logoCliente, setLogoCliente] = useState("");
   const [logoTecnologia, setLogoTecnologia] = useState("");
-  const [acumTicketsActivos, setAcumTicketsActivos] = useState("");
+  const [acumTicketsActivosSoporte, setacumTicketsActivosSoporte] = useState("");
   const [promHSConsultoria, setPromHSConsultoria] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   
@@ -98,7 +98,7 @@ function App() {
         setImageTickets(response.data.image_tickets);
         setLogoCliente(response.data.logoCliente)
         setLogoTecnologia(response.data.logoTecnologia)
-        setAcumTicketsActivos(response.data.acumTicketsActivos)
+        setacumTicketsActivosSoporte(response.data.acumTicketsActivosSoporte)
         setContratosSeleccionado(response.data.contratosSeleccionado);
         setPromHSConsultoria(response.data.promHSConsultoria);
         setTicketsUltActSoporte(response.data.tickets_ult_act_soporte || []);
@@ -154,7 +154,7 @@ function App() {
           ticketsUltActSoporte={ticketsUltActSoporte}
           logoCliente={logoCliente}
           logoTecnologia={logoTecnologia}
-          acumTicketsActivos={acumTicketsActivos}
+          acumTicketsActivosSoporte={acumTicketsActivosSoporte}
           promHSConsultoria={promHSConsultoria}
         />
       )}

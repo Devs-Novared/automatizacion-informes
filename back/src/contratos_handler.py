@@ -230,7 +230,7 @@ def crear_informe(data):
     tickets_por_mes = defaultdict(int)
     ticketsUltimaActualizacionSoporte = []
     ticketsUltimaActualizacionServicios = []
-    acumTicketsActivos = 0
+    acumTicketsActivosSoporte = 0
     TicketsAsociados = response[ARCHER_IDS['idsGraficos']['TicketsAsociados']]['Value']
 
     for contentIdTickets in TicketsAsociados:
@@ -245,8 +245,8 @@ def crear_informe(data):
                 if ((fecha_objeto.month <= mes_seleccionado and fecha_objeto.year == añoActual) or (fecha_objeto.year < añoActual)):
                     mes_anio = fecha_objeto.strftime('%Y-%m')
                     tickets_por_mes[mes_anio] += 1
-                    if(infoTickets[fechaCierreTicket_id]['Value']):
-                        acumTicketsActivos += 1
+                    if(infoTickets[fechaCierreTicket_id]['Value'] and infoTickets[TipoTicket_id]['Value'] == "Soporte"):
+                        acumTicketsActivosSoporte += 1
 
             except ValueError as e:
                 logger.error(f"Error procesando fecha de creación de ticket: {FechaCreacionTicket}")
@@ -292,6 +292,6 @@ def crear_informe(data):
             
     resultado_mensual_tickets = [{"mes": mes, "totalTicketsMensual": total} for mes, total in tickets_por_mes.items()]
     
-    return resultado_mensual, resultado_mensual_tickets, ticketsUltimaActualizacionSoporte, ticketsUltimaActualizacionServicios, logoData, logoTecnologiaData, horasPorMes, fechasContrato, acumHSConsultoria, acumTicketsActivos
+    return resultado_mensual, resultado_mensual_tickets, ticketsUltimaActualizacionSoporte, ticketsUltimaActualizacionServicios, logoData, logoTecnologiaData, horasPorMes, fechasContrato, acumHSConsultoria, acumTicketsActivosSoporte
 
 

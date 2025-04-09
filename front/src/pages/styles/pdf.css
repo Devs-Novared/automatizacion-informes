@@ -33,7 +33,7 @@ body {
 .page {
   width: 100%;
   min-height: auto;
-  padding: 0;
+  padding: 10px;
   margin: 0;
   box-sizing: border-box;
   display: flex;
@@ -49,7 +49,8 @@ body {
 /* Background image for each page */
 .page:nth-of-type(1),
 .page:nth-of-type(2),
-.page:nth-of-type(3) {
+.page:nth-of-type(3),
+.page:nth-of-type(4) {
   background: url(../images/fondo\ 1.jpg) no-repeat center/cover;
 }
 

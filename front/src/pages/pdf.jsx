@@ -3,7 +3,7 @@ import html2pdf from "html2pdf.js";
 import "./styles/pdf.css";
 import SquareCard from "../components/SquareCard"
 
-const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetro, imageTickets, ticketsUltActServicios, ticketsUltActSoporte, logoCliente, logoTecnologia, acumTicketsActivos, promHSConsultoria }) => {
+const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetro, imageTickets, ticketsUltActServicios, ticketsUltActSoporte, logoCliente, logoTecnologia, acumTicketsActivosSoporte, promHSConsultoria }) => {
   const [fechaTexto, setFechaTexto] = useState("");
   const [year, setYear] = useState("");
 
@@ -167,17 +167,17 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
         </div>
         
         <h2>Última Actualización de Tickets</h2>
-        {ticketsUltActSoporte && ticketsUltActSoporte.length > 0 ? (
+        {ticketsUltActServicios && ticketsUltActServicios.length > 0 ? (
           <table className="tabla-tickets">
             <thead>
               <tr>
-                {Object.keys(ticketsUltActSoporte[0]).map((key) => (
+                {Object.keys(ticketsUltActServicios[0]).map((key) => (
                   <th key={key}>{key}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {ticketsUltActSoporte.map((ticket, index) => (
+              {ticketsUltActServicios.map((ticket, index) => (
                 <tr key={index}>
                   {Object.values(ticket).map((value, i) => (
                     <td key={i} style={{ backgroundColor: 'rgba(212, 229, 252, 0.74)' }}>{value}</td>
@@ -187,7 +187,7 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
             </tbody>
           </table>
         ) : (
-          <p>No hay tickets con actualización reciente.</p>
+          <p>No hay tickets evolutivos con actualización reciente.</p>
         )}
       </section>
       
@@ -195,29 +195,29 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
       <section className="page">
         <h1 style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap", marginTop: "2rem" }}>Soporte Correctivo</h1>
         <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap", marginTop: "3rem" }}>
-          {ticketsUltActServicios && (
-            <SquareCard title={`Tickets Abiertos - ${selectedMonth}`} number={ticketsUltActServicios.length} />
+          {ticketsUltActSoporte && (
+            <SquareCard title={`Tickets Abiertos - ${selectedMonth}`} number={ticketsUltActSoporte.length} />
           )}
-          {acumTicketsActivos && (
-            <SquareCard title={`Tickets Abiertos - ${selectedMonth}`} number={acumTicketsActivos} />
+          {acumTicketsActivosSoporte && (
+            <SquareCard title={`Tickets cerrados - ${selectedMonth}`} number={acumTicketsActivosSoporte} />
           )}
-          {acumTicketsActivos && (
-            <SquareCard title={`Tickets Abiertos - ${selectedMonth}`} number={acumTicketsActivos} />
+          {acumTicketsActivosSoporte && (
+            <SquareCard title={`Tickets en curso - ${selectedMonth}`} number={acumTicketsActivosSoporte} />
           )}
         </div>
         <div>
           <h2 style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap", marginTop: "2rem" }}>Última Actualización de Tickets</h2>
-          {ticketsUltActServicios && ticketsUltActServicios.length > 0 ? (
+          {ticketsUltActSoporte && ticketsUltActSoporte.length > 0 ? (
             <table className="tabla-tickets">
               <thead>
                 <tr>
-                  {Object.keys(ticketsUltActServicios[0]).map((key) => (
+                  {Object.keys(ticketsUltActSoporte[0]).map((key) => (
                     <th key={key}>{key}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {ticketsUltActServicios.map((ticket, index) => (
+                {ticketsUltActSoporte.map((ticket, index) => (
                   <tr key={index}>
                     {Object.values(ticket).map((value, i) => (
                       <td key={i} style={{ backgroundColor: 'rgba(212, 229, 252, 0.74)' }}>{value}</td>
