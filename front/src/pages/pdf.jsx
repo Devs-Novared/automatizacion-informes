@@ -156,12 +156,12 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
               />
             )}
           </div>
-          <div style={{ display: "flex", flexWrap: "wrap", width: "30vw", margin: "10px"}}>
+          <div style={{ display: "flex",alignItems: "center", justifyContent: "center",flexDirection: "column", width: "30vw", margin: "10px", gap: "10px" }}>
             {promHSConsultoria && (
-              <SquareCard title={`Promedio horas consumidas - ${selectedMonth}`} number={promHSConsultoria} />
+              <SquareCard title={`Promedio Horas Consumidas - ${selectedMonth}`} number={promHSConsultoria} />
             )}
             {promHSConsultoria && (
-              <SquareCard title={`Promedio horas consumidas - ${selectedMonth}`} number={promHSConsultoria} />
+              <SquareCard title={`Total Horas Disponibles - ${selectedMonth}`} number={promHSConsultoria} />
             )}
           </div>
         </div>
@@ -194,15 +194,15 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
       {/* Página 4 - Soporte Correctivo */}
       <section className="page">
         <h1 style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap", marginTop: "2rem" }}>Soporte Correctivo</h1>
-        <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap", marginTop: "3rem" }}>
+        <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap", marginTop: "3rem", }}>
           {ticketsUltActSoporte && (
             <SquareCard title={`Tickets Abiertos - ${selectedMonth}`} number={ticketsUltActSoporte.length} />
           )}
           {acumTicketsActivosSoporte && (
-            <SquareCard title={`Tickets cerrados - ${selectedMonth}`} number={acumTicketsActivosSoporte} />
+            <SquareCard title={`Tickets Cerrados - ${selectedMonth}`} number={acumTicketsActivosSoporte} />
           )}
           {acumTicketsActivosSoporte && (
-            <SquareCard title={`Tickets en curso - ${selectedMonth}`} number={acumTicketsActivosSoporte} />
+            <SquareCard title={`Tickets en Curso - ${selectedMonth}`} number={acumTicketsActivosSoporte} />
           )}
         </div>
         <div>
