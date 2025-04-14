@@ -25,7 +25,7 @@ cargaHorasNormales_id = ARCHER_IDS['idsGraficos']['cargaHorasNormales']
 FechaCargaHora_id = ARCHER_IDS['idsGraficos']['FechaCargaHora']
 shadow_id = ARCHER_IDS['idsGraficos']['shadow']
 
-FechaCreacionTicket_id = ARCHER_IDS['idsGraficos']['FechaCreacionTicket']
+fechaCreacionTicket_id = ARCHER_IDS['idsGraficos']['FechaCreacionTicket']
 CreadorTicket_id = ARCHER_IDS['idsGraficos']['CreadorTicket']
 PropietarioTicket_id = ARCHER_IDS['idsGraficos']['PropietarioTicket']
 fechaCierreTicket_id = ARCHER_IDS['idsGraficos']['FechaCierreTicket']
@@ -230,26 +230,47 @@ def crear_informe(data):
     tickets_por_mes = defaultdict(int)
     ticketsUltimaActualizacionSoporte = []
     ticketsUltimaActualizacionServicios = []
+    acumTicketsAbiertosSoporte = 0
+    acumTicketsCerradosSoporte = 0
     acumTicketsActivosSoporte = 0
     TicketsAsociados = response[ARCHER_IDS['idsGraficos']['TicketsAsociados']]['Value']
 
     for contentIdTickets in TicketsAsociados:
         infoTickets = get_data_of_content_id(contentIdTickets, token)
-        FechaCreacionTicket = infoTickets[ARCHER_IDS['idsGraficos']['FechaCreacionTicket']]['Value']
-
-        if FechaCreacionTicket:
+        fechaCreacionTicket = infoTickets[fechaCreacionTicket_id]['Value']
+        tipoTicket = infoTickets[TipoTicket_id]['Value']
+        if fechaCreacionTicket:
             try:
-                if("." not in FechaCreacionTicket): FechaCreacionTicket = FechaCreacionTicket + ".00" 
-                fecha_objeto = datetime.strptime(FechaCreacionTicket, "%Y-%m-%dT%H:%M:%S.%f")
-                
-                if ((fecha_objeto.month <= mes_seleccionado and fecha_objeto.year == añoActual) or (fecha_objeto.year < añoActual)):
-                    mes_anio = fecha_objeto.strftime('%Y-%m')
-                    tickets_por_mes[mes_anio] += 1
-                    if(infoTickets[fechaCierreTicket_id]['Value'] and infoTickets[TipoTicket_id]['Value'] == "Soporte"):
-                        acumTicketsActivosSoporte += 1
+                if(tipoTicket):
+                    if("." not in fechaCreacionTicket): fechaCreacionTicket = fechaCreacionTicket + ".00" 
+                    fecha_creacion_objeto = datetime.strptime(fechaCreacionTicket, "%Y-%m-%dT%H:%M:%S.%f")
+                    
+                    if(tipoTicket == "Servicios Profesionales"):
+                        if ((fecha_creacion_objeto.month <= mes_seleccionado and fecha_creacion_objeto.year == añoActual) or (fecha_creacion_objeto.year < añoActual)):
+                            mes_anio = fecha_creacion_objeto.strftime('%Y-%m')
+                            tickets_por_mes[mes_anio] += 1
+                            
+                    elif(tipoTicket == "Soporte"):
+                        fechaCierreTicket = infoTickets[fechaCierreTicket_id]['Value']
+                        if(fechaCierreTicket):
+                            if("." not in fechaCierreTicket): fechaCierreTicket = fechaCierreTicket + ".00" 
+                            fecha_cierre_objeto = datetime.strptime(fechaCierreTicket, "%Y-%m-%dT%H:%M:%S.%f")
+                            if(fecha_cierre_objeto.month == mes_seleccionado and fecha_cierre_objeto.year == añoActual):
+                                acumTicketsCerradosSoporte += 1
+                                
+                        if(fecha_creacion_objeto.month == mes_seleccionado and fecha_creacion_objeto.year == añoActual):
+                            acumTicketsAbiertosSoporte += 1
+                            
+                        if ((fecha_creacion_objeto.month <= mes_seleccionado and fecha_creacion_objeto.year == añoActual) or (fecha_creacion_objeto.year < añoActual)):
+                            mes_anio = fecha_creacion_objeto.strftime('%Y-%m')
+                            tickets_por_mes[mes_anio] += 1
+                            
+                            logger.info(fechaCierreTicket)
+                            if(not fechaCierreTicket):
+                                acumTicketsActivosSoporte += 1
 
             except ValueError as e:
-                logger.error(f"Error procesando fecha de creación de ticket: {FechaCreacionTicket}")
+                logger.error(f"Error procesando fecha de creación de ticket: {fechaCreacionTicket}")
                 logger.error(e)
 
         propietarioTicketId = infoTickets[ARCHER_IDS['idsGraficos']['PropietarioTicket']]['Value'][0]['ContentId']
@@ -282,7 +303,6 @@ def crear_informe(data):
                         "Asunto": infoTickets[ARCHER_IDS['idsGraficos']['Asunto']]['Value'],
                         "Comentario": infoTickets[ARCHER_IDS['idsGraficos']['Comentarios']]['Value']
                     }
-                    logger.info(infoTickets[TipoTicket_id]['Value'])
                     if(infoTickets[TipoTicket_id]['Value'] == "Soporte"):
                         ticketsUltimaActualizacionSoporte.append(jsonTicketsUlt)
                     elif(infoTickets[TipoTicket_id]['Value'] == "Servicios Profesionales"):
@@ -292,6 +312,6 @@ def crear_informe(data):
             
     resultado_mensual_tickets = [{"mes": mes, "totalTicketsMensual": total} for mes, total in tickets_por_mes.items()]
     
-    return resultado_mensual, resultado_mensual_tickets, ticketsUltimaActualizacionSoporte, ticketsUltimaActualizacionServicios, logoData, logoTecnologiaData, horasPorMes, fechasContrato, acumHSConsultoria, acumTicketsActivosSoporte
+    return resultado_mensual, resultado_mensual_tickets, ticketsUltimaActualizacionSoporte, ticketsUltimaActualizacionServicios, logoData, logoTecnologiaData, horasPorMes, fechasContrato, acumHSConsultoria, acumTicketsAbiertosSoporte, acumTicketsCerradosSoporte, acumTicketsActivosSoporte
 
 

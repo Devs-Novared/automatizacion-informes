@@ -73,8 +73,8 @@ def grafico_linea_HorasConsumidas(resultado_mensual, meta_horas):
         )
     # Hacer el fondo semi-transparente
     fig.update_layout(
-        paper_bgcolor='rgba(200, 200, 200, 0.5)',  # Fondo de toda la figura semi-transparente
-        plot_bgcolor='rgba(200, 200, 200, 0.5)',   # Fondo del área del gráfico semi-transparente
+        paper_bgcolor='rgba(200, 200, 200, 0.5)',  
+        plot_bgcolor='rgba(200, 200, 200, 0.5)',  
         title=dict(text=titulo, font=dict(color="black", size=18)),
         xaxis=dict(
             title=dict(text=etiqueta_x, font=dict(color="black", size=14)),
@@ -104,7 +104,6 @@ def grafico_linea_TicketsConsumidos(resultado_mensual_tickets):
     meses_formateados = formatear_meses(meses)
 
     fig = go.Figure()
-    # Línea suavizada y relleno hasta el eje x
     fig.add_trace(go.Scatter(
         x=meses_formateados,
         y=totalTicketsMensual,
@@ -119,10 +118,9 @@ def grafico_linea_TicketsConsumidos(resultado_mensual_tickets):
         marker=dict(color="blue", size=8),
         name="Horas Cargadas"
     ))
-    # Hacer el fondo semi-transparente
     fig.update_layout(
-        paper_bgcolor='rgba(200, 200, 200, 0.5)',  # Fondo de toda la figura semi-transparente
-        plot_bgcolor='rgba(200, 200, 200, 0.5)',   # Fondo del área del gráfico semi-transparente
+        paper_bgcolor='rgba(200, 200, 200, 0.5)', 
+        plot_bgcolor='rgba(200, 200, 200, 0.5)',   
         title=dict(text=titulo, font=dict(color="black", size=18)),
         xaxis=dict(
             title=dict(text=etiqueta_x, font=dict(color="black", size=14)),

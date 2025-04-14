@@ -3,7 +3,7 @@ import html2pdf from "html2pdf.js";
 import "./styles/pdf.css";
 import SquareCard from "../components/SquareCard"
 
-const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetro, imageTickets, ticketsUltActServicios, ticketsUltActSoporte, logoCliente, logoTecnologia, acumTicketsActivosSoporte, promHSConsultoria }) => {
+const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetro, imageTickets, ticketsUltActServicios, ticketsUltActSoporte, logoCliente, logoTecnologia, acumTicketsAbiertosSoporte, acumTicketsCerradosSoporte, acumTicketsActivosSoporte, promHSConsultoria }) => {
   const [fechaTexto, setFechaTexto] = useState("");
   const [year, setYear] = useState("");
 
@@ -195,13 +195,13 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
       <section className="page">
         <h1 style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap", marginTop: "2rem" }}>Soporte Correctivo</h1>
         <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap", marginTop: "3rem", }}>
-          {ticketsUltActSoporte && (
-            <SquareCard title={`Tickets Abiertos - ${selectedMonth}`} number={ticketsUltActSoporte.length} />
+          {acumTicketsAbiertosSoporte != null && (
+            <SquareCard title={`Tickets Abiertos - ${selectedMonth}`} number={acumTicketsAbiertosSoporte} />
           )}
-          {acumTicketsActivosSoporte && (
-            <SquareCard title={`Tickets Cerrados - ${selectedMonth}`} number={acumTicketsActivosSoporte} />
+          {acumTicketsCerradosSoporte != null && (
+            <SquareCard title={`Tickets Cerrados - ${selectedMonth}`} number={acumTicketsCerradosSoporte} />
           )}
-          {acumTicketsActivosSoporte && (
+          {acumTicketsActivosSoporte != null && (
             <SquareCard title={`Tickets en Curso - ${selectedMonth}`} number={acumTicketsActivosSoporte} />
           )}
         </div>

@@ -1,17 +1,815 @@
-[11-04-2025 11:06:15] WARNING   * Debugger is active!
-[11-04-2025 11:06:15] INFO      * Debugger PIN: 246-412-492
-[11-04-2025 11:30:39] INFO     Se obtuvo el token de la solicitud correctamente
-[11-04-2025 11:30:41] INFO     127.0.0.1 - - [11/Apr/2025 11:30:41] "GET /getContratos HTTP/1.1" 200 -
-[11-04-2025 11:31:28] INFO     127.0.0.1 - - [11/Apr/2025 11:31:28] "OPTIONS /informe HTTP/1.1" 200 -
-[11-04-2025 11:31:29] INFO     Se obtuvo el token de la solicitud correctamente
-[11-04-2025 11:31:31] INFO     Se obtuvo el token de la solicitud correctamente
-[11-04-2025 11:33:33] INFO     Servicios Profesionales
-[11-04-2025 11:33:47] INFO     Servicios Profesionales
-[11-04-2025 11:33:50] INFO     Soporte
-[11-04-2025 11:33:51] INFO     Servicios Profesionales
-[11-04-2025 11:33:53] INFO     Soporte
-[11-04-2025 11:33:55] INFO     Servicios Profesionales
-[11-04-2025 11:33:58] INFO     Soporte
-[11-04-2025 11:34:01] INFO     127.0.0.1 - - [11/Apr/2025 11:34:01] "POST /informe HTTP/1.1" 200 -
-[14-04-2025 09:59:14] INFO     Se obtuvo el token de la solicitud correctamente
-[14-04-2025 09:59:17] INFO     127.0.0.1 - - [14/Apr/2025 09:59:17] "GET /getContratos HTTP/1.1" 200 -
+[14-04-2025 12:19:57] WARNING   * Debugger is active!
+[14-04-2025 12:19:57] INFO      * Debugger PIN: 369-247-726
+[14-04-2025 12:24:05] INFO     127.0.0.1 - - [14/Apr/2025 12:24:05] "OPTIONS /informe HTTP/1.1" 200 -
+[14-04-2025 12:24:05] INFO     Se obtuvo el token de la solicitud correctamente
+[14-04-2025 12:24:07] INFO     Se obtuvo el token de la solicitud correctamente
+[14-04-2025 12:24:41] ERROR    Ocurrio un error al accceder al valor del valueId 66629 obtenido en el response
+[14-04-2025 12:24:41] ERROR    Detalle del error: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7C7EF610>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+[14-04-2025 12:24:41] ERROR    Detalle del traceback: Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 72, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 961, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+                       ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 386, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1042, in _validate_conn
+    conn.connect()
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 358, in connect
+    self.sock = conn = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x000001AB7C7EF610>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 489, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7C7EF610>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\Desktop\Programas\automatizacion-informes\back\src\archer_api_handler.py", line 325, in get_value_list_value
+    response = req.post(f'{URL}/ws/field.asmx', headers=headers, data=body, verify=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7C7EF610>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+
+[14-04-2025 12:25:12] WARNING  Error al buscar la data del content id 2686202, se volvera a intentar
+[14-04-2025 12:25:15] WARNING  Error al buscar la data del content id 2686203, se volvera a intentar
+[14-04-2025 12:25:17] INFO     2025-01-16T19:40:00.00
+[14-04-2025 12:25:18] INFO     2025-01-14T20:51:00.00
+[14-04-2025 12:25:20] INFO     2025-01-16T18:06:00.00
+[14-04-2025 12:25:24] INFO     2025-01-23T17:35:00.00
+[14-04-2025 12:25:26] INFO     None
+[14-04-2025 12:25:27] INFO     2025-02-20T15:53:00.00
+[14-04-2025 12:25:29] INFO     2025-01-31T19:03:00.00
+[14-04-2025 12:25:30] INFO     2025-02-07T15:17:00.00
+[14-04-2025 12:25:31] INFO     2025-02-28T19:12:00.00
+[14-04-2025 12:25:32] INFO     2025-02-12T20:34:00.00
+[14-04-2025 12:25:34] INFO     2025-02-13T14:34:00.00
+[14-04-2025 12:25:35] INFO     2025-02-13T20:59:00.00
+[14-04-2025 12:25:36] INFO     2025-02-20T16:04:00.00
+[14-04-2025 12:25:38] INFO     2025-02-18T20:36:00.00
+[14-04-2025 12:25:39] INFO     2025-02-20T12:52:00.00
+[14-04-2025 12:25:41] INFO     2025-02-20T20:45:00.00
+[14-04-2025 12:25:44] INFO     2025-02-20T20:43:00.00
+[14-04-2025 12:25:46] INFO     None
+[14-04-2025 12:25:49] INFO     2025-02-26T21:01:00.00
+[14-04-2025 12:25:51] INFO     2025-03-06T14:13:00.00
+[14-04-2025 12:25:52] INFO     2025-03-21T13:38:00.00
+[14-04-2025 12:25:53] INFO     2025-03-12T14:56:00.00
+[14-04-2025 12:25:54] INFO     2025-03-12T14:53:00.00
+[14-04-2025 12:25:56] INFO     2025-03-12T20:52:00.00
+[14-04-2025 12:25:57] INFO     2025-03-13T20:22:00.00
+[14-04-2025 12:26:00] INFO     2025-04-11T12:58:00.00
+[14-04-2025 12:26:01] INFO     2025-03-17T18:01:00.00
+[14-04-2025 12:26:02] INFO     2025-03-19T19:20:00.00
+[14-04-2025 12:26:04] INFO     2025-04-04T18:09:00.00
+[14-04-2025 12:26:05] INFO     2025-03-27T20:36:00.00
+[14-04-2025 12:26:07] INFO     2025-03-27T12:34:00.00
+[14-04-2025 12:26:08] INFO     2025-03-27T20:37:00.00
+[14-04-2025 12:26:12] INFO     127.0.0.1 - - [14/Apr/2025 12:26:12] "POST /informe HTTP/1.1" 200 -
+[14-04-2025 12:27:00] INFO     127.0.0.1 - - [14/Apr/2025 12:27:00] "OPTIONS /informe HTTP/1.1" 200 -
+[14-04-2025 12:27:00] INFO     Se obtuvo el token de la solicitud correctamente
+[14-04-2025 12:27:01] INFO     Se obtuvo el token de la solicitud correctamente
+[14-04-2025 12:27:47] WARNING  Error al buscar la data del content id 2667910, se volvera a intentar
+[14-04-2025 12:28:25] ERROR    Ocurrio un error al accceder al valor del valueId 66631 obtenido en el response
+[14-04-2025 12:28:25] ERROR    Detalle del error: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7D8FD5D0>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+[14-04-2025 12:28:25] ERROR    Detalle del traceback: Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 72, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 961, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+                       ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 386, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1042, in _validate_conn
+    conn.connect()
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 358, in connect
+    self.sock = conn = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x000001AB7D8FD5D0>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 489, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7D8FD5D0>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\Desktop\Programas\automatizacion-informes\back\src\archer_api_handler.py", line 325, in get_value_list_value
+    response = req.post(f'{URL}/ws/field.asmx', headers=headers, data=body, verify=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7D8FD5D0>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+
+[14-04-2025 12:28:58] WARNING  Error al buscar la data del content id 2685807, se volvera a intentar
+[14-04-2025 12:29:08] INFO     2024-06-14T15:30:00.00
+[14-04-2025 12:29:09] INFO     2024-06-27T12:41:00.00
+[14-04-2025 12:29:34] INFO     2025-03-07T20:16:00.00
+[14-04-2025 12:30:03] INFO     127.0.0.1 - - [14/Apr/2025 12:30:03] "POST /informe HTTP/1.1" 200 -
+[14-04-2025 12:41:08] INFO     Se obtuvo el token de la solicitud correctamente
+[14-04-2025 12:41:09] INFO     127.0.0.1 - - [14/Apr/2025 12:41:09] "GET /getContratos HTTP/1.1" 200 -
+[14-04-2025 12:41:17] INFO     127.0.0.1 - - [14/Apr/2025 12:41:17] "OPTIONS /informe HTTP/1.1" 200 -
+[14-04-2025 12:41:17] INFO     Se obtuvo el token de la solicitud correctamente
+[14-04-2025 12:41:18] INFO     Se obtuvo el token de la solicitud correctamente
+[14-04-2025 12:41:29] WARNING  Error al buscar la data del content id 2631086, se volvera a intentar
+[14-04-2025 12:41:39] ERROR    Ocurrio un error al accceder al valor del valueId 66629 obtenido en el response
+[14-04-2025 12:41:39] ERROR    Detalle del error: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7D8B6090>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+[14-04-2025 12:41:39] ERROR    Detalle del traceback: Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 72, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 961, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+                       ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 386, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1042, in _validate_conn
+    conn.connect()
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 358, in connect
+    self.sock = conn = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x000001AB7D8B6090>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 489, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7D8B6090>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\Desktop\Programas\automatizacion-informes\back\src\archer_api_handler.py", line 325, in get_value_list_value
+    response = req.post(f'{URL}/ws/field.asmx', headers=headers, data=body, verify=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7D8B6090>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+
+[14-04-2025 12:41:45] ERROR    Ocurrio un error al accceder al valor del valueId 66629 obtenido en el response
+[14-04-2025 12:41:45] ERROR    Detalle del error: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7D8B4910>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+[14-04-2025 12:41:45] ERROR    Detalle del traceback: Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 72, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 961, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+                       ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 386, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1042, in _validate_conn
+    conn.connect()
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 358, in connect
+    self.sock = conn = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x000001AB7D8B4910>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 489, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7D8B4910>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\Desktop\Programas\automatizacion-informes\back\src\archer_api_handler.py", line 325, in get_value_list_value
+    response = req.post(f'{URL}/ws/field.asmx', headers=headers, data=body, verify=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7D8B4910>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+
+[14-04-2025 12:42:16] WARNING  Error al buscar la data del content id 2660284, se volvera a intentar
+[14-04-2025 12:42:48] ERROR    Ocurrio un error al accceder al valor del valueId 66629 obtenido en el response
+[14-04-2025 12:42:48] ERROR    Detalle del error: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7D970A90>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+[14-04-2025 12:42:48] ERROR    Detalle del traceback: Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 72, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 961, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+                       ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 386, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1042, in _validate_conn
+    conn.connect()
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 358, in connect
+    self.sock = conn = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x000001AB7D970A90>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 489, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7D970A90>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\Desktop\Programas\automatizacion-informes\back\src\archer_api_handler.py", line 325, in get_value_list_value
+    response = req.post(f'{URL}/ws/field.asmx', headers=headers, data=body, verify=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7D970A90>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+
+[14-04-2025 12:43:36] INFO     2024-06-14T18:04:00.00
+[14-04-2025 12:43:37] INFO     2024-06-24T19:59:00.00
+[14-04-2025 12:43:38] INFO     2024-07-04T15:47:00.00
+[14-04-2025 12:43:41] INFO     2024-07-23T20:13:00.00
+[14-04-2025 12:43:42] INFO     2024-09-23T12:24:00.00
+[14-04-2025 12:43:43] INFO     2024-08-19T15:22:00.00
+[14-04-2025 12:43:44] INFO     2024-09-10T18:49:00.00
+[14-04-2025 12:43:45] INFO     2024-09-16T20:16:00.00
+[14-04-2025 12:43:46] INFO     2024-11-26T20:14:00.00
+[14-04-2025 12:43:51] INFO     2024-12-03T14:27:00.00
+[14-04-2025 12:43:52] INFO     2025-02-28T19:11:00.00
+[14-04-2025 12:43:53] INFO     2024-12-13T20:07:00.00
+[14-04-2025 12:43:54] INFO     2024-12-20T17:38:00.00
+[14-04-2025 12:43:56] INFO     2024-12-23T17:42:00.00
+[14-04-2025 12:43:57] INFO     2024-12-30T15:12:00.00
+[14-04-2025 12:43:59] INFO     2025-02-11T15:39:00.00
+[14-04-2025 12:44:00] INFO     2025-02-11T15:37:00.00
+[14-04-2025 12:44:01] INFO     2025-02-12T15:01:00.00
+[14-04-2025 12:44:02] INFO     2025-04-04T17:34:00.00
+[14-04-2025 12:44:05] INFO     2025-02-24T15:23:00.00
+[14-04-2025 12:44:05] INFO     2025-04-14T15:08:00.00
+[14-04-2025 12:44:06] INFO     None
+[14-04-2025 12:44:08] INFO     2025-03-28T13:46:00.00
+[14-04-2025 12:44:09] INFO     2025-03-28T19:52:00.00
+[14-04-2025 12:44:11] INFO     127.0.0.1 - - [14/Apr/2025 12:44:11] "POST /informe HTTP/1.1" 200 -
+[14-04-2025 12:44:57] INFO     Se obtuvo el token de la solicitud correctamente
+[14-04-2025 12:44:58] INFO     127.0.0.1 - - [14/Apr/2025 12:44:58] "GET /getContratos HTTP/1.1" 200 -
+[14-04-2025 12:45:04] INFO     127.0.0.1 - - [14/Apr/2025 12:45:04] "OPTIONS /informe HTTP/1.1" 200 -
+[14-04-2025 12:45:04] INFO     Se obtuvo el token de la solicitud correctamente
+[14-04-2025 12:45:05] INFO     Se obtuvo el token de la solicitud correctamente
+[14-04-2025 12:45:46] WARNING  Error al buscar la data del content id 2654702, se volvera a intentar
+[14-04-2025 12:45:58] INFO     Se obtuvo el token de la solicitud correctamente
+[14-04-2025 12:45:59] ERROR    Se obtuvo un response None de un request data of user id
+[14-04-2025 12:45:59] ERROR    Se obtuvo un response None de un request data of content id
+[14-04-2025 12:45:59] ERROR    Ocurrio un error al accceder al valor del content id 2661671 obtenido en el response
+[14-04-2025 12:45:59] ERROR    Detalle del error: Expecting value: line 1 column 1 (char 0)
+[14-04-2025 12:45:59] ERROR    Detalle del traceback: Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 971, in json
+    return complexjson.loads(self.text, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\Desktop\Programas\automatizacion-informes\back\src\archer_api_handler.py", line 187, in get_data_of_content_id
+    result = response.json()['RequestedObject']['FieldContents']
+             ^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 975, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+[14-04-2025 12:45:59] ERROR    Error al generar el informe: 'NoneType' object is not subscriptable
+[14-04-2025 12:45:59] INFO     127.0.0.1 - - [14/Apr/2025 12:45:59] "[35m[1mPOST /informe HTTP/1.1[0m" 500 -
+[14-04-2025 12:46:00] INFO     127.0.0.1 - - [14/Apr/2025 12:46:00] "GET /getContratos HTTP/1.1" 200 -
+[14-04-2025 12:46:08] INFO     127.0.0.1 - - [14/Apr/2025 12:46:08] "OPTIONS /informe HTTP/1.1" 200 -
+[14-04-2025 12:46:08] INFO     Se obtuvo el token de la solicitud correctamente
+[14-04-2025 12:46:10] INFO     Se obtuvo el token de la solicitud correctamente
+[14-04-2025 12:46:47] ERROR    Ocurrio un error al accceder al valor del valueId 66631 obtenido en el response
+[14-04-2025 12:46:47] ERROR    Detalle del error: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7D8AE6D0>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+[14-04-2025 12:46:47] ERROR    Detalle del traceback: Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 72, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 961, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+                       ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 386, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1042, in _validate_conn
+    conn.connect()
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 358, in connect
+    self.sock = conn = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x000001AB7D8AE6D0>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 489, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7D8AE6D0>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\Desktop\Programas\automatizacion-informes\back\src\archer_api_handler.py", line 325, in get_value_list_value
+    response = req.post(f'{URL}/ws/field.asmx', headers=headers, data=body, verify=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7D8AE6D0>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+
+[14-04-2025 12:47:08] ERROR    Ocurrio un error al accceder al valor del valueId 66631 obtenido en el response
+[14-04-2025 12:47:08] ERROR    Detalle del error: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7C813450>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+[14-04-2025 12:47:08] ERROR    Detalle del traceback: Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 72, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 961, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+                       ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 386, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1042, in _validate_conn
+    conn.connect()
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 358, in connect
+    self.sock = conn = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x000001AB7C813450>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 489, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7C813450>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\Desktop\Programas\automatizacion-informes\back\src\archer_api_handler.py", line 325, in get_value_list_value
+    response = req.post(f'{URL}/ws/field.asmx', headers=headers, data=body, verify=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7C813450>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+
+[14-04-2025 12:48:15] INFO     2024-06-14T18:04:00.00
+[14-04-2025 12:48:15] INFO     2024-06-24T19:59:00.00
+[14-04-2025 12:48:17] INFO     2024-07-04T15:47:00.00
+[14-04-2025 12:48:20] WARNING  Error al buscar la data del content id 2622641, se volvera a intentar
+[14-04-2025 12:48:23] INFO     2024-07-23T20:13:00.00
+[14-04-2025 12:48:25] INFO     2024-09-23T12:24:00.00
+[14-04-2025 12:48:26] INFO     2024-08-19T15:22:00.00
+[14-04-2025 12:48:27] INFO     2024-09-10T18:49:00.00
+[14-04-2025 12:48:28] INFO     2024-09-16T20:16:00.00
+[14-04-2025 12:48:30] INFO     2024-11-26T20:14:00.00
+[14-04-2025 12:48:33] INFO     2024-12-03T14:27:00.00
+[14-04-2025 12:48:34] INFO     2025-02-28T19:11:00.00
+[14-04-2025 12:48:34] INFO     2024-12-13T20:07:00.00
+[14-04-2025 12:48:36] INFO     2024-12-20T17:38:00.00
+[14-04-2025 12:48:37] INFO     2024-12-23T17:42:00.00
+[14-04-2025 12:48:38] INFO     2024-12-30T15:12:00.00
+[14-04-2025 12:48:40] INFO     2025-02-11T15:39:00.00
+[14-04-2025 12:48:41] INFO     2025-02-11T15:37:00.00
+[14-04-2025 12:48:42] INFO     2025-02-12T15:01:00.00
+[14-04-2025 12:48:43] INFO     2025-04-04T17:34:00.00
+[14-04-2025 12:48:45] INFO     2025-02-24T15:23:00.00
+[14-04-2025 12:48:46] INFO     2025-04-14T15:08:00.00
+[14-04-2025 12:48:47] INFO     None
+[14-04-2025 12:48:55] INFO     127.0.0.1 - - [14/Apr/2025 12:48:55] "POST /informe HTTP/1.1" 200 -
+[14-04-2025 12:50:12] INFO     127.0.0.1 - - [14/Apr/2025 12:50:12] "OPTIONS /informe HTTP/1.1" 200 -
+[14-04-2025 12:50:12] INFO     Se obtuvo el token de la solicitud correctamente
+[14-04-2025 12:50:13] INFO     Se obtuvo el token de la solicitud correctamente
+[14-04-2025 12:51:05] ERROR    Ocurrio un error al accceder al valor del valueId 66631 obtenido en el response
+[14-04-2025 12:51:05] ERROR    Detalle del error: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7D971550>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+[14-04-2025 12:51:05] ERROR    Detalle del traceback: Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 72, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 961, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+                       ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 386, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1042, in _validate_conn
+    conn.connect()
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 358, in connect
+    self.sock = conn = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x000001AB7D971550>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 489, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7D971550>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\Desktop\Programas\automatizacion-informes\back\src\archer_api_handler.py", line 325, in get_value_list_value
+    response = req.post(f'{URL}/ws/field.asmx', headers=headers, data=body, verify=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7D971550>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+
+[14-04-2025 12:51:12] ERROR    Ocurrio un error al accceder al valor del valueId 66631 obtenido en el response
+[14-04-2025 12:51:12] ERROR    Detalle del error: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7D9700D0>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+[14-04-2025 12:51:12] ERROR    Detalle del traceback: Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 72, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 961, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+                       ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 386, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1042, in _validate_conn
+    conn.connect()
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 358, in connect
+    self.sock = conn = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x000001AB7D9700D0>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 489, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7D9700D0>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\Desktop\Programas\automatizacion-informes\back\src\archer_api_handler.py", line 325, in get_value_list_value
+    response = req.post(f'{URL}/ws/field.asmx', headers=headers, data=body, verify=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7D9700D0>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+
+[14-04-2025 12:51:16] ERROR    Ocurrio un error al accceder al valor del valueId 66631 obtenido en el response
+[14-04-2025 12:51:16] ERROR    Detalle del error: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7D8FE790>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+[14-04-2025 12:51:16] ERROR    Detalle del traceback: Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 72, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 961, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+                       ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 386, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1042, in _validate_conn
+    conn.connect()
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 358, in connect
+    self.sock = conn = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x000001AB7D8FE790>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 489, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7D8FE790>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\amisztal\Desktop\Programas\automatizacion-informes\back\src\archer_api_handler.py", line 325, in get_value_list_value
+    response = req.post(f'{URL}/ws/field.asmx', headers=headers, data=body, verify=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001AB7D8FE790>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+
+[14-04-2025 12:51:47] WARNING  Error al buscar la data del content id 2680191, se volvera a intentar
+[14-04-2025 12:52:11] INFO     2024-06-14T15:30:00.00
+[14-04-2025 12:52:13] INFO     2024-06-27T12:41:00.00
+[14-04-2025 12:52:33] INFO     2025-03-07T20:16:00.00
+[14-04-2025 12:52:52] WARNING  Error al buscar la data del content id 1924060, se volvera a intentar
+[14-04-2025 12:52:58] INFO     127.0.0.1 - - [14/Apr/2025 12:52:58] "POST /informe HTTP/1.1" 200 -

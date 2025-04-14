@@ -96,7 +96,7 @@ def generar_informe():
         contratosSeleccionado = next((contrato for contrato in contratosInfo if contrato['contentId'] == data.get('contentId')), None)
         #logger.info(contratosSeleccionado)
         
-        resultado_mensual, resultado_mensual_tickets, ticketsUltimaActualizacionSoporte, ticketsUltimaActualizacionServicios, logoData, logoTecnologiaData, horasPorMes, fechasContrato, cantidadHSConsultoria, acumTicketsActivosSoporte = crear_informe(data)
+        resultado_mensual, resultado_mensual_tickets, ticketsUltimaActualizacionSoporte, ticketsUltimaActualizacionServicios, logoData, logoTecnologiaData, horasPorMes, fechasContrato, cantidadHSConsultoria, acumTicketsAbiertosSoporte, acumTicketsCerradosSoporte, acumTicketsActivosSoporte = crear_informe(data)
 
         promHSConsultoria = round(sum(item["totalHorasMensual"] for item in resultado_mensual) / len(resultado_mensual), 2)
         
@@ -127,6 +127,8 @@ def generar_informe():
             "tickets_ult_act_servicios":  ticketsUltimaActualizacionServicios,
             "logoCliente": logoData,
             "logoTecnologia": logoTecnologiaData,
+            "acumTicketsAbiertosSoporte": acumTicketsAbiertosSoporte,
+            "acumTicketsCerradosSoporte": acumTicketsCerradosSoporte,
             "acumTicketsActivosSoporte": acumTicketsActivosSoporte,
             "promHSConsultoria": promHSConsultoria
         }
