@@ -140,7 +140,6 @@ def grafico_linea_TicketsConsumidos(resultado_mensual_tickets):
 
     return img_bytes
 
-
 def grafico_velocimetro_HorasConsumidas(fechasContrato, cantidadHSConsultoria, resultado_mensual):
     
     """Armado del velocimetro con los datos propios del contrato
@@ -242,6 +241,7 @@ def grafico_velocimetro_HorasConsumidas(fechasContrato, cantidadHSConsultoria, r
             ))
 
             fig.update_layout(
+                margin=dict(t=40, b=100),
                 paper_bgcolor='rgba(200, 200, 200, 0.5)',  # Fondo de toda la figura semi-transparente
                 plot_bgcolor='rgba(200, 200, 200, 0)',   # Fondo del área del gráfico semi-transparente
                 title=dict(text=title, font=dict(color="black", size=18)),
@@ -264,7 +264,7 @@ def grafico_velocimetro_HorasConsumidas(fechasContrato, cantidadHSConsultoria, r
             theta_angle = (umbrals_max_value - (aux+factor) + factor) * 180 / (umbrals_max_value + factor)
             radio = 0.75
             x_tail = 0
-            y_tail = 0.1
+            y_tail = -0.2
             x_scale_factor = 1.3
             y_scale_factor = 1.1
         
@@ -292,6 +292,15 @@ def grafico_velocimetro_HorasConsumidas(fechasContrato, cantidadHSConsultoria, r
         text=result_value, showarrow=False,
         font=dict(size=64, color="#000000"),
         align="center", ax=20, ay=-30, opacity=0.8
+    )
+
+    fig.add_annotation(
+    x=0.5, y=-0.25,  # Más abajo aún
+    xref="paper", yref="paper",
+    text=f"Total de horas del contrato: {horasMaximasContrato}",
+    showarrow=False,
+    font=dict(size=20, color="black"),  # Más grande y negra
+    align="center"
     )
 
     img_bytes = BytesIO()

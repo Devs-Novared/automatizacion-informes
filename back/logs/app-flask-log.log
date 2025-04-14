@@ -1,77 +1,17 @@
-[14-04-2025 10:11:28] WARNING   * Debugger is active!
-[14-04-2025 10:11:28] INFO      * Debugger PIN: 369-247-726
-[14-04-2025 10:11:30] INFO     Se obtuvo el token de la solicitud correctamente
-[14-04-2025 10:11:31] INFO     127.0.0.1 - - [14/Apr/2025 10:11:31] "GET /getContratos HTTP/1.1" 200 -
-[14-04-2025 10:11:36] INFO     127.0.0.1 - - [14/Apr/2025 10:11:36] "OPTIONS /informe HTTP/1.1" 200 -
-[14-04-2025 10:11:36] INFO     Se obtuvo el token de la solicitud correctamente
-[14-04-2025 10:11:38] INFO     Se obtuvo el token de la solicitud correctamente
-[14-04-2025 10:12:12] ERROR    Ocurrio un error al accceder al valor del valueId 66631 obtenido en el response
-[14-04-2025 10:12:12] ERROR    Detalle del error: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000002030AD64F90>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
-[14-04-2025 10:12:12] ERROR    Detalle del traceback: Traceback (most recent call last):
-  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 174, in _new_conn
-    conn = connection.create_connection(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\connection.py", line 72, in create_connection
-    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 961, in getaddrinfo
-    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-socket.gaierror: [Errno 11001] getaddrinfo failed
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 703, in urlopen
-    httplib_response = self._make_request(
-                       ^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 386, in _make_request
-    self._validate_conn(conn)
-  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 1042, in _validate_conn
-    conn.connect()
-  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 358, in connect
-    self.sock = conn = self._new_conn()
-                       ^^^^^^^^^^^^^^^^
-  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 186, in _new_conn
-    raise NewConnectionError(
-urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x000002030AD64F90>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 489, in send
-    resp = conn.urlopen(
-           ^^^^^^^^^^^^^
-  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
-    retries = retries.increment(
-              ^^^^^^^^^^^^^^^^^^
-  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 592, in increment
-    raise MaxRetryError(_pool, url, error or ResponseError(cause))
-urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000002030AD64F90>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "C:\Users\amisztal\Desktop\Programas\automatizacion-informes\back\src\archer_api_handler.py", line 325, in get_value_list_value
-    response = req.post(f'{URL}/ws/field.asmx', headers=headers, data=body, verify=False)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 115, in post
-    return request("post", url, data=data, json=json, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
-    return session.request(method=method, url=url, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 587, in request
-    resp = self.send(prep, **send_kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 701, in send
-    r = adapter.send(request, **kwargs)
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\amisztal\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 565, in send
-    raise ConnectionError(e, request=request)
-requests.exceptions.ConnectionError: HTTPSConnectionPool(host='arsvarcher', port=443): Max retries exceeded with url: /ws/field.asmx (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000002030AD64F90>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
-
-[14-04-2025 10:13:45] WARNING  Error al buscar la data del content id 2686205, se volvera a intentar
-[14-04-2025 10:14:32] INFO     Soporte
-[14-04-2025 10:14:33] INFO     Soporte
-[14-04-2025 10:14:40] INFO     127.0.0.1 - - [14/Apr/2025 10:14:40] "POST /informe HTTP/1.1" 200 -
+[11-04-2025 11:06:15] WARNING   * Debugger is active!
+[11-04-2025 11:06:15] INFO      * Debugger PIN: 246-412-492
+[11-04-2025 11:30:39] INFO     Se obtuvo el token de la solicitud correctamente
+[11-04-2025 11:30:41] INFO     127.0.0.1 - - [11/Apr/2025 11:30:41] "GET /getContratos HTTP/1.1" 200 -
+[11-04-2025 11:31:28] INFO     127.0.0.1 - - [11/Apr/2025 11:31:28] "OPTIONS /informe HTTP/1.1" 200 -
+[11-04-2025 11:31:29] INFO     Se obtuvo el token de la solicitud correctamente
+[11-04-2025 11:31:31] INFO     Se obtuvo el token de la solicitud correctamente
+[11-04-2025 11:33:33] INFO     Servicios Profesionales
+[11-04-2025 11:33:47] INFO     Servicios Profesionales
+[11-04-2025 11:33:50] INFO     Soporte
+[11-04-2025 11:33:51] INFO     Servicios Profesionales
+[11-04-2025 11:33:53] INFO     Soporte
+[11-04-2025 11:33:55] INFO     Servicios Profesionales
+[11-04-2025 11:33:58] INFO     Soporte
+[11-04-2025 11:34:01] INFO     127.0.0.1 - - [11/Apr/2025 11:34:01] "POST /informe HTTP/1.1" 200 -
+[14-04-2025 09:59:14] INFO     Se obtuvo el token de la solicitud correctamente
+[14-04-2025 09:59:17] INFO     127.0.0.1 - - [14/Apr/2025 09:59:17] "GET /getContratos HTTP/1.1" 200 -
