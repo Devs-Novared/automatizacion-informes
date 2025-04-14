@@ -29,12 +29,17 @@ CORS(app, origins=["http://localhost:3000"])
 def get_contratos():
     try:
         contratos = getAllContratos()
-        
-        return Response(
+        if(contratos):
+            return Response(
+                response=json.dumps({
+                    "Status": 'Success',
+                    "Result": contratos
+                }), status=200, mimetype="application/json")
+        else:
+            return Response(
             response=json.dumps({
-                "Status": 'Success',
-                "Result": contratos
-            }), status=200, mimetype="application/json")
+                "Status": 'ERROR'
+            }), status=400, mimetype="application/json")
     except Exception as e:
         logger.error(e)
         return Response(
