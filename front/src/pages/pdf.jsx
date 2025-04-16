@@ -233,6 +233,7 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
           )}
         </div>
       </section>
+      <section className="page background-page"></section>
       <button onClick={handleDownloadPDF} className="download-pdf-btn no-print">
         Descargar PDF
       </button>

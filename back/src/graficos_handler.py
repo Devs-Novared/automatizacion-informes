@@ -248,33 +248,20 @@ def grafico_velocimetro_HorasConsumidas(fechasContrato, cantidadHSConsultoria, r
             )
 
             # Aguja del velocimetro
-            aux = result_value
-            if result_value < umbrals_min_value:
-                aux = umbrals_min_value
-            elif result_value > umbrals_max_value:
-                aux = umbrals_max_value
+            aux = max(min(result_value, umbrals_max_value), umbrals_min_value)
+            porcentaje = (aux - umbrals_min_value) / (umbrals_max_value - umbrals_min_value)
+            theta_angle = 180 * (1 - porcentaje)
 
-            if umbrals_min_value <= 0:
-                factor = abs(umbrals_min_value)
-            else:
-                factor = -umbrals_min_value
+            # Coordenadas
+            radio = 1.0
+            x_head = radio * cos(radians(theta_angle))
+            y_head = radio * sin(radians(theta_angle))
 
-            theta_angle = (umbrals_max_value - (aux+factor) + factor) * 180 / (umbrals_max_value + factor)
-            radio = 0.75
-            x_tail = 0
-            y_tail = -0.2
-            x_scale_factor = 1.3
-            y_scale_factor = 1.1
-        
-            x_head = 0 + (radio * cos(radians(theta_angle)))*x_scale_factor
-            y_head = 0.08 + (radio * sin(radians(theta_angle)))*y_scale_factor
-            
             fig.add_annotation(
-                ax=x_tail, ay=y_tail, axref='x', ayref='y',
+                ax=0, ay=0, axref='x', ayref='y',
                 x=x_head, y=y_head, xref='x', yref='y',
-                showarrow=True, arrowhead=0, arrowsize=1, arrowwidth=4
+                showarrow=True, arrowhead=2, arrowsize=1, arrowwidth=4, arrowcolor="black"
             )
-            
         except (OSError,ValueError,TypeError) as e:
             logger.error('Ocurrio un error al armar el grafico para el velocimetro')
             logger.error(f'Detalle del error: {e}')

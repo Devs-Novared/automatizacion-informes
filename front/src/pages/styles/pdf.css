@@ -187,3 +187,10 @@ body {
    flex-wrap: "wrap"; 
    margin-top: "2rem";
 }
+
+.background-page {
+  background-image: url('../images/slide\ final.jpg'); 
+  background-size: cover;
+  background-position: center;
+  height: 100%; /* asegúrate de que ocupe el alto completo de la página */
+}
