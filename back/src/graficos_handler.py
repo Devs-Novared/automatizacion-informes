@@ -239,7 +239,6 @@ def grafico_velocimetro_HorasConsumidas(fechasContrato, cantidadHSConsultoria, r
             ))
 
             fig.update_layout(
-                margin=dict(t=40, b=100),
                 paper_bgcolor='rgba(200, 200, 200, 0.5)',  # Fondo de toda la figura semi-transparente
                 plot_bgcolor='rgba(200, 200, 200, 0)',   # Fondo del área del gráfico semi-transparente
                 title=dict(text=title, font=dict(color="black", size=18)),
@@ -248,20 +247,33 @@ def grafico_velocimetro_HorasConsumidas(fechasContrato, cantidadHSConsultoria, r
             )
 
             # Aguja del velocimetro
-            aux = max(min(result_value, umbrals_max_value), umbrals_min_value)
-            porcentaje = (aux - umbrals_min_value) / (umbrals_max_value - umbrals_min_value)
-            theta_angle = 180 * (1 - porcentaje)
+            aux = result_value
+            if result_value < umbrals_min_value:
+                aux = umbrals_min_value
+            elif result_value > umbrals_max_value:
+                aux = umbrals_max_value
 
-            # Coordenadas
-            radio = 1.0
-            x_head = radio * cos(radians(theta_angle))
-            y_head = radio * sin(radians(theta_angle))
+            if umbrals_min_value <= 0:
+                factor = abs(umbrals_min_value)
+            else:
+                factor = -umbrals_min_value
 
+            theta_angle = (umbrals_max_value - (aux+factor) + factor) * 180 / (umbrals_max_value + factor)
+            radio = 0.75
+            x_tail = 0
+            y_tail = 0.1
+            x_scale_factor = 1.3
+            y_scale_factor = 1.1
+        
+            x_head = 0 + (radio * cos(radians(theta_angle)))*x_scale_factor
+            y_head = 0.08 + (radio * sin(radians(theta_angle)))*y_scale_factor
+            
             fig.add_annotation(
-                ax=0, ay=0, axref='x', ayref='y',
+                ax=x_tail, ay=y_tail, axref='x', ayref='y',
                 x=x_head, y=y_head, xref='x', yref='y',
-                showarrow=True, arrowhead=2, arrowsize=1, arrowwidth=4, arrowcolor="black"
+                showarrow=True, arrowhead=0, arrowsize=1, arrowwidth=4
             )
+            
         except (OSError,ValueError,TypeError) as e:
             logger.error('Ocurrio un error al armar el grafico para el velocimetro')
             logger.error(f'Detalle del error: {e}')
@@ -280,16 +292,16 @@ def grafico_velocimetro_HorasConsumidas(fechasContrato, cantidadHSConsultoria, r
     )
 
     fig.add_annotation(
-    x=0.5, y=-0.25,  # Más abajo aún
-    xref="paper", yref="paper",
-    text=f"Total de horas del contrato: {horasMaximasContrato}",
-    showarrow=False,
-    font=dict(size=20, color="black"),  # Más grande y negra
-    align="center"
-    )
+        x=0.5, y=-0.23,  # Centrado abajo del gráfico
+        xref="paper", yref="paper",
+        text=f"<b>Horas máximas del contrato:</b> {horasMaximasContrato}",
+        showarrow=False,
+        font=dict(size=20, color="black"),
+        align="center"
+    )   
+
 
     img_bytes = BytesIO()
     pio.write_image(fig, img_bytes, format='png')
     img_bytes.seek(0)
     return img_bytes
-
