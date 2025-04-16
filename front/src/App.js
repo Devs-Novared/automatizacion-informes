@@ -30,6 +30,7 @@ function App() {
   const [acumTicketsCerradosSoporte, setacumTicketsCerradosSoporte] = useState("");
   const [acumTicketsActivosSoporte, setacumTicketsActivosSoporte] = useState("");
   const [promHSConsultoria, setPromHSConsultoria] = useState("");
+  const [horasRestantesConsultoria, setHorasRestantesConsultoria] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   
 
@@ -105,6 +106,7 @@ function App() {
         setacumTicketsActivosSoporte(response.data.acumTicketsActivosSoporte)
         setContratosSeleccionado(response.data.contratosSeleccionado);
         setPromHSConsultoria(response.data.promHSConsultoria);
+        setHorasRestantesConsultoria(response.data.horasRestantesConsultoria);
         setTicketsUltActSoporte(response.data.tickets_ult_act_soporte || []);
         setTicketsUltActServicios(response.data.tickets_ult_act_servicios || []);
         console.log(response.data)
@@ -162,6 +164,7 @@ function App() {
           acumTicketsCerradosSoporte={acumTicketsCerradosSoporte}
           acumTicketsActivosSoporte={acumTicketsActivosSoporte}
           promHSConsultoria={promHSConsultoria}
+          horasRestantesConsultoria={horasRestantesConsultoria}
         />
       )}
     </>

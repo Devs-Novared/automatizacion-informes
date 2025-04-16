@@ -5,6 +5,8 @@ from xml.etree import ElementTree as ET
 import logging
 import json
 import base64
+from dateutil.relativedelta import relativedelta
+from datetime import datetime
 
 from src.contratos_handler import getAllContratos, crear_informe
 from src.graficos_handler import grafico_linea_HorasConsumidas, grafico_linea_TicketsConsumidos, grafico_velocimetro_HorasConsumidas
@@ -88,7 +90,7 @@ def generar_informe():
 
         data = {
             "mes": mes,
-            "contentId" : contentId, 
+            "contentId" : contentId
         }
         
         contratosInfo = getAllContratos()
@@ -99,6 +101,16 @@ def generar_informe():
         resultado_mensual, resultado_mensual_tickets, ticketsUltimaActualizacionSoporte, ticketsUltimaActualizacionServicios, logoData, logoTecnologiaData, horasPorMes, fechasContrato, cantidadHSConsultoria, acumTicketsAbiertosSoporte, acumTicketsCerradosSoporte, acumTicketsActivosSoporte = crear_informe(data)
 
         promHSConsultoria = round(sum(item["totalHorasMensual"] for item in resultado_mensual) / len(resultado_mensual), 2)
+        
+        delta = relativedelta(datetime.strptime(fechasContrato["fechaFinContrato"], "%Y-%m-%dT%H:%M:%S"), datetime.strptime(fechasContrato["fechaInicioContrato"], "%Y-%m-%dT%H:%M:%S"))
+        diferenciaMesesContrato =  delta.years * 12 + delta.months
+        horasMaximasContrato = int(diferenciaMesesContrato) * int(fechasContrato["horasPorMes"])
+        
+        delta = relativedelta(datetime(datetime.now().year, fechasContrato["mesInforme"], 1), datetime.strptime(fechasContrato["fechaInicioContrato"], "%Y-%m-%dT%H:%M:%S"))
+        diferenciaMesesRelativa =  delta.years * 12 + delta.months
+        horasMaximasRelativas = int(diferenciaMesesRelativa) * int(fechasContrato["horasPorMes"])
+    
+        horasRestantesConsultoria = horasMaximasContrato-cantidadHSConsultoria
         
         contratosSeleccionado['horasSoporte'] = horasPorMes
         
@@ -112,11 +124,12 @@ def generar_informe():
         if img_bytes_tickets:
             image_tickets_base64 = base64.b64encode(img_bytes_tickets.read()).decode('utf-8')
 
-        #TODO una vez que se cambie la forma en que la fecha se selecciona en el front utilizarla en el grafico de velocimetro reemplazando la fecha calculada de hoy
-        img_bytes_horas_velocimetro = grafico_velocimetro_HorasConsumidas(fechasContrato, cantidadHSConsultoria, resultado_mensual)
-        image_horas_velocimetro_base64 = None
-        if img_bytes_horas_velocimetro:
-            image_horas_velocimetro_base64 = base64.b64encode(img_bytes_horas_velocimetro.read()).decode('utf-8')
+        img_bytes_horas_velocimetro = None
+        if(fechasContrato["horasPorMes"]):
+            img_bytes_horas_velocimetro = grafico_velocimetro_HorasConsumidas(horasMaximasContrato, horasMaximasRelativas, cantidadHSConsultoria)
+            image_horas_velocimetro_base64 = None
+            if img_bytes_horas_velocimetro:
+                image_horas_velocimetro_base64 = base64.b64encode(img_bytes_horas_velocimetro.read()).decode('utf-8')
         
         body={
             "contratosSeleccionado": contratosSeleccionado,
@@ -130,7 +143,8 @@ def generar_informe():
             "acumTicketsAbiertosSoporte": acumTicketsAbiertosSoporte,
             "acumTicketsCerradosSoporte": acumTicketsCerradosSoporte,
             "acumTicketsActivosSoporte": acumTicketsActivosSoporte,
-            "promHSConsultoria": promHSConsultoria
+            "promHSConsultoria": promHSConsultoria,
+            "horasRestantesConsultoria": horasRestantesConsultoria
         }
         # Retornar las imágenes en formato JSON
         return jsonify(body), 200

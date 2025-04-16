@@ -1,35 +1,30 @@
-[16-04-2025 13:05:34] WARNING   * Debugger is active!
-[16-04-2025 13:05:34] INFO      * Debugger PIN: 246-412-492
-[16-04-2025 13:05:37] INFO     Se obtuvo el token de la solicitud correctamente
-[16-04-2025 13:05:38] INFO     Se obtuvo el token de la solicitud correctamente
-[16-04-2025 13:05:38] INFO     127.0.0.1 - - [16/Apr/2025 13:05:38] "GET /getContratos HTTP/1.1" 200 -
-[16-04-2025 13:05:40] INFO     127.0.0.1 - - [16/Apr/2025 13:05:40] "GET /getContratos HTTP/1.1" 200 -
-[16-04-2025 13:05:46] INFO     127.0.0.1 - - [16/Apr/2025 13:05:46] "OPTIONS /informe HTTP/1.1" 200 -
-[16-04-2025 13:05:46] INFO     Se obtuvo el token de la solicitud correctamente
-[16-04-2025 13:05:48] INFO     Se obtuvo el token de la solicitud correctamente
-[16-04-2025 13:08:46] INFO     2024-06-14T18:04:00.00
-[16-04-2025 13:08:47] INFO     2024-06-24T19:59:00.00
-[16-04-2025 13:08:48] INFO     2024-07-04T15:47:00.00
-[16-04-2025 13:08:51] INFO     2024-07-23T20:13:00.00
-[16-04-2025 13:08:53] INFO     2024-09-23T12:24:00.00
-[16-04-2025 13:08:54] INFO     2024-08-19T15:22:00.00
-[16-04-2025 13:08:56] INFO     2024-09-10T18:49:00.00
-[16-04-2025 13:08:57] INFO     2024-09-16T20:16:00.00
-[16-04-2025 13:08:58] INFO     2024-11-26T20:14:00.00
-[16-04-2025 13:09:03] INFO     2024-12-03T14:27:00.00
-[16-04-2025 13:09:04] INFO     2025-02-28T19:11:00.00
-[16-04-2025 13:09:05] INFO     2024-12-13T20:07:00.00
-[16-04-2025 13:09:07] INFO     2024-12-20T17:38:00.00
-[16-04-2025 13:09:09] INFO     2024-12-23T17:42:00.00
-[16-04-2025 13:09:10] INFO     2024-12-30T15:12:00.00
-[16-04-2025 13:09:13] INFO     2025-02-11T15:39:00.00
-[16-04-2025 13:09:14] INFO     2025-02-11T15:37:00.00
-[16-04-2025 13:09:15] INFO     2025-02-12T15:01:00.00
-[16-04-2025 13:09:17] INFO     2025-04-04T17:34:00.00
-[16-04-2025 13:09:20] INFO     2025-02-24T15:23:00.00
-[16-04-2025 13:09:21] INFO     2025-04-14T15:08:00.00
-[16-04-2025 13:09:22] INFO     None
-[16-04-2025 13:09:25] INFO     2025-03-28T13:46:00.00
-[16-04-2025 13:09:27] INFO     2025-03-28T19:52:00.00
-[16-04-2025 13:09:28] INFO     2025-04-02T17:29:00.00
-[16-04-2025 13:09:33] INFO     127.0.0.1 - - [16/Apr/2025 13:09:33] "POST /informe HTTP/1.1" 200 -
+[16-04-2025 15:54:59] WARNING   * Debugger is active!
+[16-04-2025 15:54:59] INFO      * Debugger PIN: 369-247-726
+[16-04-2025 15:55:02] INFO     Se obtuvo el token de la solicitud correctamente
+[16-04-2025 15:55:03] INFO     127.0.0.1 - - [16/Apr/2025 15:55:03] "GET /getContratos HTTP/1.1" 200 -
+[16-04-2025 15:55:13] INFO     127.0.0.1 - - [16/Apr/2025 15:55:13] "OPTIONS /informe HTTP/1.1" 200 -
+[16-04-2025 15:55:14] INFO     Se obtuvo el token de la solicitud correctamente
+[16-04-2025 15:55:15] INFO     Se obtuvo el token de la solicitud correctamente
+[16-04-2025 15:57:16] WARNING  Error al buscar la data del content id 1924060, se volvera a intentar
+[16-04-2025 15:57:44] INFO     127.0.0.1 - - [16/Apr/2025 15:57:44] "POST /informe HTTP/1.1" 200 -
+[16-04-2025 15:58:34] INFO     127.0.0.1 - - [16/Apr/2025 15:58:34] "OPTIONS /informe HTTP/1.1" 200 -
+[16-04-2025 15:58:34] INFO     Se obtuvo el token de la solicitud correctamente
+[16-04-2025 15:58:35] INFO     Se obtuvo el token de la solicitud correctamente
+[16-04-2025 16:01:13] INFO     127.0.0.1 - - [16/Apr/2025 16:01:13] "POST /informe HTTP/1.1" 200 -
+[16-04-2025 16:01:39] INFO     127.0.0.1 - - [16/Apr/2025 16:01:39] "OPTIONS /informe HTTP/1.1" 200 -
+[16-04-2025 16:01:39] INFO     Se obtuvo el token de la solicitud correctamente
+[16-04-2025 16:01:41] INFO     Se obtuvo el token de la solicitud correctamente
+[16-04-2025 16:04:14] INFO     127.0.0.1 - - [16/Apr/2025 16:04:14] "POST /informe HTTP/1.1" 200 -
+[16-04-2025 16:04:33] INFO     127.0.0.1 - - [16/Apr/2025 16:04:33] "OPTIONS /informe HTTP/1.1" 200 -
+[16-04-2025 16:04:33] INFO     Se obtuvo el token de la solicitud correctamente
+[16-04-2025 16:04:35] INFO     Se obtuvo el token de la solicitud correctamente
+[16-04-2025 16:07:09] INFO     127.0.0.1 - - [16/Apr/2025 16:07:09] "POST /informe HTTP/1.1" 200 -
+[16-04-2025 16:07:26] INFO     127.0.0.1 - - [16/Apr/2025 16:07:26] "OPTIONS /informe HTTP/1.1" 200 -
+[16-04-2025 16:07:27] INFO     Se obtuvo el token de la solicitud correctamente
+[16-04-2025 16:07:28] INFO     Se obtuvo el token de la solicitud correctamente
+[16-04-2025 16:09:54] WARNING  Error al buscar la data del content id 1924060, se volvera a intentar
+[16-04-2025 16:10:05] INFO     127.0.0.1 - - [16/Apr/2025 16:10:05] "POST /informe HTTP/1.1" 200 -
+[16-04-2025 16:10:33] INFO     127.0.0.1 - - [16/Apr/2025 16:10:33] "OPTIONS /informe HTTP/1.1" 200 -
+[16-04-2025 16:10:33] INFO     Se obtuvo el token de la solicitud correctamente
+[16-04-2025 16:10:34] INFO     Se obtuvo el token de la solicitud correctamente
+[16-04-2025 16:13:15] INFO     127.0.0.1 - - [16/Apr/2025 16:13:15] "POST /informe HTTP/1.1" 200 -

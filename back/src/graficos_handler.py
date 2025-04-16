@@ -138,44 +138,28 @@ def grafico_linea_TicketsConsumidos(resultado_mensual_tickets):
 
     return img_bytes
 
-def grafico_velocimetro_HorasConsumidas(fechasContrato, cantidadHSConsultoria, resultado_mensual):
+def grafico_velocimetro_HorasConsumidas(horasMaximasContrato, horasMaximasRelativas, cantidadHSConsultoria):
     
     """Armado del velocimetro con los datos propios del contrato
 
     Args:
-        fechasContrato (dict): Diccionario con los datos del indicador
-        que necesita actualmente el velocimetro
-            {
-                'fechaInicioContrato': '2024-05-17T00:00:00',
-                'fechaFinContrato': '2025-05-17T00:00:00',
-                'mesInforme': 'Febrero'
-            }
+        horasMaximasContrato (int): Rojo / Limite amarillo
+        horasMaximasRelativas (int): Amarillo/Limite verde
         cantidadHSConsultoria (int): horas de consultoria
-        resultado_mensual (dict):
 
     Returns:
         Union[str, None]: String base64 del grafico o None en caso de que exista algun error
     """
     
     title = "Horas consumidas - Soporte Evolutivo"
-    if(not fechasContrato["horasPorMes"]): return None
     
     result_value = cantidadHSConsultoria #Aguja velocimetro
-    
-    delta = relativedelta(datetime.strptime(fechasContrato["fechaFinContrato"], "%Y-%m-%dT%H:%M:%S"), datetime.strptime(fechasContrato["fechaInicioContrato"], "%Y-%m-%dT%H:%M:%S"))
-    diferenciaMesesContrato =  delta.years * 12 + delta.months
-    horasMaximasContrato = int(diferenciaMesesContrato) * int(fechasContrato["horasPorMes"]) #Rojo / Limite amarillo
-    
-    delta = relativedelta(datetime.today(), datetime.strptime(fechasContrato["fechaInicioContrato"], "%Y-%m-%dT%H:%M:%S"))
-    diferenciaMesesRelativa =  delta.years * 12 + delta.months
-    horasMaximasRelativas = int(diferenciaMesesRelativa) * int(fechasContrato["horasPorMes"]) #Amarillo/Limite verde
     
     horasMaximasExceso = int(horasMaximasRelativas*1.2) #/Limite amarillo
 
     umbrals_from_values = [0, horasMaximasRelativas, min(horasMaximasExceso, horasMaximasContrato)]    
     umbrals_to_values = [horasMaximasRelativas, min(horasMaximasExceso, horasMaximasContrato), max(horasMaximasExceso, horasMaximasContrato, result_value)]
     umbrals_colors = ["Verde","Amarillo","Rojo"]
-    
 
     # value = 95
     umbrals_min_value = min(umbrals_from_values)

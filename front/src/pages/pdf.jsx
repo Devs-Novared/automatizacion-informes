@@ -3,7 +3,7 @@ import html2pdf from "html2pdf.js";
 import "./styles/pdf.css";
 import SquareCard from "../components/SquareCard"
 
-const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetro, imageTickets, ticketsUltActServicios, ticketsUltActSoporte, logoCliente, logoTecnologia, acumTicketsAbiertosSoporte, acumTicketsCerradosSoporte, acumTicketsActivosSoporte, promHSConsultoria }) => {
+const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetro, imageTickets, ticketsUltActServicios, ticketsUltActSoporte, logoCliente, logoTecnologia, acumTicketsAbiertosSoporte, acumTicketsCerradosSoporte, acumTicketsActivosSoporte, promHSConsultoria, horasRestantesConsultoria}) => {
   const [fechaTexto, setFechaTexto] = useState("");
   const [year, setYear] = useState("");
 
@@ -160,8 +160,8 @@ const Pdf = ({ contratosSeleccionado, formData, imageHoras, imageHorasVelocimetr
             {promHSConsultoria && (
               <SquareCard title={`Promedio Horas Consumidas - ${selectedMonth}`} number={promHSConsultoria} />
             )}
-            {promHSConsultoria && (
-              <SquareCard title={`Total Horas Disponibles - ${selectedMonth}`} number={promHSConsultoria} />
+            {horasRestantesConsultoria != null && (
+              <SquareCard title={`Total Horas Disponibles - ${selectedMonth}`} number={horasRestantesConsultoria} />
             )}
           </div>
         </div>

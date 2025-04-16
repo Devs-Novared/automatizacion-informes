@@ -265,7 +265,6 @@ def crear_informe(data):
                             mes_anio = fecha_creacion_objeto.strftime('%Y-%m')
                             tickets_por_mes[mes_anio] += 1
                             
-                            logger.info(fechaCierreTicket)
                             if(not fechaCierreTicket):
                                 acumTicketsActivosSoporte += 1
 
